@@ -1,11 +1,12 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, SafeAreaView, Text, StyleSheet } from "react-native";
 import React from "react";
+import { useFonts } from "expo-font";
 
 export default function AudioTask() {
   return (
-    <View style={styles.container}>
-      <Text>AudioTask</Text>
-    </View>
+    <SafeAreaView style={styles.container}>
+      <Text style={styles.text}>AudioTask</Text>
+    </SafeAreaView>
   );
 }
 
@@ -13,5 +14,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "red",
+  },
+  text: {
+    fontFamily: "Franklin Gothic Medium",
   },
 });

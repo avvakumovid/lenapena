@@ -1,10 +1,14 @@
 import { NavigationContainer } from "@react-navigation/native";
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
 import Navigation from "./src/navigations/Navigation";
-import AudioTask from "./src/scenes/AudioTask/AudioTask";
+import { useFonts } from "expo-font";
 
 export default function App() {
+  const [fontsLoaded] = useFonts({
+    "Franklin Gothic Medium": require("./assets/fonts/font.ttf"),
+  });
+  if (!fontsLoaded) {
+    return null;
+  }
   return (
     <NavigationContainer>
       <Navigation />
