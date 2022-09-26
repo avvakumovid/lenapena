@@ -8,10 +8,10 @@ import {
   TouchableOpacity,
 } from "react-native";
 import React, { useState, useEffect } from "react";
-import { useFonts } from "expo-font";
 import { Audio } from "expo-av";
+import Background from "../../components/Background";
 
-export default function AudioTask({ navigation }) {
+export default function StartTask({ navigation }) {
   const [sound, setSound] = useState();
   async function playSound() {
     console.log("Loading Sound");
@@ -32,34 +32,7 @@ export default function AudioTask({ navigation }) {
       : undefined;
   }, [sound]);
   return (
-    <SafeAreaView style={styles.container}>
-      {Platform.OS == "web" ? (
-        <>
-          <Image
-            source={{
-              uri: require("../../../assets/images/top_bg.png"),
-            }}
-            style={{ ...styles.topBgImg, width: 400, height: 400 }}
-          />
-          <Image
-            source={{
-              uri: require("../../../assets/images/bot_bg.png"),
-            }}
-            style={{ ...styles.botBgImg, width: 400, height: 400 }}
-          />
-        </>
-      ) : (
-        <>
-          <Image
-            style={styles.topBgImg}
-            source={require("../../../assets/images/top_bg.png")}
-          />
-          <Image
-            style={styles.botBgImg}
-            source={require("../../../assets/images/bot_bg.png")}
-          />
-        </>
-      )}
+    <Background>
       <View style={styles.heading}>
         {Platform.OS == "web" && (
           <Image
@@ -91,7 +64,7 @@ export default function AudioTask({ navigation }) {
           source={require("../../../assets/images/goHome.png")}
         />
       </TouchableOpacity>
-    </SafeAreaView>
+    </Background>
   );
 }
 
