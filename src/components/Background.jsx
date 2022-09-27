@@ -51,11 +51,13 @@ const styles = StyleSheet.create({
     backgroundColor: "#040313",
     flexDirection: "column",
     justifyContent: "space-between",
+    alignItems: "center",
     paddingVertical: 20,
   },
   botBgImg: {
     position: "absolute",
     bottom: 0,
+    left: 0,
   },
   topBgImg: {
     position: "absolute",

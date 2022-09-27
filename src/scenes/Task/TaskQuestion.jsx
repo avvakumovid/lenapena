@@ -10,8 +10,10 @@ import {
 import React, { useState, useEffect } from "react";
 import { Audio } from "expo-av";
 import Background from "../../components/Background";
+import Footer from "../../components/Footer";
+import Icon from "react-native-vector-icons/MaterialIcons";
 
-export default function StartTask({ navigation }) {
+export default function TaskQuestion({ navigation }) {
   const [sound, setSound] = useState();
   async function playSound() {
     console.log("Loading Sound");
@@ -33,36 +35,36 @@ export default function StartTask({ navigation }) {
   }, [sound]);
   return (
     <Background>
-      <View style={styles.heading}>
-        {Platform.OS == "web" && (
-          <Image
-            //   style={styles.botBgImg}
-            source={require("../../../assets/images/play_btn.png")}
-            style={{ width: 120, height: 120 }}
-          />
-        )}
+      <View>
+        <View style={styles.heading}>
+          <TouchableOpacity
+            onPress={() => {
+              playSound();
+              // console.log("menu");
+              // navigation.navigate("menu");
+            }}
+          >
+            <Image
+              style={styles.pbtnImage}
+              source={require("../../../assets/images/pbtn.png")}
+            />
+          </TouchableOpacity>
+          <View style={styles.text}>
+            <Text style={styles.mainText}>Держать слово</Text>
+          </View>
+        </View>
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate("taskquestion");
+            navigation.navigate("menu");
           }}
         >
-          <Image source={require("../../../assets/images/play_btn.png")} />
+          <Image
+            style={styles.questionBtn}
+            source={require("../../../assets/images/questionBtn.png")}
+          />
         </TouchableOpacity>
-        <View style={styles.text}>
-          <Text style={styles.mainText}>Задание</Text>
-          <Text style={styles.subText}>ПОСЛУШАЙ И ЗАПОМНИ</Text>
-        </View>
       </View>
-      <TouchableOpacity
-        onPress={() => {
-          navigation.navigate("menu");
-        }}
-      >
-        <Image
-          style={styles.goHome}
-          source={require("../../../assets/images/goHomeAlt.png")}
-        />
-      </TouchableOpacity>
+      <Footer navigation={navigation} />
     </Background>
   );
 }
@@ -75,8 +77,9 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     paddingVertical: 20,
   },
-  text: {
-    marginLeft: -35,
+  text: {},
+  pbtnImage: {
+    marginRight: 15,
   },
   mainText: {
     fontFamily: "Franklin Gothic Medium",
@@ -84,7 +87,7 @@ const styles = StyleSheet.create({
     fontWeight: "400",
     fontSize: 32,
     textTransform: "uppercase",
-    color: "#FF2CDF",
+    color: "#FFFFFF",
   },
   subText: {
     fontFamily: "Franklin Gothic Medium",
@@ -97,7 +100,7 @@ const styles = StyleSheet.create({
   heading: {
     flexDirection: "row",
     alignItems: "center",
-    marginTop: "55%",
+    marginTop: "20%",
   },
   botBgImg: {
     position: "absolute",
@@ -108,6 +111,9 @@ const styles = StyleSheet.create({
     right: 0,
   },
   goHome: {
+    alignSelf: "center",
+  },
+  questionBtn: {
     alignSelf: "center",
   },
 });
