@@ -6,6 +6,7 @@ import {
   Image,
   Platform,
   TouchableOpacity,
+  Dimensions,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { Audio } from "expo-av";
@@ -13,8 +14,10 @@ import Background from "../../components/Background";
 import Footer from "../../components/Footer";
 import Icon from "react-native-vector-icons/MaterialIcons";
 
+// const [widthScreen, heightScreen] = Dimensions.get("screen");
 export default function TaskQuestion({ navigation }) {
   const [sound, setSound] = useState();
+
   async function playSound() {
     console.log("Loading Sound");
     const { sound } = await Audio.Sound.createAsync(
@@ -43,10 +46,11 @@ export default function TaskQuestion({ navigation }) {
               // console.log("menu");
               // navigation.navigate("menu");
             }}
+            // style={styles.imageWraper}
           >
             <Image
-              style={styles.pbtnImage}
-              source={require("../../../assets/images/pbtn.png")}
+              // style={styles.pbtnImage}
+              source={require("../../../assets/images/purplePlayBtn2.png")}
             />
           </TouchableOpacity>
           <View style={styles.text}>
@@ -60,7 +64,7 @@ export default function TaskQuestion({ navigation }) {
         >
           <Image
             style={styles.questionBtn}
-            source={require("../../../assets/images/questionBtn.png")}
+            source={require("../../../assets/images/qestion2.png")}
           />
         </TouchableOpacity>
       </View>
@@ -78,9 +82,13 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
   },
   text: {},
-  pbtnImage: {
-    marginRight: 15,
+  imageWraper: {
+    padding: 10,
+    backgroundColor: "rgba(112, 78, 244, 0.15)",
+    opacity: 1,
+    borderRadius: 999,
   },
+  pbtnImage: {},
   mainText: {
     fontFamily: "Franklin Gothic Medium",
     fontStyle: "italic",
@@ -88,6 +96,7 @@ const styles = StyleSheet.create({
     fontSize: 32,
     textTransform: "uppercase",
     color: "#FFFFFF",
+    marginLeft: 15,
   },
   subText: {
     fontFamily: "Franklin Gothic Medium",
@@ -98,9 +107,11 @@ const styles = StyleSheet.create({
     color: "#FFFFFF",
   },
   heading: {
+    // width: widthScreen,
     flexDirection: "row",
     alignItems: "center",
     marginTop: "20%",
+    marginBottom: "20%",
   },
   botBgImg: {
     position: "absolute",

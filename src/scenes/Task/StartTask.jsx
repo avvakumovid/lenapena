@@ -46,7 +46,7 @@ export default function StartTask({ navigation }) {
             navigation.navigate("taskquestion");
           }}
         >
-          <Image source={require("../../../assets/images/play_btn.png")} />
+          <Image source={require("../../../assets/images/pinkPlayBtn.png")} />
         </TouchableOpacity>
         <View style={styles.text}>
           <Text style={styles.mainText}>Задание</Text>
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
   },
   text: {
-    marginLeft: -35,
+    // marginLeft: -35,
   },
   mainText: {
     fontFamily: "Franklin Gothic Medium",

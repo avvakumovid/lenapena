@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
 import React from "react";
-import Icon from "react-native-vector-icons/MaterialIcons";
+import Icon from "react-native-vector-icons/SimpleLineIcons";
 
 const Footer = ({ navigation }) => {
   return (
@@ -11,7 +11,7 @@ const Footer = ({ navigation }) => {
           navigation.goBack();
         }}
       >
-        <Icon name='arrow-back-ios' size={25} color={"#704EF4"} />
+        <Icon name='arrow-left' size={25} color={"#704EF4"} />
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.btn}
@@ -23,6 +23,7 @@ const Footer = ({ navigation }) => {
           style={styles.goHome}
           source={require("../../assets/images/goHomeAlt.png")}
         />
+        {/* <Icon name='home' size={25} color={"#FF2CDF"} /> */}
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.btn}
@@ -30,7 +31,7 @@ const Footer = ({ navigation }) => {
           navigation.goBack();
         }}
       >
-        <Icon name='arrow-forward-ios' size={25} color={"#704EF4"} />
+        <Icon name='arrow-right' size={25} color={"#704EF4"} />
       </TouchableOpacity>
     </View>
   );
@@ -40,8 +41,8 @@ export default Footer;
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "row",
     width: "100%",
+    flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
   },
