@@ -6,10 +6,13 @@ import {
   Image,
   Platform,
   TouchableOpacity,
+  Dimensions
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { Audio } from "expo-av";
 import Background from "../../components/Background";
+
+const widthScreen = Dimensions.get("screen").width;
 
 export default function StartTask({ navigation }) {
   const [sound, setSound] = useState();
@@ -41,16 +44,24 @@ export default function StartTask({ navigation }) {
             style={{ width: 120, height: 120 }}
           />
         )}
-        <TouchableOpacity
-          onPress={() => {
-            navigation.navigate("taskquestion");
-          }}
-        >
-          <Image source={require("../../../assets/images/pinkPlayBtn.png")} />
-        </TouchableOpacity>
-        <View style={styles.text}>
-          <Text style={styles.mainText}>Задание</Text>
-          <Text style={styles.subText}>ПОСЛУШАЙ И ЗАПОМНИ</Text>
+        <View>
+          <View style={styles.title}>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate("taskquestion");
+              }}
+            >
+              <Image
+                style={styles.playBtn}
+                source={require("../../../assets/images/pinkPlayBtn3.png")}
+              />
+            </TouchableOpacity>
+
+            <Text style={styles.titleText}>Задание</Text>
+          </View>
+          <View style={styles.subTitle}>
+            <Text style={styles.subText}>ПОСЛУШАЙ И ЗАПОМНИ</Text>
+          </View>
         </View>
       </View>
       <TouchableOpacity
@@ -75,10 +86,17 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     paddingVertical: 20,
   },
-  text: {
-    // marginLeft: -35,
+  title: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 15,
+    width: widthScreen - widthScreen * 0.2
   },
-  mainText: {
+  subTitle: {
+    alignSelf: 'flex-end'
+  },
+
+  titleText: {
     fontFamily: "Franklin Gothic Medium",
     fontStyle: "italic",
     fontWeight: "400",
@@ -99,15 +117,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: "55%",
   },
-  botBgImg: {
-    position: "absolute",
-    bottom: 0,
-  },
-  topBgImg: {
-    position: "absolute",
-    right: 0,
-  },
-  goHome: {
-    alignSelf: "center",
+  playBtn: {
+    marginRight: 13,
   },
 });
