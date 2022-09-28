@@ -10,7 +10,8 @@ import QestionBtn from "./../../../assets/images/QestionBtn";
 export default function TaskQuestion({ navigation, route }) {
   const [sound, setSound] = useState();
   const [pressQestion, setPressQestion] = useState(false);
-  const { id, phrase, explanation, image, audio } = route.params;
+  let { id, phrase, explanation, image, audio } = route.params;
+  explanation = explanation.split(" ");
   const { colors } = useContext(Context);
   async function playSound() {
     const { sound } = await Audio.Sound.createAsync(audio);
@@ -44,7 +45,7 @@ export default function TaskQuestion({ navigation, route }) {
       textTransform: "uppercase",
       color: colors.mainTextColor,
       marginLeft: 15,
-      textAlign: "right",
+      // textAlign: "right",
       maxWidth: 370,
     },
 
@@ -105,9 +106,18 @@ export default function TaskQuestion({ navigation, route }) {
                 <PlayBtn style={styles.pbtnImage} {...colors.purplePlayBtn} />
               </TouchableOpacity>
               <View style={styles.text}>
-                <Text style={styles.mainText}>{explanation}</Text>
+                <Text style={styles.mainText}>{explanation[0]}</Text>
               </View>
             </View>
+            {explanation.slice(1).map((w, i) => (
+              <Text
+                key={i}
+                style={{ ...styles.mainText, marginLeft: 78 + (i + 1) * 20 }}
+              >
+                {w}
+              </Text>
+            ))}
+
             <TouchableOpacity
               onPress={() => {
                 playSound();

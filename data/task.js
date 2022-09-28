@@ -8,8 +8,8 @@ export const data = [
   },
   {
     id: 2,
-    phrase: "ДЕРЖАТЬ СЛОВО 2",
-    explanation: "ВЫПОЛНЯТЬ ОБЕЩАННОЕ 2",
+    phrase: "ДЕРЖАТЬ СЛОВО Пумпум",
+    explanation: "ВЫПОЛНЯТЬ ОБЕЩАННОЕ Пумпум",
     image: "../assets/images/promise.png",
     audio: "../assets/sounds/keepYourWord.mp3",
   },
