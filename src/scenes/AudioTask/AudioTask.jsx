@@ -8,7 +8,6 @@ import {
   TouchableOpacity,
 } from "react-native";
 import React, { useState, useEffect, useContext } from "react";
-import { useFonts } from "expo-font";
 import { Audio } from "expo-av";
 import { Context } from "../../context/context";
 import PlayBtn from "./../../../assets/images/PlayBtn";
@@ -38,12 +37,6 @@ export default function AudioTask({ navigation }) {
     <SafeAreaView style={styles.container}>
       {Platform.OS == "web" ? (
         <>
-          {/* <Image
-            source={{
-              uri: require(`../../../assets/images/lightPinkPlayBtn.png`),
-            }}
-            style={{ ...styles.topBgImg, width: 400, height: 400 }}
-          /> */}
           <PlayBtn
             contentColor='#FFFFFF'
             externalBorderColor='#FF2CDF'
@@ -70,11 +63,6 @@ export default function AudioTask({ navigation }) {
       )}
       <View style={styles.heading}>
         {Platform.OS == "web" && (
-          /* <Image
-            //   style={styles.botBgImg}
-            source={require("../../../assets/images/lightPinkPlayBtn.png")}
-            style={{ width: 120, height: 120 }}
-          /> */
           <PlayBtn
             contentColor='#FFFFFF'
             externalBorderColor='#FF2CDF'
@@ -88,9 +76,6 @@ export default function AudioTask({ navigation }) {
           }}
         >
           {
-            /* <Image
-            source={require("../../../assets/images/lightPinkPlayBtn.png")}
-          /> */
             <PlayBtn
               contentColor='#FFFFFF'
               externalBorderColor='#FF2CDF'

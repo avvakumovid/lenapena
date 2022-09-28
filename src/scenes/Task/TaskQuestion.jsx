@@ -1,13 +1,4 @@
-import {
-  View,
-  SafeAreaView,
-  Text,
-  StyleSheet,
-  Image,
-  Platform,
-  TouchableOpacity,
-  Dimensions,
-} from "react-native";
+import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import React, { useState, useEffect, useContext } from "react";
 import { Audio } from "expo-av";
 import Background from "../../components/Background";
@@ -20,7 +11,7 @@ export default function TaskQuestion({ navigation }) {
   const [sound, setSound] = useState();
   const [pressQestion, setPressQestion] = useState(false);
 
-  const {colors} = useContext(Context);
+  const { colors } = useContext(Context);
   async function playSound() {
     const { sound } = await Audio.Sound.createAsync(
       require("../../../assets/sounds/keepYourWord.mp3")
@@ -39,13 +30,6 @@ export default function TaskQuestion({ navigation }) {
       : undefined;
   }, [sound]);
   const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: "#040313",
-      flexDirection: "column",
-      justifyContent: "space-between",
-      paddingVertical: 20,
-    },
     text: {},
     imageWraper: {
       padding: 10,
@@ -65,14 +49,7 @@ export default function TaskQuestion({ navigation }) {
       textAlign: "right",
       maxWidth: 370,
     },
-    subText: {
-      fontFamily: "Franklin Gothic Medium",
-      fontWeight: "400",
-      fontStyle: "italic",
-      fontSize: 20,
-      textTransform: "uppercase",
-      color: colors.mainTextColor,
-    },
+
     heading: {
       // width: widthScreen,
       flexDirection: "row",
@@ -90,9 +67,6 @@ export default function TaskQuestion({ navigation }) {
       marginTop: 32,
     },
 
-    goHome: {
-      alignSelf: "center",
-    },
     questionBtn: {
       marginTop: 102,
       alignSelf: "center",
@@ -105,18 +79,9 @@ export default function TaskQuestion({ navigation }) {
           <TouchableOpacity
             onPress={() => {
               playSound();
-              // console.log("menu");
-              // navigation.navigate("menu");
             }}
-            // style={styles.imageWraper}
           >
-            {
-              /* <Image
-              // style={styles.pbtnImage}
-              source={require("../../../assets/images/lightPinkPlayBtn.png")}
-            /> */
-              <PlayBtn style={styles.pbtnImage} {...colors.purplePlayBtn} />
-            }
+            <PlayBtn style={styles.pbtnImage} {...colors.purplePlayBtn} />
           </TouchableOpacity>
           <View style={styles.text}>
             <Text style={styles.mainText}>Держать слово</Text>
@@ -128,13 +93,7 @@ export default function TaskQuestion({ navigation }) {
               setPressQestion(prev => !prev);
             }}
           >
-            {
-              /* <Image
-              style={styles.questionBtn}
-              source={require(`../../../assets/images/lightPinkPlayBtn.png`)}
-            /> */
-              <QestionBtn style={styles.questionBtn} {...colors.qestionBtn} />
-            }
+            <QestionBtn style={styles.questionBtn} {...colors.qestionBtn} />
           </TouchableOpacity>
         ) : (
           <>
@@ -146,18 +105,9 @@ export default function TaskQuestion({ navigation }) {
               <TouchableOpacity
                 onPress={() => {
                   playSound();
-                  // console.log("menu");
-                  // navigation.navigate("menu");
                 }}
-                // style={styles.imageWraper}
               >
-                {
-                  /* <Image
-                  // style={styles.pbtnImage}
-                  source={require(`../../../assets/images/lightPinkPlayBtn.png`)}
-                /> */
-                  <PlayBtn style={styles.pbtnImage} {...colors.purplePlayBtn} />
-                }
+                <PlayBtn style={styles.pbtnImage} {...colors.purplePlayBtn} />
               </TouchableOpacity>
               <View style={styles.text}>
                 <Text style={styles.mainText}>Выполнить ОБЕЩАННОЕ</Text>
@@ -166,18 +116,10 @@ export default function TaskQuestion({ navigation }) {
             <TouchableOpacity
               onPress={() => {
                 playSound();
-                // console.log("menu");
-                // navigation.navigate("menu");
               }}
               style={styles.bottomPlayBtn}
             >
-              {
-                /* <Image
-                  // style={styles.pbtnImage}
-                  source={require(`../../../assets/images/lightPinkPlayBtn.png`)}
-                /> */
-                <PlayBtn {...colors.lightPinkPlayBtn} />
-              }
+              <PlayBtn {...colors.lightPinkPlayBtn} />
             </TouchableOpacity>
           </>
         )}

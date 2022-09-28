@@ -23,7 +23,6 @@ const Footer = ({ navigation }) => {
           style={styles.goHome}
           source={require("../../assets/images/goHomeAlt.png")}
         />
-        {/* <Icon name='home' size={25} color={"#FF2CDF"} /> */}
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.btn}
@@ -45,9 +44,5 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
-  },
-
-  goHome: {
-    // alignSelf: "center",
   },
 });

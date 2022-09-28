@@ -1,14 +1,6 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  SafeAreaView,
-  Platform,
-  Image,
-} from "react-native";
+import { StyleSheet, View, SafeAreaView, Platform, Image } from "react-native";
 import React, { useContext } from "react";
 import { Context } from "../context/context";
-import { BLACK, WHITE } from "./../styles/colors";
 
 const Background = ({ children }) => {
   const { colors } = useContext(Context);

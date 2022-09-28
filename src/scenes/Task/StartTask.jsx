@@ -1,6 +1,5 @@
 import {
   View,
-  SafeAreaView,
   Text,
   StyleSheet,
   Image,
@@ -84,17 +83,7 @@ export default function StartTask({ navigation }) {
                 navigation.navigate("taskquestion");
               }}
             >
-              {
-                /* <Image
-                style={styles.playBtn}
-                source={require(`../../../assets/images/lightPinkPlayBtn.png`)}
-              /> */
-                <PlayBtn
-                  style={styles.playBtn}
-                  {...colors.pinkPlayBtn}
-                  // contentColor={colors.pinkPlayBtn}
-                />
-              }
+              <PlayBtn style={styles.playBtn} {...colors.pinkPlayBtn} />
             </TouchableOpacity>
 
             <Text style={styles.titleText}>Задание</Text>
