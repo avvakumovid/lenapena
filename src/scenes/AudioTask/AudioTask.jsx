@@ -7,11 +7,14 @@ import {
   Platform,
   TouchableOpacity,
 } from "react-native";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useFonts } from "expo-font";
 import { Audio } from "expo-av";
+import { Context } from "../../context/context";
+import PlayBtn from "./../../../assets/images/PlayBtn";
 
 export default function AudioTask({ navigation }) {
+  const { colors } = useContext(Context);
   const [sound, setSound] = useState();
   async function playSound() {
     console.log("Loading Sound");
@@ -35,11 +38,16 @@ export default function AudioTask({ navigation }) {
     <SafeAreaView style={styles.container}>
       {Platform.OS == "web" ? (
         <>
-          <Image
+          {/* <Image
             source={{
-              uri: require("../../../assets/images/top_bg.png"),
+              uri: require(`../../../assets/images/lightPinkPlayBtn.png`),
             }}
             style={{ ...styles.topBgImg, width: 400, height: 400 }}
+          /> */}
+          <PlayBtn
+            contentColor='#FFFFFF'
+            externalBorderColor='#FF2CDF'
+            internalBorderColor='rgba(255, 44, 223, 0.35)'
           />
           <Image
             source={{
@@ -62,10 +70,15 @@ export default function AudioTask({ navigation }) {
       )}
       <View style={styles.heading}>
         {Platform.OS == "web" && (
-          <Image
+          /* <Image
             //   style={styles.botBgImg}
-            source={require("../../../assets/images/play_btn.png")}
+            source={require("../../../assets/images/lightPinkPlayBtn.png")}
             style={{ width: 120, height: 120 }}
+          /> */
+          <PlayBtn
+            contentColor='#FFFFFF'
+            externalBorderColor='#FF2CDF'
+            internalBorderColor='rgba(255, 44, 223, 0.35)'
           />
         )}
         <TouchableOpacity
@@ -74,7 +87,16 @@ export default function AudioTask({ navigation }) {
             console.log("menu");
           }}
         >
-          <Image source={require("../../../assets/images/play_btn.png")} />
+          {
+            /* <Image
+            source={require("../../../assets/images/lightPinkPlayBtn.png")}
+          /> */
+            <PlayBtn
+              contentColor='#FFFFFF'
+              externalBorderColor='#FF2CDF'
+              internalBorderColor='rgba(255, 44, 223, 0.35)'
+            />
+          }
         </TouchableOpacity>
         <View style={styles.text}>
           <Text style={styles.mainText}>Задание</Text>
@@ -88,7 +110,7 @@ export default function AudioTask({ navigation }) {
       >
         <Image
           style={styles.goHome}
-          source={require("../../../assets/images/goHome.png")}
+          source={require("../../../assets/images/goHomeAlt.png")}
         />
       </TouchableOpacity>
     </SafeAreaView>

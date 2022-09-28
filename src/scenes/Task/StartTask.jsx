@@ -6,15 +6,18 @@ import {
   Image,
   Platform,
   TouchableOpacity,
-  Dimensions
+  Dimensions,
 } from "react-native";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Audio } from "expo-av";
 import Background from "../../components/Background";
+import { Context } from "../../context/context";
+import PlayBtn from "../../../assets/images/PlayBtn";
 
 const widthScreen = Dimensions.get("screen").width;
 
 export default function StartTask({ navigation }) {
+  const { colors } = useContext(Context);
   const [sound, setSound] = useState();
   async function playSound() {
     console.log("Loading Sound");
@@ -34,16 +37,46 @@ export default function StartTask({ navigation }) {
         }
       : undefined;
   }, [sound]);
+
+  const styles = StyleSheet.create({
+    title: {
+      flexDirection: "row",
+      alignItems: "center",
+      marginBottom: 15,
+      width: widthScreen - widthScreen * 0.2,
+    },
+    subTitle: {
+      alignSelf: "flex-end",
+    },
+
+    titleText: {
+      fontFamily: "Franklin Gothic Medium",
+      fontStyle: "italic",
+      fontWeight: "400",
+      fontSize: 32,
+      textTransform: "uppercase",
+      color: colors.headingTextColor,
+    },
+    subText: {
+      fontFamily: "Franklin Gothic Medium",
+      fontWeight: "400",
+      fontStyle: "italic",
+      fontSize: 20,
+      textTransform: "uppercase",
+      color: colors.mainTextColor,
+    },
+    heading: {
+      flexDirection: "row",
+      alignItems: "center",
+      marginTop: "55%",
+    },
+    playBtn: {
+      marginRight: 13,
+    },
+  });
   return (
     <Background>
       <View style={styles.heading}>
-        {Platform.OS == "web" && (
-          <Image
-            //   style={styles.botBgImg}
-            source={require("../../../assets/images/play_btn.png")}
-            style={{ width: 120, height: 120 }}
-          />
-        )}
         <View>
           <View style={styles.title}>
             <TouchableOpacity
@@ -51,10 +84,17 @@ export default function StartTask({ navigation }) {
                 navigation.navigate("taskquestion");
               }}
             >
-              <Image
+              {
+                /* <Image
                 style={styles.playBtn}
-                source={require("../../../assets/images/pinkPlayBtn3.png")}
-              />
+                source={require(`../../../assets/images/lightPinkPlayBtn.png`)}
+              /> */
+                <PlayBtn
+                  style={styles.playBtn}
+                  {...colors.pinkPlayBtn}
+                  // contentColor={colors.pinkPlayBtn}
+                />
+              }
             </TouchableOpacity>
 
             <Text style={styles.titleText}>Задание</Text>
@@ -77,47 +117,3 @@ export default function StartTask({ navigation }) {
     </Background>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#040313",
-    flexDirection: "column",
-    justifyContent: "space-between",
-    paddingVertical: 20,
-  },
-  title: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: 15,
-    width: widthScreen - widthScreen * 0.2
-  },
-  subTitle: {
-    alignSelf: 'flex-end'
-  },
-
-  titleText: {
-    fontFamily: "Franklin Gothic Medium",
-    fontStyle: "italic",
-    fontWeight: "400",
-    fontSize: 32,
-    textTransform: "uppercase",
-    color: "#FF2CDF",
-  },
-  subText: {
-    fontFamily: "Franklin Gothic Medium",
-    fontWeight: "400",
-    fontStyle: "italic",
-    fontSize: 20,
-    textTransform: "uppercase",
-    color: "#FFFFFF",
-  },
-  heading: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginTop: "55%",
-  },
-  playBtn: {
-    marginRight: 13,
-  },
-});
