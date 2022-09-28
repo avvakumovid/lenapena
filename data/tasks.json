@@ -1,0 +1,16 @@
+[
+    {
+        "id": 1,
+        "phrase": "ДЕРЖАТЬ СЛОВО",
+        "explanation": "ВЫПОЛНЯТЬ ОБЕЩАННОЕ",
+        "image": "promise.png",
+        "audio": "keepYourWord.mp3"
+    },
+    {
+        "id": 2,
+        "phrase": "ДЕРЖАТЬ СЛОВО 2",
+        "explanation": "ВЫПОЛНЯТЬ ОБЕЩАННОЕ 2",
+        "image": "promise.png",
+        "audio": "keepYourWord.mp3"
+    }
+]

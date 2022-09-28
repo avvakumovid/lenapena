@@ -7,15 +7,13 @@ import { Context } from "../../context/context";
 import PlayBtn from "../../../assets/images/PlayBtn";
 import QestionBtn from "./../../../assets/images/QestionBtn";
 
-export default function TaskQuestion({ navigation }) {
+export default function TaskQuestion({ navigation, route }) {
   const [sound, setSound] = useState();
   const [pressQestion, setPressQestion] = useState(false);
-
+  const { id, phrase, explanation, image, audio } = route.params;
   const { colors } = useContext(Context);
   async function playSound() {
-    const { sound } = await Audio.Sound.createAsync(
-      require("../../../assets/sounds/keepYourWord.mp3")
-    );
+    const { sound } = await Audio.Sound.createAsync(audio);
     setSound(sound);
 
     console.log("Playing Sound");
@@ -84,7 +82,7 @@ export default function TaskQuestion({ navigation }) {
             <PlayBtn style={styles.pbtnImage} {...colors.purplePlayBtn} />
           </TouchableOpacity>
           <View style={styles.text}>
-            <Text style={styles.mainText}>Держать слово</Text>
+            <Text style={styles.mainText}>{phrase}</Text>
           </View>
         </View>
         {!pressQestion ? (
@@ -97,10 +95,7 @@ export default function TaskQuestion({ navigation }) {
           </TouchableOpacity>
         ) : (
           <>
-            <Image
-              style={styles.mainPicture}
-              source={require("../../../assets/images/promise.png")}
-            />
+            <Image style={styles.mainPicture} source={image} />
             <View style={{ ...styles.heading, marginTop: 51 }}>
               <TouchableOpacity
                 onPress={() => {
@@ -110,7 +105,7 @@ export default function TaskQuestion({ navigation }) {
                 <PlayBtn style={styles.pbtnImage} {...colors.purplePlayBtn} />
               </TouchableOpacity>
               <View style={styles.text}>
-                <Text style={styles.mainText}>Выполнить ОБЕЩАННОЕ</Text>
+                <Text style={styles.mainText}>{explanation}</Text>
               </View>
             </View>
             <TouchableOpacity

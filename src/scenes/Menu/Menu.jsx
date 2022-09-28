@@ -5,14 +5,16 @@ import { Context } from "../../context/context";
 import StartBtn from "../../../assets/images/StartBtn";
 import MoonBtn from "../../../assets/images/MoonBtn";
 import SunBtn from "./../../../assets/images/SunBtn";
+import { data } from "./../../../data/task";
 
 const Menu = ({ navigation }) => {
   const { changeTheme, name, colors } = useContext(Context);
+
   return (
     <Background>
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate("starttask");
+          navigation.navigate("starttask", { ...data[1] });
         }}
         style={styles.container}
       >

@@ -4,6 +4,7 @@ import { useFonts } from "expo-font";
 import { themes } from "./src/styles/colors";
 import { useState } from "react";
 import { Context } from "./src/context/context";
+import { StatusBar } from "expo-status-bar";
 
 export default function App() {
   const [theme, setTheme] = useState(themes.dark);
@@ -23,6 +24,7 @@ export default function App() {
     <NavigationContainer>
       <Context.Provider value={{ ...theme, changeTheme }}>
         <Navigation />
+        <StatusBar style={theme === themes.dark ? "light" : "dark"} />
       </Context.Provider>
     </NavigationContainer>
   );

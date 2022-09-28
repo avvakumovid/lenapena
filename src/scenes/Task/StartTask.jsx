@@ -15,7 +15,9 @@ import PlayBtn from "../../../assets/images/PlayBtn";
 
 const widthScreen = Dimensions.get("screen").width;
 
-export default function StartTask({ navigation }) {
+export default function StartTask({ navigation, route }) {
+  const params = route.params;
+  const image = require(`../../../assets/images/promise.png`);
   const { colors } = useContext(Context);
   const [sound, setSound] = useState();
   async function playSound() {
@@ -80,7 +82,7 @@ export default function StartTask({ navigation }) {
           <View style={styles.title}>
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate("taskquestion");
+                navigation.navigate("taskquestion", { ...params, image });
               }}
             >
               <PlayBtn style={styles.playBtn} {...colors.pinkPlayBtn} />
