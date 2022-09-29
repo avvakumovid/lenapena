@@ -14,7 +14,9 @@ const Menu = ({ navigation }) => {
     <Background>
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate("starttask", { ...data[1] });
+          navigation.navigate("starttask", {
+            ...data[Math.floor(Math.random() * data.length)],
+          });
         }}
         style={styles.container}
       >
