@@ -6,10 +6,13 @@ import StartBtn from "../../../assets/images/StartBtn";
 import MoonBtn from "../../../assets/images/MoonBtn";
 import SunBtn from "./../../../assets/images/SunBtn";
 import { data } from "./../../../data/task";
+import { useDispatch } from "react-redux";
+import { setTasks } from "../../store/slice/tasksSlice";
 
 const Menu = ({ navigation }) => {
   const { changeTheme, name, colors } = useContext(Context);
-
+  const dispatch = useDispatch();
+  dispatch(setTasks());
   return (
     <Background>
       <TouchableOpacity

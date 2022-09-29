@@ -8,9 +8,9 @@ export const data = [
   },
   {
     id: 2,
-    phrase: "PFLFFFFF",
-    explanation: "asdasd asd",
-    image: require("../assets/images/promise.png"),
+    phrase: "реветь белугой",
+    explanation: "громко плакать",
+    image: require("../assets/images/cryOutLoud.png"),
     audio: require("../assets/sounds/keepYourWord.mp3"),
   },
 ];

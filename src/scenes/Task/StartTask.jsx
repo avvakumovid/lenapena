@@ -19,6 +19,7 @@ const widthScreen = Dimensions.get("screen").width;
 
 export default function StartTask({ navigation, route }) {
   const dispatch = useDispatch();
+
   const { tasks } = useSelector(state => state.tasks);
   const { colors } = useContext(Context);
   let params = route.params;
@@ -109,7 +110,7 @@ export default function StartTask({ navigation, route }) {
                     taskIndex: remainTaskIndex,
                   });
                 } else {
-                  navigation.navigate("menu");
+                  navigation.navigate("finaltask");
                 }
               }}
             >
