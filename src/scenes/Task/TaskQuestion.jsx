@@ -6,11 +6,17 @@ import Footer from "../../components/Footer";
 import { Context } from "../../context/context";
 import PlayBtn from "../../../assets/images/PlayBtn";
 import QestionBtn from "./../../../assets/images/QestionBtn";
+import { useSelector, useDispatch } from "react-redux";
+import { acceptTask } from "../../store/slice/tasksSlice";
 
 export default function TaskQuestion({ navigation, route }) {
   const [sound, setSound] = useState();
   const [pressQestion, setPressQestion] = useState(false);
-  let { id, phrase, explanation, image, audio } = route.params;
+  const { tasks } = useSelector(state => state.tasks);
+  const dispatch = useDispatch();
+  let { taskIndex } = route.params;
+  console.log(taskIndex);
+  let { id, phrase, explanation, image, audio, isAccepted } = tasks[taskIndex];
   explanation = explanation.split(" ");
   const { colors } = useContext(Context);
   async function playSound() {
@@ -120,7 +126,8 @@ export default function TaskQuestion({ navigation, route }) {
 
             <TouchableOpacity
               onPress={() => {
-                playSound();
+                // dispatch(acceptTask(taskIndex));
+                navigation.navigate("starttask", { taskIndex });
               }}
               style={styles.bottomPlayBtn}
             >

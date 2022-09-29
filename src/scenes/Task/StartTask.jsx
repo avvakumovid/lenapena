@@ -12,13 +12,32 @@ import { Audio } from "expo-av";
 import Background from "../../components/Background";
 import { Context } from "../../context/context";
 import PlayBtn from "../../../assets/images/PlayBtn";
+import { useDispatch, useSelector } from "react-redux";
+import { acceptTask, setTasks } from "../../store/slice/tasksSlice";
 
 const widthScreen = Dimensions.get("screen").width;
 
 export default function StartTask({ navigation, route }) {
-  const params = route.params;
-  const image = require(`../../../assets/images/promise.png`);
+  const dispatch = useDispatch();
+  const { tasks } = useSelector(state => state.tasks);
   const { colors } = useContext(Context);
+  let params = route.params;
+  useEffect(() => {
+    if (params !== undefined) {
+      if (params.taskIndex != -1) {
+        dispatch(acceptTask(params.taskIndex));
+      }
+    } else {
+      dispatch(setTasks());
+    }
+  }, [params]);
+  useEffect(() => {
+    console.log(tasks);
+    console.log(
+      "isAccepted",
+      tasks.findIndex(task => task.isAccepted === false)
+    );
+  }, [tasks]);
   const [sound, setSound] = useState();
   async function playSound() {
     console.log("Loading Sound");
@@ -82,7 +101,16 @@ export default function StartTask({ navigation, route }) {
           <View style={styles.title}>
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate("taskquestion", { ...params, image });
+                const remainTaskIndex = tasks.findIndex(
+                  task => task.isAccepted === false
+                );
+                if (remainTaskIndex != 1) {
+                  navigation.navigate("taskquestion", {
+                    taskIndex: remainTaskIndex,
+                  });
+                } else {
+                  navigation.navigate("menu");
+                }
               }}
             >
               <PlayBtn style={styles.playBtn} {...colors.pinkPlayBtn} />

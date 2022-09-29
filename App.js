@@ -5,6 +5,8 @@ import { themes } from "./src/styles/colors";
 import { useState } from "react";
 import { Context } from "./src/context/context";
 import { StatusBar } from "expo-status-bar";
+import { store } from "./src/store/store";
+import { Provider } from "react-redux";
 
 export default function App() {
   const [theme, setTheme] = useState(themes.dark);
@@ -22,10 +24,12 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <Context.Provider value={{ ...theme, changeTheme }}>
-        <Navigation />
-        <StatusBar style={theme === themes.dark ? "light" : "dark"} />
-      </Context.Provider>
+      <Provider store={store}>
+        <Context.Provider value={{ ...theme, changeTheme }}>
+          <Navigation />
+          <StatusBar style={theme === themes.dark ? "light" : "dark"} />
+        </Context.Provider>
+      </Provider>
     </NavigationContainer>
   );
 }

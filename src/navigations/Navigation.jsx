@@ -11,7 +11,7 @@ export default function Navigation() {
     <Stack.Navigator
       screenOptions={{
         headerShown: false,
-        animation: "slide_from_right",
+        animation: "fade",
       }}
     >
       <Stack.Screen name='menu' component={Menu} />
