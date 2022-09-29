@@ -17,7 +17,7 @@ export default function TaskQuestion({ navigation, route }) {
   let { taskIndex } = route.params;
   console.log(taskIndex);
   let { id, phrase, explanation, image, audio, isAccepted } = tasks[taskIndex];
-  explanation = explanation.split(" ");
+  // explanation = explanation.split(" ");
   const { colors } = useContext(Context);
   async function playSound() {
     const { sound } = await Audio.Sound.createAsync(audio);
@@ -112,17 +112,18 @@ export default function TaskQuestion({ navigation, route }) {
                 <PlayBtn style={styles.pbtnImage} {...colors.purplePlayBtn} />
               </TouchableOpacity>
               <View style={styles.text}>
-                <Text style={styles.mainText}>{explanation[0]}</Text>
+                <Text style={styles.mainText}>{explanation}</Text>
+                {/* <Text style={styles.mainText}>{explanation[0]}</Text> */}
               </View>
             </View>
-            {explanation.slice(1).map((w, i) => (
+            {/* {explanation.slice(1).map((w, i) => (
               <Text
                 key={i}
                 style={{ ...styles.mainText, marginLeft: 78 + (i + 1) * 20 }}
               >
                 {w}
               </Text>
-            ))}
+            ))} */}
 
             <TouchableOpacity
               onPress={() => {
