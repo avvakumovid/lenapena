@@ -104,7 +104,7 @@ export default function StartTask({ navigation, route }) {
                 const remainTaskIndex = tasks.findIndex(
                   task => task.isAccepted === false
                 );
-                if (remainTaskIndex != 1) {
+                if (remainTaskIndex != -1) {
                   navigation.navigate("taskquestion", {
                     taskIndex: remainTaskIndex,
                   });
