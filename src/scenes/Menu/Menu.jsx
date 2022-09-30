@@ -17,7 +17,9 @@ const Menu = ({ navigation }) => {
     <Background>
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate("starttask");
+          navigation.navigate("starttask", {
+            subTitle: "ПОСЛУШАЙ И ЗАПОМНИ",
+          });
         }}
         style={styles.container}
       >

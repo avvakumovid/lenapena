@@ -137,7 +137,19 @@ export default function TaskQuestion({ navigation, route }) {
           </>
         )}
       </View>
-      <Footer navigation={navigation} />
+      <Footer
+        navigation={navigation}
+        rightBtnCallback={() => {
+          const subTitle =
+            taskIndex == tasks.length - 1
+              ? "ПОСЛУШАЙ И соедени картинки правильно"
+              : "ПОСЛУШАЙ И ЗАПОМНИ";
+          navigation.navigate("starttask", {
+            taskIndex,
+            subTitle,
+          });
+        }}
+      />
     </Background>
   );
 }

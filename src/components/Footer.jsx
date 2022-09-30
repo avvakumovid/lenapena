@@ -2,13 +2,17 @@ import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
 import React from "react";
 import Icon from "react-native-vector-icons/SimpleLineIcons";
 
-const Footer = ({ navigation }) => {
+const Footer = ({ navigation, rightBtnCallback, leftBtnCallBack }) => {
   return (
     <View style={styles.container}>
       <TouchableOpacity
         style={styles.btn}
         onPress={() => {
-          navigation.goBack();
+          if (leftBtnCallBack) {
+            leftBtnCallBack();
+          } else {
+            navigation.goBack();
+          }
         }}
       >
         <Icon name='arrow-left' size={25} color={"#704EF4"} />
@@ -27,7 +31,11 @@ const Footer = ({ navigation }) => {
       <TouchableOpacity
         style={styles.btn}
         onPress={() => {
-          navigation.goBack();
+          if (rightBtnCallback) {
+            rightBtnCallback();
+          } else {
+            navigation.goBack();
+          }
         }}
       >
         <Icon name='arrow-right' size={25} color={"#704EF4"} />

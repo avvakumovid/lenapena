@@ -24,7 +24,7 @@ export default function StartTask({ navigation, route }) {
   const { colors } = useContext(Context);
   let params = route.params;
   useEffect(() => {
-    if (params !== undefined) {
+    if (params.taskIndex !== undefined) {
       if (params.taskIndex != -1) {
         dispatch(acceptTask(params.taskIndex));
       }
@@ -66,9 +66,7 @@ export default function StartTask({ navigation, route }) {
       marginBottom: 15,
       width: widthScreen - widthScreen * 0.2,
     },
-    subTitle: {
-      alignSelf: "flex-end",
-    },
+    subTitle: {},
 
     titleText: {
       fontFamily: "Franklin Gothic Medium",
@@ -117,10 +115,10 @@ export default function StartTask({ navigation, route }) {
               <PlayBtn style={styles.playBtn} {...colors.pinkPlayBtn} />
             </TouchableOpacity>
 
-            <Text style={styles.titleText}>Задание</Text>
-          </View>
-          <View style={styles.subTitle}>
-            <Text style={styles.subText}>ПОСЛУШАЙ И ЗАПОМНИ</Text>
+            <View style={styles.subTitle}>
+              <Text style={styles.titleText}>Задание</Text>
+              <Text style={styles.subText}>{params.subTitle}</Text>
+            </View>
           </View>
         </View>
       </View>
