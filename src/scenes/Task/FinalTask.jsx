@@ -18,6 +18,7 @@ import { Context } from "../../context/context";
 import Background from "../../components/Background";
 import { useSelector } from "react-redux";
 import Footer from "../../components/Footer";
+import Accept from "../../../assets/images/Accept";
 
 const { Provider, Droppable, Draggable } = createDndContext();
 
@@ -97,6 +98,10 @@ export default function FinalTask({ navigation }) {
 
     questionBtn: {
       marginTop: 102,
+      alignSelf: "center",
+    },
+    acceptBtn: {
+      marginTop: 36,
       alignSelf: "center",
     },
   });
@@ -223,12 +228,14 @@ export default function FinalTask({ navigation }) {
             }}
           </Droppable>
           {items.length === 0 ? (
-            <Button
-              title='Reset Draggable Items'
+            <TouchableOpacity
+              style={styles.acceptBtn}
               onPress={() => {
-                setItems(tasks);
+                navigation.navigate("menu");
               }}
-            />
+            >
+              <Accept style={styles.acceptBtn} {...colors.pinkPlayBtn} />
+            </TouchableOpacity>
           ) : null}
 
           {items.length >= 2 ? (
