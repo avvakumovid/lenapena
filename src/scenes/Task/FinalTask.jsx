@@ -1,32 +1,42 @@
-import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
-import React, { useState, useEffect, useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Animated,
+  TouchableOpacity,
+  FlatList,
+  Button,
+  Image,
+} from "react-native";
+import * as Haptics from "expo-haptics";
+import { Feather } from "@expo/vector-icons";
 import { Audio } from "expo-av";
-import Background from "../../components/Background";
-import Footer from "../../components/Footer";
-import { Context } from "../../context/context";
+import { createDndContext } from "react-native-easy-dnd";
 import PlayBtn from "../../../assets/images/PlayBtn";
-import QestionBtn from "./../../../assets/images/QestionBtn";
-import { useSelector, useDispatch } from "react-redux";
-import { acceptTask } from "../../store/slice/tasksSlice";
+import { Context } from "../../context/context";
+import Background from "../../components/Background";
+import { useSelector } from "react-redux";
+import Footer from "../../components/Footer";
 
-export default function FinalTask({ navigation, route }) {
+const { Provider, Droppable, Draggable } = createDndContext();
+
+export default function FinalTask({ navigation }) {
+  const { tasks } = useSelector(state => state.tasks);
   const [sound, setSound] = useState();
 
-  const [pressQestion, setPressQestion] = useState(false);
-  const { tasks } = useSelector(state => state.tasks);
-  const dispatch = useDispatch();
-  console.log(tasks[0]);
-  let phrase1 = tasks[0].phrase,
-    image1 = tasks[0].image,
-    audio1 = tasks[0].audio,
-    isAccepted1 = tasks[0].isAccepted;
-
-  let phrase2 = tasks[1].phrase,
-    image2 = tasks[1].image,
-    audio2 = tasks[1].audio,
-    isAccepted2 = tasks[1].isAccepted;
-
-  const { colors } = useContext(Context);
+  const droppableOpacity1 = React.useRef(new Animated.Value(0));
+  const trashIconScale1 = React.useRef(new Animated.Value(1));
+  const droppableOpacity2 = React.useRef(new Animated.Value(0));
+  const trashIconScale2 = React.useRef(new Animated.Value(1));
+  const [items, setItems] = React.useState(tasks);
+  const [showFirstBtn, setShowFirstBtn] = useState(true);
+  const [showSecondBtn, setShowSecondBtn] = useState(true);
+  const animateValue = (ref, toValue) =>
+    Animated.timing(ref.current, {
+      toValue,
+      duration: 300,
+    }).start();
   async function playSound(audio) {
     const { sound } = await Audio.Sound.createAsync(audio);
     setSound(sound);
@@ -42,8 +52,9 @@ export default function FinalTask({ navigation, route }) {
         }
       : undefined;
   }, [sound]);
+  const { colors } = useContext(Context);
+
   const styles = StyleSheet.create({
-    text: {},
     imageWraper: {
       padding: 10,
       backgroundColor: "rgba(112, 78, 244, 0.15)",
@@ -62,12 +73,14 @@ export default function FinalTask({ navigation, route }) {
       // textAlign: "right",
       maxWidth: 370,
     },
-
     heading: {
       // width: widthScreen,
+      width: "100%",
       flexDirection: "row",
       alignItems: "center",
       marginTop: 64,
+      borderRadius: 99,
+      padding: 10,
       // marginBottom: 34,
     },
     bottomPlayBtn: {
@@ -89,71 +102,234 @@ export default function FinalTask({ navigation, route }) {
   });
   return (
     <Background>
-      <View>
-        <View style={styles.heading}>
-          <TouchableOpacity
-            onPress={() => {
-              playSound(audio1);
+      <Provider>
+        <View>
+          <Droppable
+            onEnter={() => {
+              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+              animateValue(trashIconScale1, 1.2);
+            }}
+            onLeave={() => {
+              animateValue(trashIconScale1, 1);
+            }}
+            onDrop={({ payload }) => {
+              animateValue(trashIconScale1, 1);
+              animateValue(trashIconScale2, 1);
+              if (payload === tasks[0].id) {
+                setItems(items.filter(item => item.id !== payload));
+              }
             }}
           >
-            <PlayBtn style={styles.pbtnImage} {...colors.purplePlayBtn} />
-          </TouchableOpacity>
-          <View style={styles.text}>
-            <Text style={styles.mainText}>{phrase1}</Text>
-          </View>
-        </View>
-        <View style={{ ...styles.heading, marginTop: 36 }}>
-          <TouchableOpacity
-            onPress={() => {
-              playSound(audio2);
+            {({ active, viewProps }) => {
+              return (
+                <Animated.View
+                  {...viewProps}
+                  style={[
+                    {
+                      backgroundColor: active
+                        ? "rgba(112, 78, 244, 0)"
+                        : "rgba(112, 78, 244, 0)",
+                    },
+                    viewProps.style,
+                    styles.heading,
+                  ]}
+                >
+                  <TouchableOpacity
+                    onPress={() => {
+                      playSound(tasks[0].audio);
+                    }}
+                  >
+                    <Animated.View
+                      style={[
+                        {
+                          transform: [
+                            {
+                              scale: trashIconScale1.current,
+                            },
+                          ],
+                        },
+                      ]}
+                    >
+                      <PlayBtn
+                        style={styles.pbtnImage}
+                        {...colors.purplePlayBtn}
+                      />
+                    </Animated.View>
+                  </TouchableOpacity>
+                  <View style={styles.text}>
+                    <Text style={styles.mainText}>{tasks[0].phrase}</Text>
+                  </View>
+                </Animated.View>
+              );
+            }}
+          </Droppable>
+          <Droppable
+            onEnter={() => {
+              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+              animateValue(trashIconScale2, 1.2);
+            }}
+            onLeave={() => {
+              animateValue(trashIconScale2, 1);
+            }}
+            onDrop={({ payload }) => {
+              animateValue(trashIconScale1, 1);
+              animateValue(trashIconScale2, 1);
+              if (payload === tasks[1].id) {
+                setItems(items.filter(item => item.id !== payload));
+              }
             }}
           >
-            <PlayBtn style={styles.pbtnImage} {...colors.purplePlayBtn} />
-          </TouchableOpacity>
-          <View style={styles.text}>
-            <Text style={styles.mainText}>{phrase2}</Text>
-          </View>
-        </View>
-        <View
-          style={{
-            ...styles.heading,
-            marginTop: 36,
-            alignSelf: "flex-end",
-            alignItems: "flex-end",
-          }}
-        >
-          <TouchableOpacity
-            onPress={() => {
-              playSound(audio1);
+            {({ active, viewProps }) => {
+              return (
+                <Animated.View
+                  {...viewProps}
+                  style={[
+                    {
+                      backgroundColor: active
+                        ? "rgba(112, 78, 244, 0)"
+                        : "rgba(112, 78, 244, 0)",
+                    },
+                    viewProps.style,
+                    { ...styles.heading, marginTop: 16 },
+                  ]}
+                >
+                  <TouchableOpacity
+                    onPress={() => {
+                      playSound(tasks[0].audio);
+                    }}
+                  >
+                    <Animated.View
+                      style={[
+                        {
+                          transform: [
+                            {
+                              scale: trashIconScale2.current,
+                            },
+                          ],
+                        },
+                      ]}
+                    >
+                      <PlayBtn
+                        style={styles.pbtnImage}
+                        {...colors.purplePlayBtn}
+                      />
+                    </Animated.View>
+                  </TouchableOpacity>
+                  <View style={styles.text}>
+                    <Text style={styles.mainText}>{tasks[1].phrase}</Text>
+                  </View>
+                </Animated.View>
+              );
             }}
-          >
-            <PlayBtn
-              style={{ ...styles.pbtnImage, marginRight: 12 }}
-              {...colors.pinkPlayBtn}
+          </Droppable>
+          {items.length === 0 ? (
+            <Button
+              title='Reset Draggable Items'
+              onPress={() => {
+                setItems(tasks);
+              }}
             />
-          </TouchableOpacity>
-          <Image style={styles.mainPicture} source={image1} />
+          ) : null}
+
+          {items.length >= 2 ? (
+            <Draggable
+              key={items[1]?.id}
+              onDragStart={() => {
+                animateValue(droppableOpacity1, 1);
+                setShowFirstBtn(false);
+              }}
+              onDragEnd={() => {
+                animateValue(droppableOpacity1, 0);
+                setShowFirstBtn(true);
+              }}
+              payload={items[1]?.id}
+            >
+              {({ viewProps }) => {
+                return (
+                  <Animated.View
+                    useNativeDriver={false}
+                    {...viewProps}
+                    style={[
+                      viewProps.style,
+                      {
+                        ...styles.heading,
+                        marginTop: 16,
+                        alignSelf: "flex-end",
+                        alignItems: "flex-end",
+                      },
+                    ]}
+                  >
+                    {showFirstBtn ? (
+                      <TouchableOpacity
+                        onPress={() => {
+                          playSound(items[1]?.audio);
+                        }}
+                      >
+                        <PlayBtn
+                          style={styles.pbtnImage}
+                          {...colors.pinkPlayBtn}
+                        />
+                      </TouchableOpacity>
+                    ) : null}
+                    <Image
+                      style={{ ...styles.mainPicture, marginLeft: 12 }}
+                      source={items[1]?.image}
+                    />
+                  </Animated.View>
+                );
+              }}
+            </Draggable>
+          ) : null}
+          {items.length >= 1 ? (
+            <Draggable
+              key={items[0]?.id}
+              onDragStart={() => {
+                setShowSecondBtn(false);
+                animateValue(droppableOpacity1, 1);
+              }}
+              onDragEnd={() => {
+                setShowSecondBtn(true);
+                animateValue(droppableOpacity1, 0);
+              }}
+              payload={items[0]?.id}
+            >
+              {({ viewProps }) => {
+                return (
+                  <Animated.View
+                    useNativeDriver={false}
+                    {...viewProps}
+                    style={[
+                      viewProps.style,
+                      {
+                        ...styles.heading,
+                        marginTop: 16,
+                        alignItems: "flex-end",
+                      },
+                    ]}
+                  >
+                    <Image
+                      style={{ ...styles.mainPicture, marginRight: 12 }}
+                      source={items[0]?.image}
+                    />
+                    {showSecondBtn ? (
+                      <TouchableOpacity
+                        onPress={() => {
+                          playSound(items[0]?.audio);
+                        }}
+                      >
+                        <PlayBtn
+                          style={styles.pbtnImage}
+                          {...colors.pinkPlayBtn}
+                        />
+                      </TouchableOpacity>
+                    ) : null}
+                  </Animated.View>
+                );
+              }}
+            </Draggable>
+          ) : null}
         </View>
-        <View
-          style={{
-            ...styles.heading,
-            marginTop: 36,
-            alignItems: "flex-end",
-          }}
-        >
-          <Image
-            style={{ ...styles.mainPicture, marginRight: 12 }}
-            source={image2}
-          />
-          <TouchableOpacity
-            onPress={() => {
-              playSound(audio2);
-            }}
-          >
-            <PlayBtn style={styles.pbtnImage} {...colors.pinkPlayBtn} />
-          </TouchableOpacity>
-        </View>
-      </View>
+      </Provider>
       <Footer navigation={navigation} />
     </Background>
   );

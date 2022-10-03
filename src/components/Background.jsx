@@ -51,6 +51,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     paddingVertical: 20,
+    // paddingHorizontal: 20,
   },
   blur: { flex: 1 },
   botBgImg: {
