@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from 'react';
 import {
   StyleSheet,
   Text,
@@ -8,17 +8,18 @@ import {
   FlatList,
   Button,
   Image,
-} from "react-native";
-import * as Haptics from "expo-haptics";
-import { Feather } from "@expo/vector-icons";
-import { Audio } from "expo-av";
-import { createDndContext } from "react-native-easy-dnd";
-import PlayBtn from "../../../assets/images/PlayBtn";
-import { Context } from "../../context/context";
-import Background from "../../components/Background";
-import { useSelector } from "react-redux";
-import Footer from "../../components/Footer";
-import Accept from "../../../assets/images/Accept";
+} from 'react-native';
+import * as Haptics from 'expo-haptics';
+import { Feather } from '@expo/vector-icons';
+import { Audio } from 'expo-av';
+import { createDndContext } from 'react-native-easy-dnd';
+import PlayBtn from '../../../assets/images/PlayBtn';
+import { Context } from '../../context/context';
+import Background from '../../components/Background';
+import { useSelector } from 'react-redux';
+import Footer from '../../components/Footer';
+import Accept from '../../../assets/images/Accept';
+import CheckBtn from '../../../assets/images/CheckBtn';
 
 const { Provider, Droppable, Draggable } = createDndContext();
 
@@ -42,13 +43,13 @@ export default function FinalTask({ navigation }) {
     const { sound } = await Audio.Sound.createAsync(audio);
     setSound(sound);
 
-    console.log("Playing Sound");
+    console.log('Playing Sound');
     await sound.playAsync();
   }
   useEffect(() => {
     return sound
       ? () => {
-          console.log("Unloading Sound");
+          console.log('Unloading Sound');
           sound.unloadAsync();
         }
       : undefined;
@@ -58,38 +59,39 @@ export default function FinalTask({ navigation }) {
   const styles = StyleSheet.create({
     imageWraper: {
       padding: 10,
-      backgroundColor: "rgba(112, 78, 244, 0.15)",
+      backgroundColor: 'rgba(112, 78, 244, 0.15)',
       opacity: 1,
       borderRadius: 999,
     },
     pbtnImage: {},
     mainText: {
-      fontFamily: "Franklin Gothic Medium",
-      fontStyle: "italic",
-      fontWeight: "400",
+      fontFamily: 'Franklin Gothic Medium',
+      fontStyle: 'italic',
+      fontWeight: '400',
       fontSize: 32,
-      textTransform: "uppercase",
+      textTransform: 'uppercase',
       color: colors.mainTextColor,
       marginLeft: 15,
       // textAlign: "right",
-      maxWidth: 370,
+      // maxWidth: 370,
+      maxWidth: 300,
     },
     heading: {
       // width: widthScreen,
-      width: "100%",
-      flexDirection: "row",
-      alignItems: "center",
+      width: '100%',
+      flexDirection: 'row',
+      alignItems: 'center',
       marginTop: 64,
       borderRadius: 99,
       padding: 10,
       // marginBottom: 34,
     },
     bottomPlayBtn: {
-      alignSelf: "center",
+      alignSelf: 'center',
       marginTop: 32,
     },
     mainPicture: {
-      alignSelf: "center",
+      alignSelf: 'center',
       // marginBottom: 51,
       marginTop: 32,
       width: 190,
@@ -98,11 +100,11 @@ export default function FinalTask({ navigation }) {
 
     questionBtn: {
       marginTop: 102,
-      alignSelf: "center",
+      alignSelf: 'center',
     },
     acceptBtn: {
-      marginTop: 36,
-      alignSelf: "center",
+      marginTop: 147,
+      alignSelf: 'center',
     },
   });
   return (
@@ -132,8 +134,8 @@ export default function FinalTask({ navigation }) {
                   style={[
                     {
                       backgroundColor: active
-                        ? "rgba(112, 78, 244, 0)"
-                        : "rgba(112, 78, 244, 0)",
+                        ? 'rgba(112, 78, 244, 0)'
+                        : 'rgba(112, 78, 244, 0)',
                     },
                     viewProps.style,
                     styles.heading,
@@ -191,8 +193,8 @@ export default function FinalTask({ navigation }) {
                   style={[
                     {
                       backgroundColor: active
-                        ? "rgba(112, 78, 244, 0)"
-                        : "rgba(112, 78, 244, 0)",
+                        ? 'rgba(112, 78, 244, 0)'
+                        : 'rgba(112, 78, 244, 0)',
                     },
                     viewProps.style,
                     { ...styles.heading, marginTop: 16 },
@@ -231,10 +233,10 @@ export default function FinalTask({ navigation }) {
             <TouchableOpacity
               style={styles.acceptBtn}
               onPress={() => {
-                navigation.navigate("menu");
+                navigation.navigate('menu');
               }}
             >
-              <Accept style={styles.acceptBtn} {...colors.pinkPlayBtn} />
+              <CheckBtn style={styles.acceptBtn} {...colors.pinkPlayBtn} />
             </TouchableOpacity>
           ) : null}
 
@@ -261,8 +263,8 @@ export default function FinalTask({ navigation }) {
                       {
                         ...styles.heading,
                         marginTop: 16,
-                        alignSelf: "flex-end",
-                        alignItems: "flex-end",
+                        alignSelf: 'flex-end',
+                        alignItems: 'flex-end',
                       },
                     ]}
                   >
@@ -310,7 +312,7 @@ export default function FinalTask({ navigation }) {
                       {
                         ...styles.heading,
                         marginTop: 16,
-                        alignItems: "flex-end",
+                        alignItems: 'flex-end',
                       },
                     ]}
                   >

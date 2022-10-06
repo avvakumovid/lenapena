@@ -1,13 +1,13 @@
-import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
-import React, { useState, useEffect, useContext } from "react";
-import { Audio } from "expo-av";
-import Background from "../../components/Background";
-import Footer from "../../components/Footer";
-import { Context } from "../../context/context";
-import PlayBtn from "../../../assets/images/PlayBtn";
-import QestionBtn from "./../../../assets/images/QestionBtn";
-import { useSelector, useDispatch } from "react-redux";
-import { acceptTask } from "../../store/slice/tasksSlice";
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import React, { useState, useEffect, useContext } from 'react';
+import { Audio } from 'expo-av';
+import Background from '../../components/Background';
+import Footer from '../../components/Footer';
+import { Context } from '../../context/context';
+import PlayBtn from '../../../assets/images/PlayBtn';
+import QestionBtn from './../../../assets/images/QestionBtn';
+import { useSelector, useDispatch } from 'react-redux';
+import { acceptTask } from '../../store/slice/tasksSlice';
 
 export default function TaskQuestion({ navigation, route }) {
   const [sound, setSound] = useState();
@@ -23,13 +23,13 @@ export default function TaskQuestion({ navigation, route }) {
     const { sound } = await Audio.Sound.createAsync(audio);
     setSound(sound);
 
-    console.log("Playing Sound");
+    console.log('Playing Sound');
     await sound.playAsync();
   }
   useEffect(() => {
     return sound
       ? () => {
-          console.log("Unloading Sound");
+          console.log('Unloading Sound');
           sound.unloadAsync();
         }
       : undefined;
@@ -38,43 +38,44 @@ export default function TaskQuestion({ navigation, route }) {
     text: {},
     imageWraper: {
       padding: 10,
-      backgroundColor: "rgba(112, 78, 244, 0.15)",
+      backgroundColor: 'rgba(112, 78, 244, 0.15)',
       opacity: 1,
       borderRadius: 999,
     },
     pbtnImage: {},
     mainText: {
-      fontFamily: "Franklin Gothic Medium",
-      fontStyle: "italic",
-      fontWeight: "400",
+      fontFamily: 'Franklin Gothic Medium',
+      fontStyle: 'italic',
+      fontWeight: '400',
       fontSize: 32,
-      textTransform: "uppercase",
+      textTransform: 'uppercase',
       color: colors.mainTextColor,
       marginLeft: 15,
       // textAlign: "right",
-      maxWidth: 370,
+      maxWidth: 300,
+      // maxWidth: '90%',
     },
 
     heading: {
       // width: widthScreen,
-      flexDirection: "row",
-      alignItems: "center",
+      flexDirection: 'row',
+      alignItems: 'center',
       marginTop: 121,
       // marginBottom: 34,
     },
     bottomPlayBtn: {
-      alignSelf: "center",
+      alignSelf: 'center',
       marginTop: 32,
     },
     mainPicture: {
-      alignSelf: "center",
+      alignSelf: 'center',
       // marginBottom: 51,
       marginTop: 32,
     },
 
     questionBtn: {
       marginTop: 102,
-      alignSelf: "center",
+      alignSelf: 'center',
     },
   });
   return (
@@ -128,7 +129,7 @@ export default function TaskQuestion({ navigation, route }) {
             <TouchableOpacity
               onPress={() => {
                 // dispatch(acceptTask(taskIndex));
-                navigation.navigate("starttask", { taskIndex });
+                navigation.navigate('starttask', { taskIndex });
               }}
               style={styles.bottomPlayBtn}
             >
@@ -142,9 +143,9 @@ export default function TaskQuestion({ navigation, route }) {
         rightBtnCallback={() => {
           const subTitle =
             taskIndex == tasks.length - 1
-              ? "ПОСЛУШАЙ И соедени картинки правильно"
-              : "ПОСЛУШАЙ И ЗАПОМНИ";
-          navigation.navigate("starttask", {
+              ? 'ПОСЛУШАЙ И соедени картинки правильно'
+              : 'ПОСЛУШАЙ И ЗАПОМНИ';
+          navigation.navigate('starttask', {
             taskIndex,
             subTitle,
           });
