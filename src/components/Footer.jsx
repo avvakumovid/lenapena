@@ -1,8 +1,12 @@
-import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
-import React from "react";
-import Icon from "react-native-vector-icons/SimpleLineIcons";
+import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
+import React, { useContext } from 'react';
+import Icon from 'react-native-vector-icons/SimpleLineIcons';
+import { Context } from '../context/context';
+import HomeBtn from '../../assets/images/HomeBtn';
 
 const Footer = ({ navigation, rightBtnCallback, leftBtnCallBack }) => {
+  const { colors } = useContext(Context);
+  console.log('footer', colors);
   return (
     <View style={styles.container}>
       <TouchableOpacity
@@ -15,17 +19,21 @@ const Footer = ({ navigation, rightBtnCallback, leftBtnCallBack }) => {
           }
         }}
       >
-        <Icon name='arrow-left' size={25} color={"#704EF4"} />
+        <Icon name='arrow-left' size={25} color={colors.footerSideBtn} />
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.btn}
         onPress={() => {
-          navigation.navigate("menu");
+          navigation.navigate('menu');
         }}
       >
-        <Image
+        {/* <Image
           style={styles.goHome}
-          source={require("../../assets/images/goHomeAlt.png")}
+          source={require('../../assets/images/goHomeAlt.png')}
+        /> */}
+        <HomeBtn
+          style={styles.goHome}
+          externalBorderColor={colors.footerMiddleBtn}
         />
       </TouchableOpacity>
       <TouchableOpacity
@@ -38,7 +46,7 @@ const Footer = ({ navigation, rightBtnCallback, leftBtnCallBack }) => {
           }
         }}
       >
-        <Icon name='arrow-right' size={25} color={"#704EF4"} />
+        <Icon name='arrow-right' size={25} color={colors.footerSideBtn} />
       </TouchableOpacity>
     </View>
   );
@@ -48,9 +56,9 @@ export default Footer;
 
 const styles = StyleSheet.create({
   container: {
-    width: "100%",
-    flexDirection: "row",
-    justifyContent: "space-around",
-    alignItems: "center",
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
   },
 });

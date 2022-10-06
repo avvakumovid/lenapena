@@ -6,16 +6,17 @@ import {
   Platform,
   TouchableOpacity,
   Dimensions,
-} from "react-native";
-import React, { useState, useEffect, useContext } from "react";
-import { Audio } from "expo-av";
-import Background from "../../components/Background";
-import { Context } from "../../context/context";
-import PlayBtn from "../../../assets/images/PlayBtn";
-import { useDispatch, useSelector } from "react-redux";
-import { acceptTask, setTasks } from "../../store/slice/tasksSlice";
+} from 'react-native';
+import React, { useState, useEffect, useContext } from 'react';
+import { Audio } from 'expo-av';
+import Background from '../../components/Background';
+import { Context } from '../../context/context';
+import PlayBtn from '../../../assets/images/PlayBtn';
+import { useDispatch, useSelector } from 'react-redux';
+import { acceptTask, setTasks } from '../../store/slice/tasksSlice';
+import HomeBtn from '../../../assets/images/HomeBtn';
 
-const widthScreen = Dimensions.get("screen").width;
+const widthScreen = Dimensions.get('screen').width;
 
 export default function StartTask({ navigation, route }) {
   const dispatch = useDispatch();
@@ -35,25 +36,25 @@ export default function StartTask({ navigation, route }) {
   useEffect(() => {
     console.log(tasks);
     console.log(
-      "isAccepted",
+      'isAccepted',
       tasks.findIndex(task => task.isAccepted === false)
     );
   }, [tasks]);
   const [sound, setSound] = useState();
   async function playSound() {
-    console.log("Loading Sound");
+    console.log('Loading Sound');
     const { sound } = await Audio.Sound.createAsync(
-      require("../../../assets/sounds/keepYourWord.mp3")
+      require('../../../assets/sounds/keepYourWord.mp3')
     );
     setSound(sound);
 
-    console.log("Playing Sound");
+    console.log('Playing Sound');
     await sound.playAsync();
   }
   useEffect(() => {
     return sound
       ? () => {
-          console.log("Unloading Sound");
+          console.log('Unloading Sound');
           sound.unloadAsync();
         }
       : undefined;
@@ -61,33 +62,33 @@ export default function StartTask({ navigation, route }) {
 
   const styles = StyleSheet.create({
     title: {
-      flexDirection: "row",
-      alignItems: "center",
+      flexDirection: 'row',
+      alignItems: 'center',
       marginBottom: 15,
       width: widthScreen - widthScreen * 0.2,
     },
     subTitle: {},
 
     titleText: {
-      fontFamily: "Franklin Gothic Medium",
-      fontStyle: "italic",
-      fontWeight: "400",
+      fontFamily: 'Franklin Gothic Medium',
+      fontStyle: 'italic',
+      fontWeight: '400',
       fontSize: 32,
-      textTransform: "uppercase",
+      textTransform: 'uppercase',
       color: colors.headingTextColor,
     },
     subText: {
-      fontFamily: "Franklin Gothic Medium",
-      fontWeight: "400",
-      fontStyle: "italic",
+      fontFamily: 'Franklin Gothic Medium',
+      fontWeight: '400',
+      fontStyle: 'italic',
       fontSize: 20,
-      textTransform: "uppercase",
+      textTransform: 'uppercase',
       color: colors.mainTextColor,
     },
     heading: {
-      flexDirection: "row",
-      alignItems: "center",
-      marginTop: "55%",
+      flexDirection: 'row',
+      alignItems: 'center',
+      marginTop: '55%',
     },
     playBtn: {
       marginRight: 13,
@@ -104,11 +105,11 @@ export default function StartTask({ navigation, route }) {
                   task => task.isAccepted === false
                 );
                 if (remainTaskIndex != -1) {
-                  navigation.navigate("taskquestion", {
+                  navigation.navigate('taskquestion', {
                     taskIndex: remainTaskIndex,
                   });
                 } else {
-                  navigation.navigate("finaltask");
+                  navigation.navigate('finaltask');
                 }
               }}
             >
@@ -124,12 +125,16 @@ export default function StartTask({ navigation, route }) {
       </View>
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate("menu");
+          navigation.navigate('menu');
         }}
       >
-        <Image
+        {/* <Image
           style={styles.goHome}
           source={require("../../../assets/images/goHomeAlt.png")}
+        /> */}
+        <HomeBtn
+          style={styles.goHome}
+          externalBorderColor={colors.footerMiddleBtn}
         />
       </TouchableOpacity>
     </Background>
