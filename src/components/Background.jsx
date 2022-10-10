@@ -6,9 +6,11 @@ const Background = ({ children }) => {
   const { colors } = useContext(Context);
 
   return (
-    <View style={{ ...styles.blur, backgroundColor: colors.backgroundColor }}>
+    <SafeAreaView
+      style={{ ...styles.blur, backgroundColor: colors.backgroundColor }}
+    >
       <SafeAreaView style={styles.container}>{children}</SafeAreaView>
-    </View>
+    </SafeAreaView>
   );
 };
 

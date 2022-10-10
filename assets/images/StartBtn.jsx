@@ -9,6 +9,7 @@ const StartBtn = ({
   ...props
 }) => (
   <Svg
+    style={style}
     width={256}
     height={101}
     fill='none'

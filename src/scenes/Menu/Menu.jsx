@@ -23,7 +23,7 @@ const Menu = ({ navigation }) => {
         }}
         style={styles.container}
       >
-        <StartBtn {...colors.startBtn} />
+        <StartBtn style={styles.btn} {...colors.startBtn} />
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => {
@@ -45,7 +45,10 @@ export default Menu;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center',
+  },
+  btn: {
+    marginTop: 243,
   },
 });
