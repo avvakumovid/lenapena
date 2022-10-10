@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingVertical: 20,
+    paddingBottom: 42,
     // paddingHorizontal: 20,
   },
   blur: { flex: 1 },

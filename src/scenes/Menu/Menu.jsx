@@ -1,13 +1,13 @@
-import { StyleSheet, TouchableOpacity } from "react-native";
-import React, { useContext } from "react";
-import Background from "./../../components/Background";
-import { Context } from "../../context/context";
-import StartBtn from "../../../assets/images/StartBtn";
-import MoonBtn from "../../../assets/images/MoonBtn";
-import SunBtn from "./../../../assets/images/SunBtn";
-import { data } from "./../../../data/task";
-import { useDispatch } from "react-redux";
-import { setTasks } from "../../store/slice/tasksSlice";
+import { StyleSheet, TouchableOpacity } from 'react-native';
+import React, { useContext } from 'react';
+import Background from './../../components/Background';
+import { Context } from '../../context/context';
+import StartBtn from '../../../assets/images/StartBtn';
+import MoonBtn from '../../../assets/images/MoonBtn';
+import SunBtn from './../../../assets/images/SunBtn';
+import { data } from './../../../data/task';
+import { useDispatch } from 'react-redux';
+import { setTasks } from '../../store/slice/tasksSlice';
 
 const Menu = ({ navigation }) => {
   const { changeTheme, name, colors } = useContext(Context);
@@ -17,8 +17,8 @@ const Menu = ({ navigation }) => {
     <Background>
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate("starttask", {
-            subTitle: "ПОСЛУШАЙ И ЗАПОМНИ",
+          navigation.navigate('starttask', {
+            subTitle: 'ПОСЛУШАЙ И ЗАПОМНИ',
           });
         }}
         style={styles.container}
@@ -30,7 +30,11 @@ const Menu = ({ navigation }) => {
           changeTheme();
         }}
       >
-        {name === "dark" ? <SunBtn /> : <MoonBtn />}
+        {name !== 'dark' ? (
+          <SunBtn {...colors.themeBtn} />
+        ) : (
+          <MoonBtn {...colors.themeBtn} />
+        )}
       </TouchableOpacity>
     </Background>
   );
@@ -41,7 +45,7 @@ export default Menu;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });

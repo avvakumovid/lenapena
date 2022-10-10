@@ -15,6 +15,8 @@ import PlayBtn from '../../../assets/images/PlayBtn';
 import { useDispatch, useSelector } from 'react-redux';
 import { acceptTask, setTasks } from '../../store/slice/tasksSlice';
 import HomeBtn from '../../../assets/images/HomeBtn';
+import { LinearGradient } from 'expo-linear-gradient';
+import QestionText from '../../../assets/images/QestionText';
 
 const widthScreen = Dimensions.get('screen').width;
 
@@ -63,11 +65,12 @@ export default function StartTask({ navigation, route }) {
   const styles = StyleSheet.create({
     title: {
       flexDirection: 'row',
-      alignItems: 'center',
-      marginBottom: 15,
       width: widthScreen - widthScreen * 0.2,
     },
-    subTitle: {},
+    subTitle: {
+      textAlign: 'center',
+      alignSelf: 'center',
+    },
 
     titleText: {
       fontFamily: 'Franklin Gothic Medium',
@@ -83,7 +86,9 @@ export default function StartTask({ navigation, route }) {
       fontStyle: 'italic',
       fontSize: 20,
       textTransform: 'uppercase',
+      alignSelf: 'flex-end',
       color: colors.mainTextColor,
+      maxWidth: 260,
     },
     heading: {
       flexDirection: 'row',
@@ -117,10 +122,10 @@ export default function StartTask({ navigation, route }) {
             </TouchableOpacity>
 
             <View style={styles.subTitle}>
-              <Text style={styles.titleText}>Задание</Text>
-              <Text style={styles.subText}>{params.subTitle}</Text>
+              <QestionText style={styles.titleText} {...colors.qestionText} />
             </View>
           </View>
+          <Text style={styles.subText}>{params.subTitle}</Text>
         </View>
       </View>
       <TouchableOpacity
@@ -132,10 +137,7 @@ export default function StartTask({ navigation, route }) {
           style={styles.goHome}
           source={require("../../../assets/images/goHomeAlt.png")}
         /> */}
-        <HomeBtn
-          style={styles.goHome}
-          externalBorderColor={colors.footerMiddleBtn}
-        />
+        <HomeBtn style={styles.goHome} {...colors.footerMiddleBtn} />
       </TouchableOpacity>
     </Background>
   );

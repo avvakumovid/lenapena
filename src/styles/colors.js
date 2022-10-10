@@ -141,7 +141,108 @@ export const minimalismLightThemeColors = {
   footerSideBtn: '#FF2CDF',
 };
 
+export const gradientDarkThemeColors = {
+  headingTextColor: '#FF2CDF',
+  mainTextColor: '#2CFFFF',
+  backgroundColor: '#17212B',
+  pinkPlayBtn: {
+    externalBorderColor: 'rgba(44, 255, 255, 1)',
+    internalBorderColor: 'rgba(112, 78, 244, 1)',
+    contentColor: 'rgba(44, 255, 255, 1)',
+  },
+  purplePlayBtn: {
+    externalBorderColor: 'rgba(44, 255, 255, 1)',
+    internalBorderColor: 'rgba(112, 78, 244, 1)',
+    contentColor: 'rgba(44, 255, 255, 1)',
+  },
+  lightPinkPlayBtn: {
+    internalBorderColor: 'rgba(44, 255, 255, 1)',
+    externalBorderColor: 'rgba(112, 78, 244, 1)',
+    contentColor: 'rgba(44, 255, 255, 1)',
+  },
+  qestionBtn: {
+    externalBorderColor: 'rgba(44, 255, 255, 1)',
+    internalBorderColor: 'rgba(112, 78, 244, 1)',
+    contentColor: '#704EF4',
+  },
+  qestionText: {
+    internalBorderColor: 'rgba(112, 78, 244, 1)',
+    externalBorderColor: 'rgba(44, 255, 255, 1)',
+    contentColor: 'rgba(112, 78, 244, 1)',
+  },
+  startBtn: {
+    externalBorderColor: 'rgba(44, 255, 255, 1)',
+    internalBorderColor: 'rgba(112, 78, 244, 1)',
+    contentColor: 'rgba(44, 255, 255, 1)',
+  },
+  footerMiddleBtn: {
+    externalBorderColor: 'rgba(112, 78, 244, 1)',
+    internalBorderColor: 'rgba(44, 255, 255, 1)',
+    contentColor: '#704EF4',
+  },
+  footerSideBtn: {
+    externalBorderColor: 'rgba(112, 78, 244, 1)',
+    internalBorderColor: 'rgba(44, 255, 255, 1)',
+    contentColor: '#704EF4',
+  },
+  themeBtn: {
+    externalBorderColor: 'rgba(44, 255, 255, 1)',
+    internalBorderColor: 'rgba(112, 78, 244, 1)',
+    contentColor: '#704EF4',
+  },
+};
+export const gradientLightThemeColors = {
+  headingTextColor: '#FF2CDF',
+  mainTextColor: '#704EF4',
+  backgroundColor: '#ffffff',
+  pinkPlayBtn: {
+    externalBorderColor: 'rgba(112, 78, 244, 1)',
+    internalBorderColor: 'rgba(255, 44, 223, 1)',
+    contentColor: '#704EF4',
+  },
+  purplePlayBtn: {
+    externalBorderColor: 'rgba(112, 78, 244, 1)',
+    internalBorderColor: 'rgba(255, 44, 223, 1)',
+    contentColor: '#704EF4',
+  },
+  lightPinkPlayBtn: {
+    externalBorderColor: 'rgba(255, 44, 223, 1)',
+    internalBorderColor: 'rgba(112, 78, 244, 1)',
+    contentColor: '#704EF4',
+  },
+  qestionBtn: {
+    externalBorderColor: 'rgba(112, 78, 244, 1)',
+    internalBorderColor: 'rgba(255, 44, 223, 1)',
+    contentColor: '#704EF4',
+  },
+  qestionText: {
+    externalBorderColor: 'rgba(112, 78, 244, 1)',
+    internalBorderColor: 'rgba(255, 44, 223, 1)',
+    contentColor: 'rgba(112, 78, 244, 1)',
+  },
+  startBtn: {
+    externalBorderColor: 'rgba(112, 78, 244, 1)',
+    internalBorderColor: 'rgba(255, 44, 223, 1)',
+    contentColor: '#704EF4',
+  },
+  footerMiddleBtn: {
+    externalBorderColor: 'rgba(112, 78, 244, 1)',
+    internalBorderColor: 'rgba(255, 44, 223, 1)',
+    contentColor: '#704EF4',
+  },
+  footerSideBtn: {
+    externalBorderColor: 'rgba(112, 78, 244, 1)',
+    internalBorderColor: 'rgba(255, 44, 223, 1)',
+    contentColor: '#704EF4',
+  },
+  themeBtn: {
+    externalBorderColor: 'rgba(255, 44, 223, 1)',
+    internalBorderColor: 'rgba(112, 78, 244, 1)',
+    contentColor: '#704EF4',
+  },
+};
+
 export const themes = {
-  light: { name: 'light', colors: minimalismDarkThemeColors },
-  dark: { name: 'dark', colors: minimalismLightThemeColors },
+  light: { name: 'light', colors: gradientDarkThemeColors },
+  dark: { name: 'dark', colors: gradientLightThemeColors },
 };

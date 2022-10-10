@@ -3,6 +3,8 @@ import React, { useContext } from 'react';
 import Icon from 'react-native-vector-icons/SimpleLineIcons';
 import { Context } from '../context/context';
 import HomeBtn from '../../assets/images/HomeBtn';
+import RightBtn from '../../assets/images/RightBtn';
+import LeftBtn from './../../assets/images/LeftBtn';
 
 const Footer = ({ navigation, rightBtnCallback, leftBtnCallBack }) => {
   const { colors } = useContext(Context);
@@ -19,7 +21,7 @@ const Footer = ({ navigation, rightBtnCallback, leftBtnCallBack }) => {
           }
         }}
       >
-        <Icon name='arrow-left' size={25} color={colors.footerSideBtn} />
+        <LeftBtn {...colors.footerSideBtn} />
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.btn}
@@ -31,10 +33,7 @@ const Footer = ({ navigation, rightBtnCallback, leftBtnCallBack }) => {
           style={styles.goHome}
           source={require('../../assets/images/goHomeAlt.png')}
         /> */}
-        <HomeBtn
-          style={styles.goHome}
-          externalBorderColor={colors.footerMiddleBtn}
-        />
+        <HomeBtn style={styles.goHome} {...colors.footerMiddleBtn} />
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.btn}
@@ -46,7 +45,7 @@ const Footer = ({ navigation, rightBtnCallback, leftBtnCallBack }) => {
           }
         }}
       >
-        <Icon name='arrow-right' size={25} color={colors.footerSideBtn} />
+        <RightBtn {...colors.footerSideBtn} />
       </TouchableOpacity>
     </View>
   );

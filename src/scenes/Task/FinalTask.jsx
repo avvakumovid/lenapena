@@ -81,9 +81,9 @@ export default function FinalTask({ navigation }) {
       width: '100%',
       flexDirection: 'row',
       alignItems: 'center',
-      marginTop: 64,
+      marginTop: 18,
       borderRadius: 99,
-      padding: 10,
+
       // marginBottom: 34,
     },
     bottomPlayBtn: {
@@ -139,6 +139,7 @@ export default function FinalTask({ navigation }) {
                     },
                     viewProps.style,
                     styles.heading,
+                    { marginTop: 72 },
                   ]}
                 >
                   <TouchableOpacity
@@ -197,7 +198,7 @@ export default function FinalTask({ navigation }) {
                         : 'rgba(112, 78, 244, 0)',
                     },
                     viewProps.style,
-                    { ...styles.heading, marginTop: 16 },
+                    { ...styles.heading },
                   ]}
                 >
                   <TouchableOpacity
@@ -218,7 +219,7 @@ export default function FinalTask({ navigation }) {
                     >
                       <PlayBtn
                         style={styles.pbtnImage}
-                        {...colors.purplePlayBtn}
+                        {...colors.lightPinkPlayBtn}
                       />
                     </Animated.View>
                   </TouchableOpacity>
@@ -262,12 +263,15 @@ export default function FinalTask({ navigation }) {
                       viewProps.style,
                       {
                         ...styles.heading,
-                        marginTop: 16,
-                        alignSelf: 'flex-end',
                         alignItems: 'flex-end',
+                        marginTop: 72,
                       },
                     ]}
                   >
+                    <Image
+                      style={{ ...styles.mainPicture, marginRight: 12 }}
+                      source={items[1]?.image}
+                    />
                     {showFirstBtn ? (
                       <TouchableOpacity
                         onPress={() => {
@@ -280,10 +284,6 @@ export default function FinalTask({ navigation }) {
                         />
                       </TouchableOpacity>
                     ) : null}
-                    <Image
-                      style={{ ...styles.mainPicture, marginLeft: 12 }}
-                      source={items[1]?.image}
-                    />
                   </Animated.View>
                 );
               }}
@@ -311,7 +311,6 @@ export default function FinalTask({ navigation }) {
                       viewProps.style,
                       {
                         ...styles.heading,
-                        marginTop: 16,
                         alignItems: 'flex-end',
                       },
                     ]}
@@ -328,7 +327,7 @@ export default function FinalTask({ navigation }) {
                       >
                         <PlayBtn
                           style={styles.pbtnImage}
-                          {...colors.pinkPlayBtn}
+                          {...colors.lightPinkPlayBtn}
                         />
                       </TouchableOpacity>
                     ) : null}

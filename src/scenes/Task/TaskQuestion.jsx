@@ -60,7 +60,7 @@ export default function TaskQuestion({ navigation, route }) {
       // width: widthScreen,
       flexDirection: 'row',
       alignItems: 'center',
-      marginTop: 121,
+      marginTop: 100,
       // marginBottom: 34,
     },
     bottomPlayBtn: {
@@ -110,7 +110,10 @@ export default function TaskQuestion({ navigation, route }) {
                   playSound();
                 }}
               >
-                <PlayBtn style={styles.pbtnImage} {...colors.purplePlayBtn} />
+                <PlayBtn
+                  style={styles.pbtnImage}
+                  {...colors.lightPinkPlayBtn}
+                />
               </TouchableOpacity>
               <View style={styles.text}>
                 <Text style={styles.mainText}>{explanation}</Text>
@@ -133,7 +136,7 @@ export default function TaskQuestion({ navigation, route }) {
               }}
               style={styles.bottomPlayBtn}
             >
-              <PlayBtn {...colors.lightPinkPlayBtn} />
+              <PlayBtn {...colors.purplePlayBtn} />
             </TouchableOpacity>
           </>
         )}
