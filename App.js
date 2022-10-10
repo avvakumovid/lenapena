@@ -29,7 +29,7 @@ export default function App() {
         <Context.Provider value={{ ...theme, changeTheme }}>
           <SafeAreaProvider>
             <Navigation />
-            <StatusBar style={theme === themes.dark ? 'light' : 'dark'} />
+            <StatusBar style={theme !== themes.dark ? 'light' : 'dark'} />
           </SafeAreaProvider>
         </Context.Provider>
       </Provider>

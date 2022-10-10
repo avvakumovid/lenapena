@@ -186,8 +186,8 @@ export const gradientDarkThemeColors = {
     contentColor: '#704EF4',
   },
   themeBtn: {
-    externalBorderColor: 'rgba(44, 255, 255, 1)',
-    internalBorderColor: 'rgba(112, 78, 244, 1)',
+    externalBorderColor: 'rgba(112, 78, 244, 1)',
+    internalBorderColor: 'rgba(44, 255, 255, 1)',
     contentColor: '#704EF4',
   },
 };
