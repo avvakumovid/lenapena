@@ -86,7 +86,8 @@ export default function StartTask({ navigation, route }) {
       fontStyle: 'italic',
       fontSize: 20,
       textTransform: 'uppercase',
-      alignSelf: 'flex-end',
+      // alignSelf: 'flex-end',
+      textAlign: 'right',
       color: colors.mainTextColor,
       maxWidth: 260,
     },
@@ -97,6 +98,7 @@ export default function StartTask({ navigation, route }) {
     },
     playBtn: {
       marginRight: 13,
+      alignSelf: 'flex-end',
     },
   });
   return (
@@ -123,9 +125,9 @@ export default function StartTask({ navigation, route }) {
 
             <View style={styles.subTitle}>
               <QestionText style={styles.titleText} {...colors.qestionText} />
+              <Text style={styles.subText}>{params.subTitle}</Text>
             </View>
           </View>
-          <Text style={styles.subText}>{params.subTitle}</Text>
         </View>
       </View>
       <TouchableOpacity

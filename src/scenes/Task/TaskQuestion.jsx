@@ -16,10 +16,11 @@ export default function TaskQuestion({ navigation, route }) {
   const dispatch = useDispatch();
   let { taskIndex } = route.params;
   console.log(taskIndex);
-  let { id, phrase, explanation, image, audio, isAccepted } = tasks[taskIndex];
+  let { id, phrase, explanation, image, audio1, audio2, audio3, isAccepted } =
+    tasks[taskIndex];
   // explanation = explanation.split(" ");
   const { colors } = useContext(Context);
-  async function playSound() {
+  async function playSound(audio) {
     const { sound } = await Audio.Sound.createAsync(audio);
     setSound(sound);
 
@@ -84,7 +85,7 @@ export default function TaskQuestion({ navigation, route }) {
         <View style={styles.heading}>
           <TouchableOpacity
             onPress={() => {
-              playSound();
+              playSound(audio1);
             }}
           >
             <PlayBtn style={styles.pbtnImage} {...colors.purplePlayBtn} />
@@ -107,7 +108,7 @@ export default function TaskQuestion({ navigation, route }) {
             <View style={{ ...styles.heading, marginTop: 51 }}>
               <TouchableOpacity
                 onPress={() => {
-                  playSound();
+                  playSound(audio2);
                 }}
               >
                 <PlayBtn
@@ -132,7 +133,8 @@ export default function TaskQuestion({ navigation, route }) {
             <TouchableOpacity
               onPress={() => {
                 // dispatch(acceptTask(taskIndex));
-                navigation.navigate('starttask', { taskIndex });
+                playSound(audio3);
+                // navigation.navigate('starttask', { taskIndex });
               }}
               style={styles.bottomPlayBtn}
             >

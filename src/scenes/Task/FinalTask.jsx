@@ -113,7 +113,7 @@ export default function FinalTask({ navigation }) {
         <View>
           <Droppable
             onEnter={() => {
-              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+              // Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
               animateValue(trashIconScale1, 1.2);
             }}
             onLeave={() => {
@@ -144,7 +144,7 @@ export default function FinalTask({ navigation }) {
                 >
                   <TouchableOpacity
                     onPress={() => {
-                      playSound(tasks[0].audio);
+                      playSound(tasks[0].audio1);
                     }}
                   >
                     <Animated.View
@@ -173,7 +173,7 @@ export default function FinalTask({ navigation }) {
           </Droppable>
           <Droppable
             onEnter={() => {
-              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+              // Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
               animateValue(trashIconScale2, 1.2);
             }}
             onLeave={() => {
@@ -203,7 +203,7 @@ export default function FinalTask({ navigation }) {
                 >
                   <TouchableOpacity
                     onPress={() => {
-                      playSound(tasks[0].audio);
+                      playSound(tasks[0].audio2);
                     }}
                   >
                     <Animated.View
@@ -275,7 +275,7 @@ export default function FinalTask({ navigation }) {
                     {showFirstBtn ? (
                       <TouchableOpacity
                         onPress={() => {
-                          playSound(items[1]?.audio);
+                          playSound(items[1]?.audio1);
                         }}
                       >
                         <PlayBtn
@@ -322,7 +322,7 @@ export default function FinalTask({ navigation }) {
                     {showSecondBtn ? (
                       <TouchableOpacity
                         onPress={() => {
-                          playSound(items[0]?.audio);
+                          playSound(items[1]?.audio2);
                         }}
                       >
                         <PlayBtn
