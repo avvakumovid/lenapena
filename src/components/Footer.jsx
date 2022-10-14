@@ -13,34 +13,42 @@ import HomeBtn from '../../assets/images/HomeBtn';
 import RightBtn from '../../assets/images/RightBtn';
 import LeftBtn from './../../assets/images/LeftBtn';
 
-const Footer = ({ navigation, rightBtnCallback, leftBtnCallBack }) => {
+const Footer = ({
+  navigation,
+  rightBtnCallback,
+  leftBtnCallBack,
+  leftBtnVisible = true,
+  rightBtnVisible = true,
+}) => {
   const { name, colors } = useContext(Context);
   return (
     <View style={styles.container}>
-      <TouchableOpacity
-        style={styles.btn}
-        onPress={() => {
-          if (leftBtnCallBack) {
-            leftBtnCallBack();
-          } else {
-            navigation.goBack();
-          }
-        }}
-      >
-        {Platform.OS === 'web' ? (
-          <Image
-            source={{
-              uri:
-                name == 'dark'
-                  ? require('../../assets/web/leftArrowL.png')
-                  : require('../../assets/web/leftArrowD.png'),
-            }}
-            style={[{ width: 11, height: 24 }]}
-          />
-        ) : (
-          <LeftBtn {...colors.footerSideBtn} />
-        )}
-      </TouchableOpacity>
+      {leftBtnVisible && (
+        <TouchableOpacity
+          style={styles.btn}
+          onPress={() => {
+            if (leftBtnCallBack) {
+              leftBtnCallBack();
+            } else {
+              navigation.goBack();
+            }
+          }}
+        >
+          {Platform.OS === 'web' ? (
+            <Image
+              source={{
+                uri:
+                  name == 'dark'
+                    ? require('../../assets/web/leftArrowL.png')
+                    : require('../../assets/web/leftArrowD.png'),
+              }}
+              style={[{ width: 11, height: 24 }]}
+            />
+          ) : (
+            <LeftBtn {...colors.footerSideBtn} />
+          )}
+        </TouchableOpacity>
+      )}
       <TouchableOpacity
         style={styles.btn}
         onPress={() => {
@@ -65,30 +73,32 @@ const Footer = ({ navigation, rightBtnCallback, leftBtnCallBack }) => {
           <HomeBtn style={styles.goHome} {...colors.footerMiddleBtn} />
         )}
       </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.btn}
-        onPress={() => {
-          if (rightBtnCallback) {
-            rightBtnCallback();
-          } else {
-            navigation.goBack();
-          }
-        }}
-      >
-        {Platform.OS === 'web' ? (
-          <Image
-            source={{
-              uri:
-                name == 'dark'
-                  ? require('../../assets/web/rightArrowL.png')
-                  : require('../../assets/web/rightArrowD.png'),
-            }}
-            style={[{ width: 11, height: 24 }]}
-          />
-        ) : (
-          <RightBtn {...colors.footerSideBtn} />
-        )}
-      </TouchableOpacity>
+      {rightBtnVisible && (
+        <TouchableOpacity
+          style={styles.btn}
+          onPress={() => {
+            if (rightBtnCallback) {
+              rightBtnCallback();
+            } else {
+              navigation.goBack();
+            }
+          }}
+        >
+          {Platform.OS === 'web' ? (
+            <Image
+              source={{
+                uri:
+                  name == 'dark'
+                    ? require('../../assets/web/rightArrowL.png')
+                    : require('../../assets/web/rightArrowD.png'),
+              }}
+              style={[{ width: 11, height: 24 }]}
+            />
+          ) : (
+            <RightBtn {...colors.footerSideBtn} />
+          )}
+        </TouchableOpacity>
+      )}
     </View>
   );
 };

@@ -160,6 +160,8 @@ export default function StartTask({ navigation, route }) {
         </View>
       </View>
       <Footer
+        leftBtnVisible={false}
+        rightBtnVisible={false}
         navigation={navigation}
         rightBtnCallback={() => {
           const subTitle =
@@ -168,7 +170,7 @@ export default function StartTask({ navigation, route }) {
               : 'ПОСЛУШАЙ И ЗАПОМНИ';
           navigation.navigate('starttask', {
             taskIndex,
-            subTitle,
+            subTitle,W
           });
         }}
       />

@@ -113,9 +113,12 @@ export default function FinalTask({ navigation }) {
       <Provider>
         <View style={Platform.OS == 'web' ? { marginTop: -50 } : {}}>
           <Droppable
-            onEnter={() => {
+            customId={1}
+            onEnter={({ payload }) => {
               // Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-              animateValue(trashIconScale1, 1.2);
+              if (payload === tasks[0].id) {
+                animateValue(trashIconScale1, 1.2);
+              }
             }}
             onLeave={() => {
               animateValue(trashIconScale1, 1);
@@ -185,9 +188,11 @@ export default function FinalTask({ navigation }) {
             }}
           </Droppable>
           <Droppable
-            onEnter={() => {
+            onEnter={({ payload }) => {
               // Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-              animateValue(trashIconScale2, 1.2);
+              if (payload === tasks[1].id) {
+                animateValue(trashIconScale2, 1.2);
+              }
             }}
             onLeave={() => {
               animateValue(trashIconScale2, 1);
@@ -199,6 +204,7 @@ export default function FinalTask({ navigation }) {
                 setItems(items.filter(item => item.id !== payload));
               }
             }}
+            customId={2}
           >
             {({ active, viewProps }) => {
               return (
@@ -277,7 +283,6 @@ export default function FinalTask({ navigation }) {
               )}
             </TouchableOpacity>
           ) : null}
-
           {items.length >= 2 ? (
             <Draggable
               key={items[1]?.id}
