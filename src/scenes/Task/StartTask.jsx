@@ -85,6 +85,7 @@ export default function StartTask({ navigation, route }) {
       textAlign: 'left',
       color: colors.mainTextColor,
       maxWidth: 260,
+      marginTop: 5,
     },
     heading: {
       flexDirection: 'row',
@@ -170,7 +171,8 @@ export default function StartTask({ navigation, route }) {
               : 'ПОСЛУШАЙ И ЗАПОМНИ';
           navigation.navigate('starttask', {
             taskIndex,
-            subTitle,W
+            subTitle,
+            W,
           });
         }}
       />

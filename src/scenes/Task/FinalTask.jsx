@@ -94,7 +94,7 @@ export default function FinalTask({ navigation }) {
     mainPicture: {
       alignSelf: 'center',
       // marginBottom: 51,
-      marginTop: 32,
+      // marginTop: 32,
       width: 190,
       height: 190,
     },

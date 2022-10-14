@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingBottom: 42,
+    paddingBottom: 62,
     // paddingHorizontal: 20,
   },
   blur: { flex: 1 },

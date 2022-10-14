@@ -69,7 +69,7 @@ export default function TaskQuestion({ navigation, route }) {
       flexDirection: 'row',
       alignItems: 'center',
       marginTop: 100,
-      // marginBottom: 34,
+      // marginBottom: 32,
     },
     bottomPlayBtn: {
       alignSelf: 'center',
@@ -151,7 +151,7 @@ export default function TaskQuestion({ navigation, route }) {
               <Image style={styles.mainPicture} source={image} />
             )}
 
-            <View style={{ ...styles.heading, marginTop: 51 }}>
+            <View style={{ ...styles.heading, marginTop: 32 }}>
               <TouchableOpacity
                 onPress={() => {
                   playSound(audio2);
