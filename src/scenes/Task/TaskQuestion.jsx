@@ -1,4 +1,11 @@
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  Platform,
+} from 'react-native';
 import React, { useState, useEffect, useContext } from 'react';
 import { Audio } from 'expo-av';
 import Background from '../../components/Background';
@@ -19,7 +26,7 @@ export default function TaskQuestion({ navigation, route }) {
   let { id, phrase, explanation, image, audio1, audio2, audio3, isAccepted } =
     tasks[taskIndex];
   // explanation = explanation.split(" ");
-  const { colors } = useContext(Context);
+  const { name, colors } = useContext(Context);
   async function playSound(audio) {
     const { sound } = await Audio.Sound.createAsync(audio);
     setSound(sound);
@@ -82,13 +89,30 @@ export default function TaskQuestion({ navigation, route }) {
   return (
     <Background>
       <View>
-        <View style={styles.heading}>
+        <View
+          style={[
+            styles.heading,
+            Platform.OS == 'web' ? { marginTop: 60 } : {},
+          ]}
+        >
           <TouchableOpacity
             onPress={() => {
               playSound(audio1);
             }}
           >
-            <PlayBtn style={styles.pbtnImage} {...colors.purplePlayBtn} />
+            {Platform.OS === 'web' ? (
+              <Image
+                source={{
+                  uri:
+                    name == 'dark'
+                      ? require('../../../assets/web/playbtn1L.png')
+                      : require('../../../assets/web/playbtn1D.png'),
+                }}
+                style={[{ width: 70, height: 70 }]}
+              />
+            ) : (
+              <PlayBtn style={styles.pbtnImage} {...colors.purplePlayBtn} />
+            )}
           </TouchableOpacity>
           <View style={styles.text}>
             <Text style={styles.mainText}>{phrase}</Text>
@@ -100,21 +124,55 @@ export default function TaskQuestion({ navigation, route }) {
               setPressQestion(prev => !prev);
             }}
           >
-            <QestionBtn style={styles.questionBtn} {...colors.qestionBtn} />
+            {Platform.OS === 'web' ? (
+              <Image
+                source={{
+                  uri:
+                    name == 'dark'
+                      ? require('../../../assets/web/qestionbtnL.png')
+                      : require('../../../assets/web/qestionbtnD.png'),
+                }}
+                style={[styles.questionBtn, { width: 190, height: 190 }]}
+              />
+            ) : (
+              <QestionBtn style={styles.questionBtn} {...colors.qestionBtn} />
+            )}
           </TouchableOpacity>
         ) : (
           <>
-            <Image style={styles.mainPicture} source={image} />
+            {Platform.OS === 'web' ? (
+              <Image
+                source={{
+                  uri: image,
+                }}
+                style={[styles.mainPicture, { width: 270, height: 270 }]}
+              />
+            ) : (
+              <Image style={styles.mainPicture} source={image} />
+            )}
+
             <View style={{ ...styles.heading, marginTop: 51 }}>
               <TouchableOpacity
                 onPress={() => {
                   playSound(audio2);
                 }}
               >
-                <PlayBtn
-                  style={styles.pbtnImage}
-                  {...colors.lightPinkPlayBtn}
-                />
+                {Platform.OS === 'web' ? (
+                  <Image
+                    source={{
+                      uri:
+                        name == 'dark'
+                          ? require('../../../assets/web/playbtn2L.png')
+                          : require('../../../assets/web/playbtn2D.png'),
+                    }}
+                    style={[styles.pbtnImage, { width: 70, height: 70 }]}
+                  />
+                ) : (
+                  <PlayBtn
+                    style={styles.pbtnImage}
+                    {...colors.lightPinkPlayBtn}
+                  />
+                )}
               </TouchableOpacity>
               <View style={styles.text}>
                 <Text style={styles.mainText}>{explanation}</Text>
@@ -138,7 +196,19 @@ export default function TaskQuestion({ navigation, route }) {
               }}
               style={styles.bottomPlayBtn}
             >
-              <PlayBtn {...colors.purplePlayBtn} />
+              {Platform.OS === 'web' ? (
+                <Image
+                  source={{
+                    uri:
+                      name == 'dark'
+                        ? require('../../../assets/web/playbtn2L.png')
+                        : require('../../../assets/web/playbtn2D.png'),
+                  }}
+                  style={[{ width: 70, height: 70 }]}
+                />
+              ) : (
+                <PlayBtn {...colors.purplePlayBtn} />
+              )}
             </TouchableOpacity>
           </>
         )}

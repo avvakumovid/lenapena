@@ -1,4 +1,4 @@
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import { Image, StyleSheet, TouchableOpacity, Platform } from 'react-native';
 import React, { useContext } from 'react';
 import Background from './../../components/Background';
 import { Context } from '../../context/context';
@@ -8,6 +8,7 @@ import SunBtn from './../../../assets/images/SunBtn';
 import { data } from './../../../data/task';
 import { useDispatch } from 'react-redux';
 import { setTasks } from '../../store/slice/tasksSlice';
+import HomeBtn from '../../../assets/images/HomeBtn';
 
 const Menu = ({ navigation }) => {
   const { changeTheme, name, colors } = useContext(Context);
@@ -23,7 +24,12 @@ const Menu = ({ navigation }) => {
         }}
         style={styles.container}
       >
-        <StartBtn style={styles.btn} {...colors.startBtn} />
+        {/* <HomeBtn style={styles.btn} {...colors.startBtn} /> */}
+
+        <StartBtn
+          style={[styles.btn, Platform.OS == 'web' ? { marginTop: 200 } : null]}
+          {...colors.startBtn}
+        />
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => {

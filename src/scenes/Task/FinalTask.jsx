@@ -8,6 +8,7 @@ import {
   FlatList,
   Button,
   Image,
+  Platform,
 } from 'react-native';
 import * as Haptics from 'expo-haptics';
 import { Feather } from '@expo/vector-icons';
@@ -54,7 +55,7 @@ export default function FinalTask({ navigation }) {
         }
       : undefined;
   }, [sound]);
-  const { colors } = useContext(Context);
+  const { name, colors } = useContext(Context);
 
   const styles = StyleSheet.create({
     imageWraper: {
@@ -110,7 +111,7 @@ export default function FinalTask({ navigation }) {
   return (
     <Background>
       <Provider>
-        <View>
+        <View style={Platform.OS == 'web' ? { marginTop: -50 } : {}}>
           <Droppable
             onEnter={() => {
               // Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
@@ -158,10 +159,22 @@ export default function FinalTask({ navigation }) {
                         },
                       ]}
                     >
-                      <PlayBtn
-                        style={styles.pbtnImage}
-                        {...colors.purplePlayBtn}
-                      />
+                      {Platform.OS === 'web' ? (
+                        <Image
+                          source={{
+                            uri:
+                              name == 'dark'
+                                ? require('../../../assets/web/playbtn1L.png')
+                                : require('../../../assets/web/playbtn1D.png'),
+                          }}
+                          style={[styles.pbtnImage, { width: 70, height: 70 }]}
+                        />
+                      ) : (
+                        <PlayBtn
+                          style={styles.pbtnImage}
+                          {...colors.lightPinkPlayBtn}
+                        />
+                      )}
                     </Animated.View>
                   </TouchableOpacity>
                   <View style={styles.text}>
@@ -217,10 +230,22 @@ export default function FinalTask({ navigation }) {
                         },
                       ]}
                     >
-                      <PlayBtn
-                        style={styles.pbtnImage}
-                        {...colors.lightPinkPlayBtn}
-                      />
+                      {Platform.OS === 'web' ? (
+                        <Image
+                          source={{
+                            uri:
+                              name == 'dark'
+                                ? require('../../../assets/web/playbtn1L.png')
+                                : require('../../../assets/web/playbtn1D.png'),
+                          }}
+                          style={[styles.pbtnImage, { width: 70, height: 70 }]}
+                        />
+                      ) : (
+                        <PlayBtn
+                          style={styles.pbtnImage}
+                          {...colors.pinkPlayBtn}
+                        />
+                      )}
                     </Animated.View>
                   </TouchableOpacity>
                   <View style={styles.text}>
@@ -237,7 +262,19 @@ export default function FinalTask({ navigation }) {
                 navigation.navigate('menu');
               }}
             >
-              <CheckBtn style={styles.acceptBtn} {...colors.pinkPlayBtn} />
+              {Platform.OS === 'web' ? (
+                <Image
+                  source={{
+                    uri:
+                      name == 'dark'
+                        ? require('../../../assets/web/playbtn1L.png')
+                        : require('../../../assets/web/playbtn1D.png'),
+                  }}
+                  style={[styles.acceptBtn, { width: 116, height: 91 }]}
+                />
+              ) : (
+                <CheckBtn style={styles.acceptBtn} {...colors.pinkPlayBtn} />
+              )}
             </TouchableOpacity>
           ) : null}
 
@@ -266,6 +303,7 @@ export default function FinalTask({ navigation }) {
                         alignItems: 'flex-end',
                         marginTop: 72,
                       },
+                      Platform.OS == 'web' ? { marginTop: 22 } : {},
                     ]}
                   >
                     <Image
@@ -278,10 +316,25 @@ export default function FinalTask({ navigation }) {
                           playSound(items[1]?.audio1);
                         }}
                       >
-                        <PlayBtn
-                          style={styles.pbtnImage}
-                          {...colors.pinkPlayBtn}
-                        />
+                        {Platform.OS === 'web' ? (
+                          <Image
+                            source={{
+                              uri:
+                                name == 'dark'
+                                  ? require('../../../assets/web/playbtn1L.png')
+                                  : require('../../../assets/web/playbtn1D.png'),
+                            }}
+                            style={[
+                              styles.pbtnImage,
+                              { width: 70, height: 70 },
+                            ]}
+                          />
+                        ) : (
+                          <PlayBtn
+                            style={styles.pbtnImage}
+                            {...colors.lightPinkPlayBtn}
+                          />
+                        )}
                       </TouchableOpacity>
                     ) : null}
                   </Animated.View>
@@ -325,10 +378,25 @@ export default function FinalTask({ navigation }) {
                           playSound(items[1]?.audio2);
                         }}
                       >
-                        <PlayBtn
-                          style={styles.pbtnImage}
-                          {...colors.lightPinkPlayBtn}
-                        />
+                        {Platform.OS === 'web' ? (
+                          <Image
+                            source={{
+                              uri:
+                                name == 'dark'
+                                  ? require('../../../assets/web/playbtn1L.png')
+                                  : require('../../../assets/web/playbtn1D.png'),
+                            }}
+                            style={[
+                              styles.pbtnImage,
+                              { width: 70, height: 70 },
+                            ]}
+                          />
+                        ) : (
+                          <PlayBtn
+                            style={styles.pbtnImage}
+                            {...colors.pinkPlayBtn}
+                          />
+                        )}
                       </TouchableOpacity>
                     ) : null}
                   </Animated.View>

@@ -22,40 +22,39 @@ import StartBtn from '../../../assets/images/StartBtn';
 
 const widthScreen = Dimensions.get('screen').width;
 
-export default function StartTask({ navigation, route }) {
+export default function StartTaskO({ navigation, route }) {
   const dispatch = useDispatch();
 
-  const { tasks } = useSelector(state => state.tasks);
-  const { name, colors } = useContext(Context);
-  console.log(name);
-  let params = route.params;
-  useEffect(() => {
-    if (params.taskIndex !== undefined) {
-      if (params.taskIndex != -1) {
-        dispatch(acceptTask(params.taskIndex));
-      }
-    } else {
-      dispatch(setTasks());
-    }
-  }, [params]);
-  useEffect(() => {}, [tasks]);
-  const [sound, setSound] = useState();
-  async function playSound() {
-    const { sound } = await Audio.Sound.createAsync(
-      require('../../../assets/sounds/keepYourWord.mp3')
-    );
-    setSound(sound);
+  // const { tasks } = useSelector(state => state.tasks);
+  const { colors } = useContext(Context);
+  // let params = route.params;
+  // useEffect(() => {
+  //   if (params.taskIndex !== undefined) {
+  //     if (params.taskIndex != -1) {
+  //       dispatch(acceptTask(params.taskIndex));
+  //     }
+  //   } else {
+  //     dispatch(setTasks());
+  //   }
+  // }, [params]);
+  // useEffect(() => {}, [tasks]);
+  // const [sound, setSound] = useState();
+  // async function playSound() {
+  //   const { sound } = await Audio.Sound.createAsync(
+  //     require('../../../assets/sounds/keepYourWord.mp3')
+  //   );
+  //   setSound(sound);
 
-    await sound.playAsync();
-  }
-  useEffect(() => {
-    return sound
-      ? () => {
-          console.log('Unloading Sound');
-          sound.unloadAsync();
-        }
-      : undefined;
-  }, [sound]);
+  //   await sound.playAsync();
+  // }
+  // useEffect(() => {
+  //   return sound
+  //     ? () => {
+  //         console.log('Unloading Sound');
+  //         sound.unloadAsync();
+  //       }
+  //     : undefined;
+  // }, [sound]);
 
   const styles = StyleSheet.create({
     title: {
@@ -82,7 +81,7 @@ export default function StartTask({ navigation, route }) {
       fontSize: 20,
       textTransform: 'uppercase',
       // alignSelf: 'flex-end',
-      textAlign: 'left',
+      textAlign: 'right',
       color: colors.mainTextColor,
       maxWidth: 260,
     },
@@ -99,12 +98,7 @@ export default function StartTask({ navigation, route }) {
   return (
     <Background>
       <View>
-        <View
-          style={[
-            styles.heading,
-            Platform.OS == 'web' ? { marginTop: 200 } : {},
-          ]}
-        >
+        <View style={styles.heading}>
           <View>
             <View style={styles.title}>
               <TouchableOpacity
@@ -114,46 +108,19 @@ export default function StartTask({ navigation, route }) {
                   );
                   if (remainTaskIndex != -1) {
                     navigation.navigate('taskquestion', {
-                      taskIndex: remainTaskIndex,
+                      // taskIndex: remainTaskIndex,
                     });
                   } else {
                     navigation.navigate('finaltask');
                   }
                 }}
               >
-                {Platform.OS === 'web' ? (
-                  <Image
-                    source={{
-                      uri:
-                        name == 'dark'
-                          ? require('../../../assets/web/playbtn1L.png')
-                          : require('../../../assets/web/playbtn1D.png'),
-                    }}
-                    style={[styles.playBtn, { width: 70, height: 70 }]}
-                  />
-                ) : (
-                  <PlayBtn style={styles.playBtn} {...colors.pinkPlayBtn} />
-                )}
+                <PlayBtn style={styles.playBtn} {...colors.pinkPlayBtn} />
               </TouchableOpacity>
 
               <View style={styles.subTitle}>
-                {Platform.OS === 'web' ? (
-                  <Image
-                    source={{
-                      uri:
-                        name == 'dark'
-                          ? require('../../../assets/web/taskTitleL.png')
-                          : require('../../../assets/web/taskTitleD.png'),
-                    }}
-                    style={[styles.titleText, { width: 181, height: 34 }]}
-                  />
-                ) : (
-                  <QestionText
-                    style={styles.titleText}
-                    {...colors.qestionText}
-                  />
-                )}
-                <Text style={styles.subText}>{params.subTitle}</Text>
+                <QestionText style={styles.titleText} {...colors.qestionText} />
+                <Text style={styles.subText}>params.subTitle</Text>
               </View>
             </View>
           </View>
