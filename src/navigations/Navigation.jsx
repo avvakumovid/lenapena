@@ -10,6 +10,8 @@ import DnD2 from './../scenes/DragAndDrop/DnD2';
 import DnD3 from '../scenes/Task/FinalTask';
 import FinalTask2 from '../scenes/Task/FinalTask copy';
 import StartTaskO from './../scenes/Task/StartTaskO';
+import PageDragAndDrop from '../components/DragAndDrop/PageDragAndDrop';
+import Viewport from '../components/Viewport';
 
 const Stack = createNativeStackNavigator();
 
@@ -22,7 +24,7 @@ export default function Navigation() {
       }}
     >
       {/* <Stack.Screen name='starttask2' component={StartTaskO} /> */}
-      <Stack.Screen name='menu' component={Menu} />
+      <Stack.Screen name='menu' component={Viewport} />
       <Stack.Screen name='starttask' component={StartTask} />
       <Stack.Screen name='taskquestion' component={TaskQuestion} />
       <Stack.Screen name='finaltask' component={FinalTask} />
