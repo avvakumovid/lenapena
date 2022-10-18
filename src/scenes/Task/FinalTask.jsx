@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import {
   StyleSheet,
   View,
@@ -15,32 +15,40 @@ import Background from '../../components/Background';
 import PlayBtn from '../../../assets/images/PlayBtn';
 import { Context } from '../../context/context';
 import Footer from '../../components/Footer';
+import CheckBtn from './../../../assets/images/CheckBtn';
+import XBtn from './../../../assets/images/XBtn';
 
 export default FinalTask = ({ navigation }) => {
   const [showDraggable, setShowDraggable] = useState(true);
   const [showDraggable2, setShowDraggable2] = useState(true);
   const [dropZoneValues, setdropZoneValues] = useState(null);
   const [dropZoneValues2, setdropZoneValues2] = useState(null);
+  const [showCheckBtn, setShowCheckBtn] = useState(false);
+  const [showXBtn, setShowXBtn] = useState(false);
   const [pan, setPan] = useState(new Animated.ValueXY());
   const [pan2, setPan2] = useState(new Animated.ValueXY());
 
+  useEffect(() => {
+    if (!showDraggable && !showDraggable2) {
+      navigation.navigate('starttask', {
+        subTitle: 'ПОСЛУШАЙ И ЗАПОМНИ',
+      });
+    }
+  }, [showDraggable, showDraggable2]);
+
   const setDropZoneValues = event => {
-    console.log(1, event.nativeEvent.layout);
     setdropZoneValues(event.nativeEvent.layout);
   };
   const setDropZoneValues2 = event => {
-    console.log(2, event.nativeEvent.layout);
     setdropZoneValues2(event.nativeEvent.layout);
   };
   const { tasks } = useSelector(state => state.tasks);
   const [sound, setSound] = useState();
-  const droppableOpacity1 = React.useRef(new Animated.Value(0));
   const trashIconScale1 = React.useRef(new Animated.Value(1));
-  const droppableOpacity2 = React.useRef(new Animated.Value(0));
   const trashIconScale2 = React.useRef(new Animated.Value(1));
+  const checkBtn = useRef(new Animated.Value(0)).current;
+  const xBtn = React.useRef(new Animated.Value(0)).current;
   const [items, setItems] = React.useState(tasks);
-  const [showFirstBtn, setShowFirstBtn] = useState(true);
-  const [showSecondBtn, setShowSecondBtn] = useState(true);
   const animateValue = (ref, toValue) =>
     Animated.timing(ref.current, {
       toValue,
@@ -49,14 +57,11 @@ export default FinalTask = ({ navigation }) => {
   async function playSound(audio) {
     const { sound } = await Audio.Sound.createAsync(audio);
     setSound(sound);
-
-    console.log('Playing Sound');
     await sound.playAsync();
   }
   useEffect(() => {
     return sound
       ? () => {
-          console.log('Unloading Sound');
           sound.unloadAsync();
         }
       : undefined;
@@ -91,6 +96,10 @@ export default FinalTask = ({ navigation }) => {
       alignSelf: 'center',
       width: 190,
       height: 190,
+    },
+    checkBtn: {
+      position: 'absolute',
+      top: '20%',
     },
   });
   return (
@@ -185,7 +194,11 @@ export default FinalTask = ({ navigation }) => {
             panResponder={creatPanResponder(
               pan,
               dropZoneValues,
-              setShowDraggable
+              setShowDraggable,
+              checkBtn,
+              xBtn,
+              setShowCheckBtn,
+              setShowXBtn
             )}
             item={items[0]}
           />
@@ -196,7 +209,11 @@ export default FinalTask = ({ navigation }) => {
             panResponder={creatPanResponder(
               pan2,
               dropZoneValues2,
-              setShowDraggable2
+              setShowDraggable2,
+              checkBtn,
+              xBtn,
+              setShowCheckBtn,
+              setShowXBtn
             )}
             item={items[1]}
           />
@@ -209,7 +226,19 @@ export default FinalTask = ({ navigation }) => {
             subTitle: 'ПОСЛУШАЙ И ЗАПОМНИ',
           });
         }}
+        leftBtnVisible={false}
+        rightBtnVisible={false}
       />
+      {showCheckBtn && (
+        <Animated.View style={[styles.checkBtn, { opacity: checkBtn }]}>
+          <CheckBtn {...colors.lightPinkPlayBtn} />
+        </Animated.View>
+      )}
+      {showXBtn && (
+        <Animated.View style={[styles.checkBtn, { opacity: xBtn }]}>
+          <XBtn {...colors.lightPinkPlayBtn} />
+        </Animated.View>
+      )}
     </Background>
   );
 };
@@ -277,7 +306,15 @@ const isDropZone = (gesture, dropZoneValues) => {
   );
 };
 
-const creatPanResponder = (pan, dropZoneValues, setShowDraggable) => {
+const creatPanResponder = (
+  pan,
+  dropZoneValues,
+  setShowDraggable,
+  fadeC,
+  fadeX,
+  setC,
+  setX
+) => {
   return PanResponder.create({
     onStartShouldSetPanResponder: () => true,
     onPanResponderMove: Animated.event([
@@ -290,9 +327,37 @@ const creatPanResponder = (pan, dropZoneValues, setShowDraggable) => {
     onPanResponderRelease: (e, gesture) => {
       if (isDropZone(gesture, dropZoneValues)) {
         setShowDraggable(false);
+        setC(true);
+        fadeIn(fadeC);
+
+        setTimeout(() => {
+          fadeOut(fadeC);
+          setC(false);
+        }, 700);
       } else {
+        setX(true);
+        fadeIn(fadeX);
         Animated.spring(pan, { toValue: { x: 0, y: 0 } }).start();
+        setTimeout(() => {
+          fadeOut(fadeX);
+          setX(false);
+        }, 700);
       }
     },
   });
+};
+
+const fadeIn = fadeAnim => {
+  Animated.timing(fadeAnim, {
+    toValue: 1,
+    duration: 700,
+  }).start();
+};
+
+const fadeOut = fadeAnim => {
+  // Will change fadeAnim value to 0 in 3 seconds
+  Animated.timing(fadeAnim, {
+    toValue: 0,
+    duration: 700,
+  }).start();
 };
