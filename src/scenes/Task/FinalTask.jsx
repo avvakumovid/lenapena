@@ -271,13 +271,9 @@ const RenderDraggable = ({ pan, panResponder, item }) => {
 };
 
 const isDropZone = (gesture, dropZoneValues) => {
-  console.log('gesture y', gesture.moveY);
-  console.log('dropZoneValues y', dropZoneValues.y);
-  console.log('dropZoneValues x', dropZoneValues.y);
-  console.log('dropZoneValues height', dropZoneValues.height);
   return (
-    gesture.moveY > dropZoneValues.y &&
-    gesture.moveY < dropZoneValues.y + dropZoneValues.height
+    gesture.moveY / 2 > dropZoneValues.y &&
+    gesture.moveY / 2 < dropZoneValues.y + dropZoneValues.height
   );
 };
 
