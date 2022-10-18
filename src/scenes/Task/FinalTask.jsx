@@ -67,8 +67,8 @@ export default FinalTask = ({ navigation }) => {
     pbtnImage: {},
     main: {
       justifyContent: 'space-between',
-      marginTop: 75,
-      paddingHorizontal: 20,
+      marginTop: 55,
+      paddingLeft: 10,
     },
     mainText: {
       fontFamily: 'Franklin Gothic Medium',

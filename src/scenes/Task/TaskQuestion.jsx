@@ -42,7 +42,12 @@ export default function TaskQuestion({ navigation, route }) {
       : undefined;
   }, [sound]);
   const styles = StyleSheet.create({
-    container: {},
+    container: {
+      justifyContent: 'flex-start',
+      alignItems: 'flex-start',
+      paddingHorizontal: 30,
+      width: widthScreen,
+    },
     text: {},
     pbtnImage: {},
     mainText: {
@@ -54,15 +59,15 @@ export default function TaskQuestion({ navigation, route }) {
       color: colors.mainTextColor,
       marginLeft: 15,
       flexWrap: 'wrap',
-      maxWidth: widthScreen - 135,
+      maxWidth: widthScreen - 120,
     },
 
     heading: {
       flexDirection: 'row',
       alignItems: 'center',
       marginTop: 100,
-      width: widthScreen - 55,
-      paddingHorizontal: 20,
+
+      // paddingHorizontal: 20,
     },
     bottomPlayBtn: {
       marginTop: 32,
@@ -111,6 +116,7 @@ export default function TaskQuestion({ navigation, route }) {
         </View>
         {!pressQestion ? (
           <TouchableOpacity
+            style={styles.questionBtn}
             onPress={() => {
               setPressQestion(prev => !prev);
             }}
@@ -123,10 +129,10 @@ export default function TaskQuestion({ navigation, route }) {
                       ? require('../../../assets/web/qestionbtnL.png')
                       : require('../../../assets/web/qestionbtnD.png'),
                 }}
-                style={[styles.questionBtn, { width: 190, height: 190 }]}
+                style={{ width: 190, height: 190 }}
               />
             ) : (
-              <QestionBtn style={styles.questionBtn} {...colors.qestionBtn} />
+              <QestionBtn {...colors.qestionBtn} />
             )}
           </TouchableOpacity>
         ) : (
