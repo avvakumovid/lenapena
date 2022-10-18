@@ -27,7 +27,6 @@ const { Provider, Droppable, Draggable } = createDndContext();
 export default function FinalTask({ navigation }) {
   const { tasks } = useSelector(state => state.tasks);
   const [sound, setSound] = useState();
-
   const droppableOpacity1 = React.useRef(new Animated.Value(0));
   const trashIconScale1 = React.useRef(new Animated.Value(1));
   const droppableOpacity2 = React.useRef(new Animated.Value(0));
