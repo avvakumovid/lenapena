@@ -3,7 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Menu from '../scenes/Menu/Menu';
 import StartTask from '../scenes/Task/StartTask';
 import TaskQuestion from '../scenes/Task/TaskQuestion';
-import FinalTask from './../scenes/Task/FinalTask';
+import FinalTask from '../scenes/Task/FinalTask';
 import Anime from '../components/Anime';
 
 const Stack = createNativeStackNavigator();

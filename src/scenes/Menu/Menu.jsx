@@ -2,7 +2,6 @@ import { Image, StyleSheet, TouchableOpacity, Platform } from 'react-native';
 import React, { useContext } from 'react';
 import Background from './../../components/Background';
 import { Context } from '../../context/context';
-import { data } from './../../../data/task';
 import { useDispatch } from 'react-redux';
 import { setTasks } from '../../store/slice/tasksSlice';
 import SunBtn from './../../components/icons/SunBtn';

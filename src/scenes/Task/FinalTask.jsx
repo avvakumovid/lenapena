@@ -18,7 +18,7 @@ import XBtn from './../../components/icons/XBtn';
 import CheckBtn from './../../components/icons/CheckBtn';
 import PlayBtn from './../../components/icons/PlayBtn';
 
-export default FinalTask = ({ navigation }) => {
+const FinalTask = ({ navigation }) => {
   const [showDraggable, setShowDraggable] = useState(true);
   const [showDraggable2, setShowDraggable2] = useState(true);
   const [dropZoneValues, setdropZoneValues] = useState(null);
@@ -367,3 +367,5 @@ const fadeOut = fadeAnim => {
     duration: 700,
   }).start();
 };
+
+export default FinalTask;
