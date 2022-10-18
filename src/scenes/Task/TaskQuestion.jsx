@@ -6,8 +6,9 @@ import {
   TouchableOpacity,
   Platform,
   Dimensions,
+  Animated,
 } from 'react-native';
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 import { Audio } from 'expo-av';
 import Background from '../../components/Background';
 import Footer from '../../components/Footer';
@@ -20,6 +21,8 @@ import { acceptTask } from '../../store/slice/tasksSlice';
 const widthScreen = Dimensions.get('screen').width;
 
 export default function TaskQuestion({ navigation, route }) {
+  const fadeBtnAnim = useRef(new Animated.Value(1)).current;
+  const fadeMainAnim = useRef(new Animated.Value(0)).current;
   const [sound, setSound] = useState();
   const [pressQestion, setPressQestion] = useState(false);
   const { tasks } = useSelector(state => state.tasks);
@@ -41,6 +44,7 @@ export default function TaskQuestion({ navigation, route }) {
         }
       : undefined;
   }, [sound]);
+
   const styles = StyleSheet.create({
     container: {
       justifyContent: 'flex-start',
@@ -115,28 +119,45 @@ export default function TaskQuestion({ navigation, route }) {
           </View>
         </View>
         {!pressQestion ? (
-          <TouchableOpacity
-            style={styles.questionBtn}
-            onPress={() => {
-              setPressQestion(prev => !prev);
+          <Animated.View
+            style={[
+              styles.questionBtn,
+              {
+                opacity: fadeBtnAnim,
+              },
+            ]}
+          >
+            <TouchableOpacity
+              onPress={async () => {
+                fadeOut(fadeBtnAnim);
+                setTimeout(() => {
+                  setPressQestion(true);
+                  fadeIn(fadeMainAnim);
+                }, 700);
+              }}
+            >
+              {Platform.OS === 'web' ? (
+                <Image
+                  source={{
+                    uri:
+                      name == 'dark'
+                        ? require('../../../assets/web/qestionbtnL.png')
+                        : require('../../../assets/web/qestionbtnD.png'),
+                  }}
+                  style={{ width: 190, height: 190 }}
+                />
+              ) : (
+                <QestionBtn {...colors.qestionBtn} />
+              )}
+            </TouchableOpacity>
+          </Animated.View>
+        ) : (
+          <Animated.View
+            style={{
+              width: '100%',
+              opacity: fadeMainAnim,
             }}
           >
-            {Platform.OS === 'web' ? (
-              <Image
-                source={{
-                  uri:
-                    name == 'dark'
-                      ? require('../../../assets/web/qestionbtnL.png')
-                      : require('../../../assets/web/qestionbtnD.png'),
-                }}
-                style={{ width: 190, height: 190 }}
-              />
-            ) : (
-              <QestionBtn {...colors.qestionBtn} />
-            )}
-          </TouchableOpacity>
-        ) : (
-          <>
             {Platform.OS === 'web' ? (
               <Image
                 source={{
@@ -196,7 +217,7 @@ export default function TaskQuestion({ navigation, route }) {
                 <PlayBtn {...colors.purplePlayBtn} />
               )}
             </TouchableOpacity>
-          </>
+          </Animated.View>
         )}
       </View>
       <Footer
@@ -215,3 +236,18 @@ export default function TaskQuestion({ navigation, route }) {
     </Background>
   );
 }
+
+const fadeIn = fadeAnim => {
+  Animated.timing(fadeAnim, {
+    toValue: 1,
+    duration: 700,
+  }).start();
+};
+
+const fadeOut = fadeAnim => {
+  // Will change fadeAnim value to 0 in 3 seconds
+  Animated.timing(fadeAnim, {
+    toValue: 0,
+    duration: 700,
+  }).start();
+};
