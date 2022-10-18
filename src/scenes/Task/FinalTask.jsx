@@ -30,8 +30,14 @@ export default FinalTask = ({ navigation }) => {
 
   useEffect(() => {
     if (!showDraggable && !showDraggable2) {
-      navigation.navigate('starttask', {
-        subTitle: 'ПОСЛУШАЙ И ЗАПОМНИ',
+      setTimeout(() => {
+        navigation.navigate(
+          'starttask',
+          {
+            subTitle: 'ПОСЛУШАЙ И ЗАПОМНИ',
+          },
+          700
+        );
       });
     }
   }, [showDraggable, showDraggable2]);
