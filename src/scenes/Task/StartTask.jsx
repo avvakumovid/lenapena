@@ -11,14 +11,11 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Audio } from 'expo-av';
 import Background from '../../components/Background';
 import { Context } from '../../context/context';
-import PlayBtn from '../../../assets/images/PlayBtn';
 import { useDispatch, useSelector } from 'react-redux';
 import { acceptTask, setTasks } from '../../store/slice/tasksSlice';
-import HomeBtn from '../../../assets/images/HomeBtn';
-import { LinearGradient } from 'expo-linear-gradient';
-import QestionText from '../../../assets/images/QestionText';
 import Footer from './../../components/Footer';
-import StartBtn from '../../../assets/images/StartBtn';
+import QestionText from './../../components/icons/QestionText';
+import PlayBtn from './../../components/icons/PlayBtn';
 
 const widthScreen = Dimensions.get('screen').width;
 

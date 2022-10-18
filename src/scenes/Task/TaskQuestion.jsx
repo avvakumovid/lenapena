@@ -13,10 +13,10 @@ import { Audio } from 'expo-av';
 import Background from '../../components/Background';
 import Footer from '../../components/Footer';
 import { Context } from '../../context/context';
-import PlayBtn from '../../../assets/images/PlayBtn';
-import QestionBtn from './../../../assets/images/QestionBtn';
 import { useSelector, useDispatch } from 'react-redux';
 import { acceptTask } from '../../store/slice/tasksSlice';
+import QestionBtn from './../../components/icons/QestionBtn';
+import PlayBtn from './../../components/icons/PlayBtn';
 
 const widthScreen = Dimensions.get('screen').width;
 

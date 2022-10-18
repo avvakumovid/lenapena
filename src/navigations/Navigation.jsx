@@ -4,8 +4,15 @@ import Menu from '../scenes/Menu/Menu';
 import StartTask from '../scenes/Task/StartTask';
 import TaskQuestion from '../scenes/Task/TaskQuestion';
 import FinalTask from './../scenes/Task/FinalTask';
+import Anime from '../components/Anime';
 
 const Stack = createNativeStackNavigator();
+
+const forFade = ({ current }) => ({
+  cardStyle: {
+    opacity: current.progress,
+  },
+});
 
 export default function Navigation() {
   return (
@@ -15,10 +22,26 @@ export default function Navigation() {
         animation: 'fade',
       }}
     >
-      <Stack.Screen name='menu' component={Menu} />
-      <Stack.Screen name='starttask' component={StartTask} />
-      <Stack.Screen name='taskquestion' component={TaskQuestion} />
-      <Stack.Screen name='finaltask' component={FinalTask} />
+      <Stack.Screen
+        options={{ cardStyleInterpolator: forFade }}
+        name='menu'
+        component={Menu}
+      />
+      <Stack.Screen
+        options={{ cardStyleInterpolator: forFade }}
+        name='starttask'
+        component={StartTask}
+      />
+      <Stack.Screen
+        options={{ cardStyleInterpolator: forFade }}
+        name='taskquestion'
+        component={TaskQuestion}
+      />
+      <Stack.Screen
+        options={{ cardStyleInterpolator: forFade }}
+        name='finaltask'
+        component={FinalTask}
+      />
     </Stack.Navigator>
   );
 }

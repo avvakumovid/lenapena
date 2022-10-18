@@ -9,9 +9,9 @@ import {
 import React, { useContext } from 'react';
 import Icon from 'react-native-vector-icons/SimpleLineIcons';
 import { Context } from '../context/context';
-import HomeBtn from '../../assets/images/HomeBtn';
-import RightBtn from '../../assets/images/RightBtn';
-import LeftBtn from './../../assets/images/LeftBtn';
+import HomeBtn from './icons/HomeBtn';
+import RightBtn from './icons/RightBtn';
+import LeftBtn from './icons/LeftBtn';
 
 const Footer = ({
   navigation,

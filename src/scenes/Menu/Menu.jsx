@@ -2,13 +2,12 @@ import { Image, StyleSheet, TouchableOpacity, Platform } from 'react-native';
 import React, { useContext } from 'react';
 import Background from './../../components/Background';
 import { Context } from '../../context/context';
-import StartBtn from '../../../assets/images/StartBtn';
-import MoonBtn from '../../../assets/images/MoonBtn';
-import SunBtn from './../../../assets/images/SunBtn';
 import { data } from './../../../data/task';
 import { useDispatch } from 'react-redux';
 import { setTasks } from '../../store/slice/tasksSlice';
-import HomeBtn from '../../../assets/images/HomeBtn';
+import SunBtn from './../../components/icons/SunBtn';
+import MoonBtn from './../../components/icons/MoonBtn';
+import StartBtn from './../../components/icons/StartBtn';
 
 const Menu = ({ navigation }) => {
   const { changeTheme, name, colors } = useContext(Context);

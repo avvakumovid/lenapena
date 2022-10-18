@@ -12,11 +12,11 @@ import {
 import { Audio } from 'expo-av';
 import { useSelector } from 'react-redux';
 import Background from '../../components/Background';
-import PlayBtn from '../../../assets/images/PlayBtn';
 import { Context } from '../../context/context';
 import Footer from '../../components/Footer';
-import CheckBtn from './../../../assets/images/CheckBtn';
-import XBtn from './../../../assets/images/XBtn';
+import XBtn from './../../components/icons/XBtn';
+import CheckBtn from './../../components/icons/CheckBtn';
+import PlayBtn from './../../components/icons/PlayBtn';
 
 export default FinalTask = ({ navigation }) => {
   const [showDraggable, setShowDraggable] = useState(true);
