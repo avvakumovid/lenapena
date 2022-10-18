@@ -60,7 +60,6 @@ export default function StartTask({ navigation, route }) {
   const styles = StyleSheet.create({
     title: {
       flexDirection: 'row',
-      // width: widthScreen - widthScreen * 0.2,
     },
     subTitle: {
       textAlign: 'center',
@@ -81,7 +80,6 @@ export default function StartTask({ navigation, route }) {
       fontStyle: 'italic',
       fontSize: 20,
       textTransform: 'uppercase',
-      // alignSelf: 'flex-end',
       textAlign: 'left',
       color: colors.mainTextColor,
       maxWidth: 260,

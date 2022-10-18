@@ -8,7 +8,10 @@ import { StatusBar } from 'expo-status-bar';
 import { store } from './src/store/store';
 import { Provider } from 'react-redux';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-
+console.disableYellowBox = true;
+console.disableYellowBox = true;
+import { LogBox } from 'react-native';
+LogBox.ignoreAllLogs();
 export default function App() {
   const [theme, setTheme] = useState(themes.dark);
 

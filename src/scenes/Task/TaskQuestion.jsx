@@ -5,6 +5,7 @@ import {
   Image,
   TouchableOpacity,
   Platform,
+  Dimensions,
 } from 'react-native';
 import React, { useState, useEffect, useContext } from 'react';
 import { Audio } from 'expo-av';
@@ -16,22 +17,20 @@ import QestionBtn from './../../../assets/images/QestionBtn';
 import { useSelector, useDispatch } from 'react-redux';
 import { acceptTask } from '../../store/slice/tasksSlice';
 
+const widthScreen = Dimensions.get('screen').width;
+
 export default function TaskQuestion({ navigation, route }) {
   const [sound, setSound] = useState();
   const [pressQestion, setPressQestion] = useState(false);
   const { tasks } = useSelector(state => state.tasks);
   const dispatch = useDispatch();
   let { taskIndex } = route.params;
-  console.log(taskIndex);
   let { id, phrase, explanation, image, audio1, audio2, audio3, isAccepted } =
     tasks[taskIndex];
-  // explanation = explanation.split(" ");
   const { name, colors } = useContext(Context);
   async function playSound(audio) {
     const { sound } = await Audio.Sound.createAsync(audio);
     setSound(sound);
-
-    console.log('Playing Sound');
     await sound.playAsync();
   }
   useEffect(() => {
@@ -43,13 +42,8 @@ export default function TaskQuestion({ navigation, route }) {
       : undefined;
   }, [sound]);
   const styles = StyleSheet.create({
+    container: {},
     text: {},
-    imageWraper: {
-      padding: 10,
-      backgroundColor: 'rgba(112, 78, 244, 0.15)',
-      opacity: 1,
-      borderRadius: 999,
-    },
     pbtnImage: {},
     mainText: {
       fontFamily: 'Franklin Gothic Medium',
@@ -59,28 +53,25 @@ export default function TaskQuestion({ navigation, route }) {
       textTransform: 'uppercase',
       color: colors.mainTextColor,
       marginLeft: 15,
-      // textAlign: "right",
-      maxWidth: 300,
-      // maxWidth: '90%',
+      flexWrap: 'wrap',
+      maxWidth: widthScreen - 135,
     },
 
     heading: {
-      // width: widthScreen,
       flexDirection: 'row',
       alignItems: 'center',
       marginTop: 100,
-      // marginBottom: 32,
+      width: widthScreen - 55,
+      paddingHorizontal: 20,
     },
     bottomPlayBtn: {
-      alignSelf: 'center',
       marginTop: 32,
+      alignSelf: 'center',
     },
     mainPicture: {
-      alignSelf: 'center',
-      // marginBottom: 51,
       marginTop: 32,
+      alignSelf: 'center',
     },
-
     questionBtn: {
       marginTop: 102,
       alignSelf: 'center',
@@ -88,7 +79,7 @@ export default function TaskQuestion({ navigation, route }) {
   });
   return (
     <Background>
-      <View>
+      <View style={styles.container}>
         <View
           style={[
             styles.heading,
@@ -176,23 +167,12 @@ export default function TaskQuestion({ navigation, route }) {
               </TouchableOpacity>
               <View style={styles.text}>
                 <Text style={styles.mainText}>{explanation}</Text>
-                {/* <Text style={styles.mainText}>{explanation[0]}</Text> */}
               </View>
             </View>
-            {/* {explanation.slice(1).map((w, i) => (
-              <Text
-                key={i}
-                style={{ ...styles.mainText, marginLeft: 78 + (i + 1) * 20 }}
-              >
-                {w}
-              </Text>
-            ))} */}
 
             <TouchableOpacity
               onPress={() => {
-                // dispatch(acceptTask(taskIndex));
                 playSound(audio3);
-                // navigation.navigate('starttask', { taskIndex });
               }}
               style={styles.bottomPlayBtn}
             >

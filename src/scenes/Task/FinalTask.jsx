@@ -9,13 +9,14 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
-import Background from './Background';
 import { Audio } from 'expo-av';
 import { useSelector } from 'react-redux';
-import PlayBtn from '../../assets/images/PlayBtn';
-import { Context } from '../context/context';
+import Background from '../../components/Background';
+import PlayBtn from '../../../assets/images/PlayBtn';
+import { Context } from '../../context/context';
+import Footer from '../../components/Footer';
 
-export default FinalTask = () => {
+export default FinalTask = ({ navigation }) => {
   const [showDraggable, setShowDraggable] = useState(true);
   const [showDraggable2, setShowDraggable2] = useState(true);
   const [dropZoneValues, setdropZoneValues] = useState(null);
@@ -23,27 +24,12 @@ export default FinalTask = () => {
   const [pan, setPan] = useState(new Animated.ValueXY());
   const [pan2, setPan2] = useState(new Animated.ValueXY());
 
-  const panResponder = PanResponder.create({
-    onStartShouldSetPanResponder: () => true,
-    onPanResponderMove: Animated.event([
-      null,
-      {
-        dx: pan.x,
-        dy: pan.y,
-      },
-    ]),
-    onPanResponderRelease: (e, gesture) => {
-      if (isDropZone(gesture, dropZoneValues)) {
-        setShowDraggable(false);
-      } else {
-        Animated.spring(pan, { toValue: { x: 0, y: 0 } }).start();
-      }
-    },
-  });
   const setDropZoneValues = event => {
+    console.log(1, event.nativeEvent.layout);
     setdropZoneValues(event.nativeEvent.layout);
   };
   const setDropZoneValues2 = event => {
+    console.log(2, event.nativeEvent.layout);
     setdropZoneValues2(event.nativeEvent.layout);
   };
   const { tasks } = useSelector(state => state.tasks);
@@ -79,6 +65,11 @@ export default FinalTask = () => {
 
   const styles = StyleSheet.create({
     pbtnImage: {},
+    main: {
+      justifyContent: 'space-between',
+      marginTop: 75,
+      paddingHorizontal: 20,
+    },
     mainText: {
       fontFamily: 'Franklin Gothic Medium',
       fontStyle: 'italic',
@@ -104,10 +95,12 @@ export default FinalTask = () => {
   });
   return (
     <Background>
-      <View style={Platform.OS == 'web' ? { marginTop: -50 } : {}}>
+      <View
+        style={[styles.main, Platform.OS == 'web' ? { marginTop: -50 } : {}]}
+      >
         <Animated.View
           onLayout={setDropZoneValues.bind(this)}
-          style={[styles.heading, { marginTop: 72 }]}
+          style={[styles.heading]}
         >
           <TouchableOpacity
             onPress={() => {
@@ -130,8 +123,8 @@ export default FinalTask = () => {
                   source={{
                     uri:
                       name == 'dark'
-                        ? require('../../assets/web/playbtn1L.png')
-                        : require('../../assets/web/playbtn1D.png'),
+                        ? require('../../../assets/web/playbtn1L.png')
+                        : require('../../../assets/web/playbtn1D.png'),
                   }}
                   style={[styles.pbtnImage, { width: 70, height: 70 }]}
                 />
@@ -149,7 +142,7 @@ export default FinalTask = () => {
         </Animated.View>
         <Animated.View
           onLayout={setDropZoneValues2.bind(this)}
-          style={[styles.heading]}
+          style={[styles.heading, { marginBottom: 45 }]}
         >
           <TouchableOpacity
             onPress={() => {
@@ -172,8 +165,8 @@ export default FinalTask = () => {
                   source={{
                     uri:
                       name == 'dark'
-                        ? require('../../assets/web/playbtn1L.png')
-                        : require('../../assets/web/playbtn1D.png'),
+                        ? require('../../../assets/web/playbtn1L.png')
+                        : require('../../../assets/web/playbtn1D.png'),
                   }}
                   style={[styles.pbtnImage, { width: 70, height: 70 }]}
                 />
@@ -209,6 +202,14 @@ export default FinalTask = () => {
           />
         )}
       </View>
+      <Footer
+        navigation={navigation}
+        rightBtnCallback={() => {
+          navigation.navigate('starttask', {
+            subTitle: 'ПОСЛУШАЙ И ЗАПОМНИ',
+          });
+        }}
+      />
     </Background>
   );
 };
@@ -256,8 +257,8 @@ const RenderDraggable = ({ pan, panResponder, item }) => {
             source={{
               uri:
                 name == 'dark'
-                  ? require('../../assets/web/playbtn1L.png')
-                  : require('../../assets/web/playbtn1D.png'),
+                  ? require('../../../assets/web/playbtn1L.png')
+                  : require('../../../assets/web/playbtn1D.png'),
             }}
             style={[styles.pbtnImage, { width: 70, height: 70 }]}
           />
@@ -270,6 +271,10 @@ const RenderDraggable = ({ pan, panResponder, item }) => {
 };
 
 const isDropZone = (gesture, dropZoneValues) => {
+  console.log('gesture y', gesture.moveY);
+  console.log('dropZoneValues y', dropZoneValues.y);
+  console.log('dropZoneValues x', dropZoneValues.y);
+  console.log('dropZoneValues height', dropZoneValues.height);
   return (
     gesture.moveY > dropZoneValues.y &&
     gesture.moveY < dropZoneValues.y + dropZoneValues.height

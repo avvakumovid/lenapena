@@ -19,21 +19,10 @@ export default Background;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // backgroundColor: "rgba(87, 83, 83, 0.17);",
     flexDirection: 'column',
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingBottom: 62,
-    // paddingHorizontal: 20,
   },
   blur: { flex: 1 },
-  botBgImg: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-  },
-  topBgImg: {
-    position: 'absolute',
-    right: 0,
-  },
 });
