@@ -1,4 +1,11 @@
-import { StyleSheet, View, SafeAreaView, Platform, Image } from 'react-native';
+import {
+  StyleSheet,
+  View,
+  SafeAreaView,
+  Platform,
+  Image,
+  ScrollView,
+} from 'react-native';
 import React, { useContext } from 'react';
 import { Context } from '../context/context';
 
@@ -26,6 +33,7 @@ const styles = StyleSheet.create({
     maxWidth: 960,
     marginVertical: 0,
     marginHorizontal: 'auto',
+    overflow: 'hidden',
   },
   blur: { flex: 1 },
 });
