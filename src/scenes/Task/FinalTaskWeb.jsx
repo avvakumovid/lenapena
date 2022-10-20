@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Image,
   Platform,
+  Dimensions,
 } from 'react-native';
 import { Audio } from 'expo-av';
 import { createDndContext } from 'react-native-easy-dnd';
@@ -55,6 +56,7 @@ const FinalTaskWeb = ({ navigation }) => {
     }
   }, [items]);
   const { name, colors } = useContext(Context);
+  const widthScreen = Dimensions.get('screen').width;
 
   const styles = StyleSheet.create({
     pbtnImage: {},
@@ -66,7 +68,8 @@ const FinalTaskWeb = ({ navigation }) => {
       textTransform: 'uppercase',
       color: colors.mainTextColor,
       marginLeft: 15,
-      maxWidth: 300,
+      width: widthScreen - 140,
+      maxWidth: 700,
     },
     heading: {
       width: '100%',
@@ -325,7 +328,11 @@ const FinalTaskWeb = ({ navigation }) => {
           </Droppable>
         </View>
       </Provider>
-      <Footer navigation={navigation} />
+      <Footer
+        navigation={navigation}
+        leftBtnVisible={false}
+        rightBtnVisible={false}
+      />
     </Background>
   );
 };

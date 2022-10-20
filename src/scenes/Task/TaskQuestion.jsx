@@ -51,6 +51,7 @@ export default function TaskQuestion({ navigation, route }) {
       alignItems: 'flex-start',
       paddingHorizontal: 30,
       width: widthScreen,
+      maxWidth: 960,
     },
     text: {},
     pbtnImage: {},
@@ -133,7 +134,7 @@ export default function TaskQuestion({ navigation, route }) {
                 setTimeout(() => {
                   setPressQestion(true);
                   fadeIn(fadeMainAnim);
-                }, 700);
+                }, 300);
               }}
             >
               {Platform.OS === 'web' ? (
@@ -240,7 +241,7 @@ export default function TaskQuestion({ navigation, route }) {
 const fadeIn = fadeAnim => {
   Animated.timing(fadeAnim, {
     toValue: 1,
-    duration: 700,
+    duration: 300,
   }).start();
 };
 
@@ -248,6 +249,6 @@ const fadeOut = fadeAnim => {
   // Will change fadeAnim value to 0 in 3 seconds
   Animated.timing(fadeAnim, {
     toValue: 0,
-    duration: 700,
+    duration: 300,
   }).start();
 };
