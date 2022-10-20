@@ -85,7 +85,7 @@ const FinalTaskWeb = ({ navigation }) => {
       height: 190,
     },
     main: {
-      marginTop: -50,
+      // marginTop: -50,
       height: '90%',
       justifyContent: 'space-between',
     },
