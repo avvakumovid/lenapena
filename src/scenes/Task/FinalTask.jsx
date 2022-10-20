@@ -110,9 +110,7 @@ const FinalTask = ({ navigation }) => {
   });
   return (
     <Background>
-      <View
-        style={[styles.main, Platform.OS == 'web' ? { marginTop: -50 } : {}]}
-      >
+      <View style={[styles.main, Platform.OS == 'web' ? {} : {}]}>
         <Animated.View
           onLayout={setDropZoneValues.bind(this)}
           style={[styles.heading]}
