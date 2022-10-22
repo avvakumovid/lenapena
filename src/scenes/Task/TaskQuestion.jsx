@@ -134,7 +134,7 @@ export default function TaskQuestion({ navigation, route }) {
                 setTimeout(() => {
                   setPressQestion(true);
                   fadeIn(fadeMainAnim);
-                }, 300);
+                }, 150);
               }}
             >
               {Platform.OS === 'web' ? (
@@ -241,7 +241,7 @@ export default function TaskQuestion({ navigation, route }) {
 const fadeIn = fadeAnim => {
   Animated.timing(fadeAnim, {
     toValue: 1,
-    duration: 300,
+    duration: 150,
   }).start();
 };
 
@@ -249,6 +249,6 @@ const fadeOut = fadeAnim => {
   // Will change fadeAnim value to 0 in 3 seconds
   Animated.timing(fadeAnim, {
     toValue: 0,
-    duration: 300,
+    duration: 150,
   }).start();
 };

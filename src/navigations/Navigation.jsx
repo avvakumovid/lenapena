@@ -7,11 +7,14 @@ import FinalTaskWeb from '../scenes/Task/FinalTaskWeb';
 
 const Stack = createNativeStackNavigator();
 
-const forFade = ({ current }) => ({
-  cardStyle: {
-    opacity: current.progress,
-  },
-});
+const forFade = ({ current }) => {
+  console.log(current);
+  return {
+    cardStyle: {
+      opacity: current.progress,
+    },
+  };
+};
 
 export default function Navigation() {
   return (

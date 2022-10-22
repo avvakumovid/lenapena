@@ -21,7 +21,7 @@ const App = ({ isRight, modalVisible }) => {
               style={[{ width: 70, height: 70 }]}
             />
           ) : (
-            <CheckBtn />
+            <CheckBtn {...colors.pinkPlayBtn} />
           ))}
         {!isRight &&
           (Platform.OS === 'web' ? (
@@ -35,7 +35,7 @@ const App = ({ isRight, modalVisible }) => {
               style={[{ width: 70, height: 70 }]}
             />
           ) : (
-            <XBtn />
+            <XBtn {...colors.pinkPlayBtn} />
           ))}
       </View>
     </Modal>

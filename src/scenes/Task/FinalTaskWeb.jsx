@@ -36,7 +36,7 @@ const FinalTaskWeb = ({ navigation }) => {
   const animateValue = (ref, toValue) =>
     Animated.timing(ref.current, {
       toValue,
-      duration: 300,
+      duration: 350,
     }).start();
   async function playSound(audio) {
     const { sound } = await Audio.Sound.createAsync(audio);
@@ -58,7 +58,7 @@ const FinalTaskWeb = ({ navigation }) => {
         navigation.navigate('starttask', {
           subTitle: 'ПОСЛУШАЙ И ЗАПОМНИ',
         });
-      }, 300);
+      }, 400);
     }
   }, [items]);
   const { name, colors } = useContext(Context);
@@ -125,7 +125,6 @@ const FinalTaskWeb = ({ navigation }) => {
           ]}
         >
           <Droppable
-            style={{ backgroundColor: 'red' }}
             customId={1}
             onEnter={({ payload }) => {
               animateValue(trashIconScale1, 1.2);
@@ -143,13 +142,13 @@ const FinalTaskWeb = ({ navigation }) => {
                 setModalVisible(true);
                 setTimeout(() => {
                   setModalVisible(false);
-                }, 500);
+                }, 400);
               } else {
                 setIsRight(false);
                 setModalVisible(true);
                 setTimeout(() => {
                   setModalVisible(false);
-                }, 500);
+                }, 400);
               }
             }}
           >
@@ -292,13 +291,13 @@ const FinalTaskWeb = ({ navigation }) => {
                 setModalVisible(true);
                 setTimeout(() => {
                   setModalVisible(false);
-                }, 500);
+                }, 400);
               } else {
                 setIsRight(false);
                 setModalVisible(true);
                 setTimeout(() => {
                   setModalVisible(false);
-                }, 500);
+                }, 400);
               }
             }}
             customId={2}
@@ -318,7 +317,7 @@ const FinalTaskWeb = ({ navigation }) => {
                           : 'rgba(112, 78, 244, 0)',
                       },
                       viewProps.style,
-                      { ...styles.heading, backgroundColor: 'red' },
+                      { ...styles.heading },
                     ]}
                   >
                     <TouchableOpacity

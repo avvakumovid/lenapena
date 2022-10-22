@@ -36,7 +36,7 @@ const FinalTask = ({ navigation }) => {
           {
             subTitle: 'ПОСЛУШАЙ И ЗАПОМНИ',
           },
-          700
+          1000
         );
       });
     }
@@ -337,7 +337,7 @@ const creatPanResponder = (
         setTimeout(() => {
           fadeOut(fadeC);
           setC(false);
-        }, 700);
+        }, 1000);
       } else {
         setX(true);
         fadeIn(fadeX);
@@ -345,7 +345,7 @@ const creatPanResponder = (
         setTimeout(() => {
           fadeOut(fadeX);
           setX(false);
-        }, 700);
+        }, 1000);
       }
     },
   });
@@ -354,7 +354,7 @@ const creatPanResponder = (
 const fadeIn = fadeAnim => {
   Animated.timing(fadeAnim, {
     toValue: 1,
-    duration: 700,
+    duration: 350,
   }).start();
 };
 
@@ -362,7 +362,7 @@ const fadeOut = fadeAnim => {
   // Will change fadeAnim value to 0 in 3 seconds
   Animated.timing(fadeAnim, {
     toValue: 0,
-    duration: 700,
+    duration: 350,
   }).start();
 };
 
