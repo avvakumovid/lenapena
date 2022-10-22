@@ -181,8 +181,8 @@ const FinalTaskWeb = ({ navigation }) => {
                             source={{
                               uri:
                                 name == 'dark'
-                                  ? require('../../../assets/web/playbtn1L.png')
-                                  : require('../../../assets/web/playbtn1D.png'),
+                                  ? require('../../../assets/web/playbtn1L.svg')
+                                  : require('../../../assets/web/playbtn1D.svg'),
                             }}
                             style={[
                               styles.pbtnImage,
@@ -251,8 +251,8 @@ const FinalTaskWeb = ({ navigation }) => {
                                 source={{
                                   uri:
                                     name == 'dark'
-                                      ? require('../../../assets/web/playbtn1L.png')
-                                      : require('../../../assets/web/playbtn1D.png'),
+                                      ? require('../../../assets/web/playbtn1L.svg')
+                                      : require('../../../assets/web/playbtn1D.svg'),
                                 }}
                                 style={[
                                   styles.pbtnImage,
@@ -341,8 +341,8 @@ const FinalTaskWeb = ({ navigation }) => {
                             source={{
                               uri:
                                 name == 'dark'
-                                  ? require('../../../assets/web/playbtn1L.png')
-                                  : require('../../../assets/web/playbtn1D.png'),
+                                  ? require('../../../assets/web/playbtn1L.svg')
+                                  : require('../../../assets/web/playbtn1D.svg'),
                             }}
                             style={[
                               styles.pbtnImage,

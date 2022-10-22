@@ -106,8 +106,8 @@ export default function TaskQuestion({ navigation, route }) {
                 source={{
                   uri:
                     name == 'dark'
-                      ? require('../../../assets/web/playbtn1L.png')
-                      : require('../../../assets/web/playbtn1D.png'),
+                      ? require('../../../assets/web/playbtn1L.svg')
+                      : require('../../../assets/web/playbtn1D.svg'),
                 }}
                 style={[{ width: 70, height: 70 }]}
               />
@@ -142,8 +142,8 @@ export default function TaskQuestion({ navigation, route }) {
                   source={{
                     uri:
                       name == 'dark'
-                        ? require('../../../assets/web/qestionbtnL.png')
-                        : require('../../../assets/web/qestionbtnD.png'),
+                        ? require('../../../assets/web/qestionbtnL.svg')
+                        : require('../../../assets/web/qestionbtnD.svg'),
                   }}
                   style={{ width: 190, height: 190 }}
                 />
@@ -181,8 +181,8 @@ export default function TaskQuestion({ navigation, route }) {
                     source={{
                       uri:
                         name == 'dark'
-                          ? require('../../../assets/web/playbtn2L.png')
-                          : require('../../../assets/web/playbtn2D.png'),
+                          ? require('../../../assets/web/playbtn2L.svg')
+                          : require('../../../assets/web/playbtn2D.svg'),
                     }}
                     style={[styles.pbtnImage, { width: 70, height: 70 }]}
                   />
@@ -209,8 +209,8 @@ export default function TaskQuestion({ navigation, route }) {
                   source={{
                     uri:
                       name == 'dark'
-                        ? require('../../../assets/web/playbtn2L.png')
-                        : require('../../../assets/web/playbtn2D.png'),
+                        ? require('../../../assets/web/playbtn2L.svg')
+                        : require('../../../assets/web/playbtn2D.svg'),
                   }}
                   style={[{ width: 70, height: 70 }]}
                 />

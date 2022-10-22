@@ -15,8 +15,8 @@ const App = ({ isRight, modalVisible }) => {
               source={{
                 uri:
                   name == 'dark'
-                    ? require('../../../assets/images/checkbtn.png')
-                    : require('../../../assets/images/checkbtnD.png'),
+                    ? require('../../../assets/web/checkbtnL.svg')
+                    : require('../../../assets/web/checkbtnD.svg'),
               }}
               style={[{ width: 116, height: 91 }]}
             />
@@ -29,8 +29,8 @@ const App = ({ isRight, modalVisible }) => {
               source={{
                 uri:
                   name == 'dark'
-                    ? require('../../../assets/images/xbtn.png')
-                    : require('../../../assets/images/xbtnD.png'),
+                    ? require('../../../assets/web/xbtnL.svg')
+                    : require('../../../assets/web/xbtnD.svg'),
               }}
               style={[{ width: 116, height: 116 }]}
             />

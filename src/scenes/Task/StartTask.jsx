@@ -122,8 +122,8 @@ export default function StartTask({ navigation, route }) {
                     source={{
                       uri:
                         name == 'dark'
-                          ? require('../../../assets/web/playbtn1L.png')
-                          : require('../../../assets/web/playbtn1D.png'),
+                          ? require('../../../assets/web/playbtn1L.svg')
+                          : require('../../../assets/web/playbtn1D.svg'),
                     }}
                     style={[styles.playBtn, { width: 70, height: 70 }]}
                   />
@@ -138,8 +138,8 @@ export default function StartTask({ navigation, route }) {
                     source={{
                       uri:
                         name == 'dark'
-                          ? require('../../../assets/web/taskTitleL.png')
-                          : require('../../../assets/web/taskTitleD.png'),
+                          ? require('../../../assets/web/taskTitleL.svg')
+                          : require('../../../assets/web/taskTitleD.svg'),
                     }}
                     style={[styles.titleText, { width: 181, height: 34 }]}
                   />

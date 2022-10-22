@@ -39,8 +39,8 @@ const Footer = ({
               source={{
                 uri:
                   name == 'dark'
-                    ? require('../../assets/web/leftArrowL.png')
-                    : require('../../assets/web/leftArrowD.png'),
+                    ? require('../../assets/web/leftArrowL.svg')
+                    : require('../../assets/web/leftArrowD.svg'),
               }}
               style={[{ width: 11, height: 24 }]}
             />
@@ -57,15 +57,15 @@ const Footer = ({
       >
         {/* <Image
           style={styles.goHome}
-          source={require('../../assets/images/goHomeAlt.png')}
+          source={require('../../assets/images/goHomeAlt.svg')}
         /> */}
         {Platform.OS === 'web' ? (
           <Image
             source={{
               uri:
                 name == 'dark'
-                  ? require('../../assets/web/homeL.png')
-                  : require('../../assets/web/homeD.png'),
+                  ? require('../../assets/web/homeL.svg')
+                  : require('../../assets/web/homeD.svg'),
             }}
             style={[{ width: 20, height: 22 }]}
           />
@@ -89,8 +89,8 @@ const Footer = ({
               source={{
                 uri:
                   name == 'dark'
-                    ? require('../../assets/web/rightArrowL.png')
-                    : require('../../assets/web/rightArrowD.png'),
+                    ? require('../../assets/web/rightArrowL.svg')
+                    : require('../../assets/web/rightArrowD.svg'),
               }}
               style={[{ width: 11, height: 24 }]}
             />

@@ -136,8 +136,8 @@ const FinalTask = ({ navigation }) => {
                   source={{
                     uri:
                       name == 'dark'
-                        ? require('../../../assets/web/playbtn1L.png')
-                        : require('../../../assets/web/playbtn1D.png'),
+                        ? require('../../../assets/web/playbtn1L.svg')
+                        : require('../../../assets/web/playbtn1D.svg'),
                   }}
                   style={[styles.pbtnImage, { width: 70, height: 70 }]}
                 />
@@ -178,8 +178,8 @@ const FinalTask = ({ navigation }) => {
                   source={{
                     uri:
                       name == 'dark'
-                        ? require('../../../assets/web/playbtn1L.png')
-                        : require('../../../assets/web/playbtn1D.png'),
+                        ? require('../../../assets/web/playbtn1L.svg')
+                        : require('../../../assets/web/playbtn1D.svg'),
                   }}
                   style={[styles.pbtnImage, { width: 70, height: 70 }]}
                 />
@@ -290,8 +290,8 @@ const RenderDraggable = ({ pan, panResponder, item }) => {
             source={{
               uri:
                 name == 'dark'
-                  ? require('../../../assets/web/playbtn1L.png')
-                  : require('../../../assets/web/playbtn1D.png'),
+                  ? require('../../../assets/web/playbtn1L.svg')
+                  : require('../../../assets/web/playbtn1D.svg'),
             }}
             style={[styles.pbtnImage, { width: 70, height: 70 }]}
           />
