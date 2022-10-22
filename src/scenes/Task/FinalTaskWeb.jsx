@@ -322,7 +322,7 @@ const FinalTaskWeb = ({ navigation }) => {
                   >
                     <TouchableOpacity
                       onPress={() => {
-                        playSound(tasks[0].audio2);
+                        playSound(tasks[1].audio1);
                       }}
                     >
                       <Animated.View
