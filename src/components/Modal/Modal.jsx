@@ -18,7 +18,7 @@ const App = ({ isRight, modalVisible }) => {
                     ? require('../../../assets/images/checkbtn.png')
                     : require('../../../assets/images/checkbtnD.png'),
               }}
-              style={[{ width: 70, height: 70 }]}
+              style={[{ width: 116, height: 91 }]}
             />
           ) : (
             <CheckBtn {...colors.pinkPlayBtn} />
@@ -26,13 +26,13 @@ const App = ({ isRight, modalVisible }) => {
         {!isRight &&
           (Platform.OS === 'web' ? (
             <Image
-              source={{
+              source={{x
                 uri:
                   name == 'dark'
                     ? require('../../../assets/images/xbtn.png')
                     : require('../../../assets/images/xbtnD.png'),
               }}
-              style={[{ width: 70, height: 70 }]}
+              style={[{ width: 116, height: 116 }]}
             />
           ) : (
             <XBtn {...colors.pinkPlayBtn} />
