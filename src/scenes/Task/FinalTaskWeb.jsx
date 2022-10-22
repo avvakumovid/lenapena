@@ -84,7 +84,21 @@ const FinalTaskWeb = ({ navigation }) => {
       marginTop: 18,
       borderRadius: 99,
     },
-
+    dropWrapper: {
+      width: '100%',
+      height: '30%',
+      flexDirection: 'row',
+      alignItems: 'center',
+      position: 'absolute',
+    },
+    drop: {
+      position: 'relative',
+      width: '100%',
+      flexDirection: 'row',
+      alignItems: 'center',
+      borderRadius: 99,
+      marginTop: 72,
+    },
     mainPicture: {
       alignSelf: 'center',
       width: 190,
@@ -111,13 +125,10 @@ const FinalTaskWeb = ({ navigation }) => {
           ]}
         >
           <Droppable
+            style={{ backgroundColor: 'red' }}
             customId={1}
             onEnter={({ payload }) => {
-              console.log('tasks', tasks);
-              console.log('payload', payload);
-              if (payload === tasks[0].id) {
-                animateValue(trashIconScale1, 1.2);
-              }
+              animateValue(trashIconScale1, 1.2);
             }}
             onLeave={() => {
               animateValue(trashIconScale1, 1);
@@ -144,57 +155,54 @@ const FinalTaskWeb = ({ navigation }) => {
           >
             {({ active, viewProps }) => {
               return (
-                <Animated.View
-                  {...viewProps}
-                  style={[
-                    {
-                      backgroundColor: active
-                        ? 'rgba(112, 78, 244, 0)'
-                        : 'rgba(112, 78, 244, 0)',
-                    },
-                    viewProps.style,
-                    styles.heading,
-                    { marginTop: 72 },
-                  ]}
-                >
-                  <TouchableOpacity
-                    onPress={() => {
-                      playSound(tasks[0].audio1);
-                    }}
-                  >
-                    <Animated.View
-                      style={[
-                        {
-                          transform: [
-                            {
-                              scale: trashIconScale1.current,
-                            },
-                          ],
-                        },
-                      ]}
+                <>
+                  <Animated.View
+                    {...viewProps}
+                    style={[viewProps.style, styles.dropWrapper]}
+                  ></Animated.View>
+                  <Animated.View style={[viewProps.style, styles.drop]}>
+                    <TouchableOpacity
+                      onPress={() => {
+                        playSound(tasks[0].audio1);
+                      }}
                     >
-                      {Platform.OS === 'web' ? (
-                        <Image
-                          source={{
-                            uri:
-                              name == 'dark'
-                                ? require('../../../assets/web/playbtn1L.png')
-                                : require('../../../assets/web/playbtn1D.png'),
-                          }}
-                          style={[styles.pbtnImage, { width: 70, height: 70 }]}
-                        />
-                      ) : (
-                        <PlayBtn
-                          style={styles.pbtnImage}
-                          {...colors.pinkPlayBtn}
-                        />
-                      )}
-                    </Animated.View>
-                  </TouchableOpacity>
-                  <View style={styles.text}>
-                    <Text style={styles.mainText}>{tasks[0].phrase}</Text>
-                  </View>
-                </Animated.View>
+                      <Animated.View
+                        style={[
+                          {
+                            transform: [
+                              {
+                                scale: trashIconScale1.current,
+                              },
+                            ],
+                          },
+                        ]}
+                      >
+                        {Platform.OS === 'web' ? (
+                          <Image
+                            source={{
+                              uri:
+                                name == 'dark'
+                                  ? require('../../../assets/web/playbtn1L.png')
+                                  : require('../../../assets/web/playbtn1D.png'),
+                            }}
+                            style={[
+                              styles.pbtnImage,
+                              { width: 70, height: 70 },
+                            ]}
+                          />
+                        ) : (
+                          <PlayBtn
+                            style={styles.pbtnImage}
+                            {...colors.pinkPlayBtn}
+                          />
+                        )}
+                      </Animated.View>
+                    </TouchableOpacity>
+                    <View style={styles.text}>
+                      <Text style={styles.mainText}>{tasks[0].phrase}</Text>
+                    </View>
+                  </Animated.View>
+                </>
               );
             }}
           </Droppable>
@@ -269,11 +277,7 @@ const FinalTaskWeb = ({ navigation }) => {
           </View>
           <Droppable
             onEnter={({ payload }) => {
-              console.log('tasks', tasks);
-              console.log('payload', payload);
-              if (payload === tasks[1].id) {
-                animateValue(trashIconScale2, 1.2);
-              }
+              animateValue(trashIconScale2, 1.2);
             }}
             onLeave={() => {
               animateValue(trashIconScale2, 1);
@@ -301,56 +305,64 @@ const FinalTaskWeb = ({ navigation }) => {
           >
             {({ active, viewProps }) => {
               return (
-                <Animated.View
-                  {...viewProps}
-                  style={[
-                    {
-                      backgroundColor: active
-                        ? 'rgba(112, 78, 244, 0)'
-                        : 'rgba(112, 78, 244, 0)',
-                    },
-                    viewProps.style,
-                    { ...styles.heading },
-                  ]}
-                >
-                  <TouchableOpacity
-                    onPress={() => {
-                      playSound(tasks[0].audio2);
-                    }}
+                <>
+                  <Animated.View
+                    {...viewProps}
+                    style={[viewProps.style, styles.dropWrapper, { bottom: 0 }]}
+                  ></Animated.View>
+                  <Animated.View
+                    style={[
+                      {
+                        backgroundColor: active
+                          ? 'rgba(112, 78, 244, 0)'
+                          : 'rgba(112, 78, 244, 0)',
+                      },
+                      viewProps.style,
+                      { ...styles.heading, backgroundColor: 'red' },
+                    ]}
                   >
-                    <Animated.View
-                      style={[
-                        {
-                          transform: [
-                            {
-                              scale: trashIconScale2.current,
-                            },
-                          ],
-                        },
-                      ]}
+                    <TouchableOpacity
+                      onPress={() => {
+                        playSound(tasks[0].audio2);
+                      }}
                     >
-                      {Platform.OS === 'web' ? (
-                        <Image
-                          source={{
-                            uri:
-                              name == 'dark'
-                                ? require('../../../assets/web/playbtn1L.png')
-                                : require('../../../assets/web/playbtn1D.png'),
-                          }}
-                          style={[styles.pbtnImage, { width: 70, height: 70 }]}
-                        />
-                      ) : (
-                        <PlayBtn
-                          style={styles.pbtnImage}
-                          {...colors.pinkPlayBtn}
-                        />
-                      )}
-                    </Animated.View>
-                  </TouchableOpacity>
-                  <View style={styles.text}>
-                    <Text style={styles.mainText}>{tasks[1].phrase}</Text>
-                  </View>
-                </Animated.View>
+                      <Animated.View
+                        style={[
+                          {
+                            transform: [
+                              {
+                                scale: trashIconScale2.current,
+                              },
+                            ],
+                          },
+                        ]}
+                      >
+                        {Platform.OS === 'web' ? (
+                          <Image
+                            source={{
+                              uri:
+                                name == 'dark'
+                                  ? require('../../../assets/web/playbtn1L.png')
+                                  : require('../../../assets/web/playbtn1D.png'),
+                            }}
+                            style={[
+                              styles.pbtnImage,
+                              { width: 70, height: 70 },
+                            ]}
+                          />
+                        ) : (
+                          <PlayBtn
+                            style={styles.pbtnImage}
+                            {...colors.pinkPlayBtn}
+                          />
+                        )}
+                      </Animated.View>
+                    </TouchableOpacity>
+                    <View style={styles.text}>
+                      <Text style={styles.mainText}>{tasks[1].phrase}</Text>
+                    </View>
+                  </Animated.View>
+                </>
               );
             }}
           </Droppable>
