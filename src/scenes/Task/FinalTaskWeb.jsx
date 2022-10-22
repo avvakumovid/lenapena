@@ -16,6 +16,7 @@ import Background from '../../components/Background';
 import { useSelector } from 'react-redux';
 import Footer from '../../components/Footer';
 import PlayBtn from './../../components/icons/PlayBtn';
+import Modal from '../../components/Modal/Modal';
 
 const { Provider, Droppable, Draggable } = createDndContext();
 
@@ -28,6 +29,9 @@ const FinalTaskWeb = ({ navigation }) => {
   const trashIconScale2 = React.useRef(new Animated.Value(1));
   const [items, setItems] = React.useState(shuffle(tasks));
   const [showFirstBtn, setShowFirstBtn] = useState(true);
+
+  const [modalVisible, setModalVisible] = useState(false);
+  const [isRight, setIsRight] = useState(false);
 
   const animateValue = (ref, toValue) =>
     Animated.timing(ref.current, {
@@ -50,9 +54,11 @@ const FinalTaskWeb = ({ navigation }) => {
 
   useEffect(() => {
     if (items.length == 0) {
-      navigation.navigate('starttask', {
-        subTitle: 'ПОСЛУШАЙ И ЗАПОМНИ',
-      });
+      setTimeout(() => {
+        navigation.navigate('starttask', {
+          subTitle: 'ПОСЛУШАЙ И ЗАПОМНИ',
+        });
+      }, 300);
     }
   }, [items]);
   const { name, colors } = useContext(Context);
@@ -86,7 +92,7 @@ const FinalTaskWeb = ({ navigation }) => {
     },
     main: {
       // marginTop: -50,
-      height: '90%',
+      height: '95%',
       justifyContent: 'space-between',
     },
   });
@@ -122,6 +128,17 @@ const FinalTaskWeb = ({ navigation }) => {
               if (payload === tasks[0].id) {
                 let t = items.filter(item => item.id !== payload);
                 setItems(t);
+                setIsRight(true);
+                setModalVisible(true);
+                setTimeout(() => {
+                  setModalVisible(false);
+                }, 500);
+              } else {
+                setIsRight(false);
+                setModalVisible(true);
+                setTimeout(() => {
+                  setModalVisible(false);
+                }, 500);
               }
             }}
           >
@@ -267,6 +284,17 @@ const FinalTaskWeb = ({ navigation }) => {
               if (payload === tasks[1].id) {
                 let t = items.filter(item => item.id !== payload);
                 setItems(t);
+                setIsRight(true);
+                setModalVisible(true);
+                setTimeout(() => {
+                  setModalVisible(false);
+                }, 500);
+              } else {
+                setIsRight(false);
+                setModalVisible(true);
+                setTimeout(() => {
+                  setModalVisible(false);
+                }, 500);
               }
             }}
             customId={2}
@@ -333,6 +361,7 @@ const FinalTaskWeb = ({ navigation }) => {
         leftBtnVisible={false}
         rightBtnVisible={false}
       />
+      <Modal isRight={isRight} modalVisible={modalVisible} />
     </Background>
   );
 };
