@@ -26,7 +26,7 @@ const App = ({ isRight, modalVisible }) => {
         {!isRight &&
           (Platform.OS === 'web' ? (
             <Image
-              source={{x
+              source={{
                 uri:
                   name == 'dark'
                     ? require('../../../assets/images/xbtn.png')
