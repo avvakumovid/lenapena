@@ -16,16 +16,20 @@ import { acceptTask, setTasks } from '../../store/slice/tasksSlice';
 import Footer from './../../components/Footer';
 import QestionText from './../../components/icons/QestionText';
 import PlayBtn from './../../components/icons/PlayBtn';
-
-const widthScreen = Dimensions.get('screen').width;
+import TaskTitle1 from './../../components/icons/TaskTitle1';
+import TaskTitle2 from './../../components/icons/TaskTitle2';
+import TaskTitle3 from './../../components/icons/TaskTitle3';
 
 export default function StartTask({ navigation, route }) {
   const dispatch = useDispatch();
 
+  const [taskNumber, setTaskNumber] = useState(1);
+  const [taskTitleL, setTaskTitle] = useState(null);
+
   const { tasks } = useSelector(state => state.tasks);
   const { name, colors } = useContext(Context);
-  console.log(name);
   let params = route.params;
+  console.log(params);
   useEffect(() => {
     if (params.taskIndex !== undefined) {
       if (params.taskIndex != -1) {
@@ -34,25 +38,27 @@ export default function StartTask({ navigation, route }) {
     } else {
       dispatch(setTasks());
     }
+    setTaskNumber(params.taskNumber);
   }, [params]);
-  useEffect(() => {}, [tasks]);
-  const [sound, setSound] = useState();
-  async function playSound() {
-    const { sound } = await Audio.Sound.createAsync(
-      require('../../../assets/sounds/keepYourWord.mp3')
-    );
-    setSound(sound);
-
-    await sound.playAsync();
-  }
   useEffect(() => {
-    return sound
-      ? () => {
-          console.log('Unloading Sound');
-          sound.unloadAsync();
-        }
-      : undefined;
-  }, [sound]);
+    if (name == 'dark') {
+      if (taskNumber == 1) {
+        setTaskTitle(require('../../../assets/web/taskTitle1L.svg'));
+      } else if (taskNumber == 2) {
+        setTaskTitle(require('../../../assets/web/taskTitle2L.svg'));
+      } else {
+        setTaskTitle(require('../../../assets/web/taskTitle3L.svg'));
+      }
+    } else {
+      if (taskNumber == 1) {
+        setTaskTitle(require('../../../assets/web/taskTitle1D.svg'));
+      } else if (taskNumber == 2) {
+        setTaskTitle(require('../../../assets/web/taskTitle2D.svg'));
+      } else {
+        setTaskTitle(require('../../../assets/web/taskTitle3D.svg'));
+      }
+    }
+  }, [taskNumber]);
 
   const styles = StyleSheet.create({
     title: {
@@ -111,6 +117,7 @@ export default function StartTask({ navigation, route }) {
                   if (remainTaskIndex != -1) {
                     navigation.navigate('taskquestion', {
                       taskIndex: remainTaskIndex,
+                      taskNumber: taskNumber + 1,
                     });
                   } else {
                     navigation.navigate('finaltask');
@@ -136,15 +143,22 @@ export default function StartTask({ navigation, route }) {
                 {Platform.OS === 'web' ? (
                   <Image
                     source={{
-                      uri:
-                        name == 'dark'
-                          ? require('../../../assets/web/taskTitleL.svg')
-                          : require('../../../assets/web/taskTitleD.svg'),
+                      uri: taskTitleL,
                     }}
-                    style={[styles.titleText, { width: 181, height: 34 }]}
+                    style={[styles.titleText, { width: 220, height: 34 }]}
+                  />
+                ) : taskNumber === 1 ? (
+                  <TaskTitle1
+                    style={styles.titleText}
+                    {...colors.qestionText}
+                  />
+                ) : taskNumber == 2 ? (
+                  <TaskTitle2
+                    style={styles.titleText}
+                    {...colors.qestionText}
                   />
                 ) : (
-                  <QestionText
+                  <TaskTitle3
                     style={styles.titleText}
                     {...colors.qestionText}
                   />
@@ -159,17 +173,6 @@ export default function StartTask({ navigation, route }) {
         leftBtnVisible={false}
         rightBtnVisible={false}
         navigation={navigation}
-        rightBtnCallback={() => {
-          const subTitle =
-            taskIndex == tasks.length - 1
-              ? 'ПОСЛУШАЙ И соедени картинки правильно'
-              : 'ПОСЛУШАЙ И ЗАПОМНИ';
-          navigation.navigate('starttask', {
-            taskIndex,
-            subTitle,
-            W,
-          });
-        }}
       />
     </Background>
   );

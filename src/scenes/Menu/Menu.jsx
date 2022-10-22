@@ -18,6 +18,7 @@ const Menu = ({ navigation }) => {
         onPress={() => {
           navigation.navigate('starttask', {
             subTitle: 'ПОСЛУШАЙ И ЗАПОМНИ',
+            taskNumber: 1,
           });
         }}
         style={styles.container}

@@ -27,7 +27,8 @@ export default function TaskQuestion({ navigation, route }) {
   const [pressQestion, setPressQestion] = useState(false);
   const { tasks } = useSelector(state => state.tasks);
   const dispatch = useDispatch();
-  let { taskIndex } = route.params;
+  let { taskIndex, taskNumber } = route.params;
+  console.log(route.params);
   let { id, phrase, explanation, image, audio1, audio2, audio3, isAccepted } =
     tasks[taskIndex];
   const { name, colors } = useContext(Context);
@@ -231,6 +232,7 @@ export default function TaskQuestion({ navigation, route }) {
           navigation.navigate('starttask', {
             taskIndex,
             subTitle,
+            taskNumber: taskNumber++,
           });
         }}
       />

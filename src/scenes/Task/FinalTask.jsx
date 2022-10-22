@@ -228,6 +228,7 @@ const FinalTask = ({ navigation }) => {
         rightBtnCallback={() => {
           navigation.navigate('starttask', {
             subTitle: 'ПОСЛУШАЙ И ЗАПОМНИ',
+            taskNumber: 1,
           });
         }}
         leftBtnVisible={false}

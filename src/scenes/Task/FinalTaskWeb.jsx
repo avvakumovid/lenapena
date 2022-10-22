@@ -57,6 +57,7 @@ const FinalTaskWeb = ({ navigation }) => {
       setTimeout(() => {
         navigation.navigate('starttask', {
           subTitle: 'ПОСЛУШАЙ И ЗАПОМНИ',
+          taskNumber: 1,
         });
       }, 400);
     }
