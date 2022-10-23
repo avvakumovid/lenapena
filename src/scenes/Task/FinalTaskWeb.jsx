@@ -106,9 +106,11 @@ const FinalTaskWeb = ({ navigation }) => {
       height: 190,
     },
     main: {
-      // marginTop: -50,
+      marginTop: -50,
       height: '95%',
       justifyContent: 'space-between',
+      overflow: 'hidden',
+      touchAction: 'none',
     },
   });
   return (

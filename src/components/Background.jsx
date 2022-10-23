@@ -33,6 +33,16 @@ const styles = StyleSheet.create({
     maxWidth: 960,
     marginVertical: 0,
     marginHorizontal: 'auto',
+    overflow: 'hidden',
+    touchAction: 'none',
   },
-  blur: { flex: 1, overflow: 'hidden' },
+  blur: {
+    flex: 1,
+    overflow: 'hidden',
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+  },
 });
