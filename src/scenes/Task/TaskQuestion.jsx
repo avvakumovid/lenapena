@@ -94,7 +94,7 @@ export default function TaskQuestion({ navigation, route }) {
         <View
           style={[
             styles.heading,
-            Platform.OS == 'web' ? { marginTop: 60 } : {},
+            Platform.OS == 'web' ? { marginTop: 40 } : {},
           ]}
         >
           <TouchableOpacity
