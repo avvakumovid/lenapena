@@ -5,16 +5,13 @@ import {
   Image,
   Platform,
   TouchableOpacity,
-  Dimensions,
 } from 'react-native';
 import React, { useState, useEffect, useContext } from 'react';
-import { Audio } from 'expo-av';
 import Background from '../../components/Background';
 import { Context } from '../../context/context';
 import { useDispatch, useSelector } from 'react-redux';
 import { acceptTask, setTasks } from '../../store/slice/tasksSlice';
 import Footer from './../../components/Footer';
-import QestionText from './../../components/icons/QestionText';
 import PlayBtn from './../../components/icons/PlayBtn';
 import TaskTitle1 from './../../components/icons/TaskTitle1';
 import TaskTitle2 from './../../components/icons/TaskTitle2';
@@ -138,7 +135,6 @@ export default function StartTask({ navigation, route }) {
                   <PlayBtn style={styles.playBtn} {...colors.pinkPlayBtn} />
                 )}
               </TouchableOpacity>
-
               <View style={styles.subTitle}>
                 {Platform.OS === 'web' ? (
                   <Image

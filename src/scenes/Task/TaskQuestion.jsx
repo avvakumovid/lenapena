@@ -60,7 +60,7 @@ export default function TaskQuestion({ navigation, route }) {
       fontFamily: 'Franklin Gothic Medium',
       fontStyle: 'italic',
       fontWeight: '400',
-      fontSize: 32,
+      fontSize: 26,
       textTransform: 'uppercase',
       color: colors.mainTextColor,
       marginLeft: 15,
@@ -76,7 +76,7 @@ export default function TaskQuestion({ navigation, route }) {
       // paddingHorizontal: 20,
     },
     bottomPlayBtn: {
-      marginTop: 32,
+      marginTop: 20,
       alignSelf: 'center',
     },
     mainPicture: {
@@ -210,8 +210,8 @@ export default function TaskQuestion({ navigation, route }) {
                   source={{
                     uri:
                       name == 'dark'
-                        ? require('../../../assets/web/playbtn2L.svg')
-                        : require('../../../assets/web/playbtn2D.svg'),
+                        ? require('../../../assets/web/playbtn1L.svg')
+                        : require('../../../assets/web/playbtn1D.svg'),
                   }}
                   style={[{ width: 70, height: 70 }]}
                 />

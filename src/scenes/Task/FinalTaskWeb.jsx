@@ -23,7 +23,6 @@ const { Provider, Droppable, Draggable } = createDndContext();
 const FinalTaskWeb = ({ navigation }) => {
   const { tasks } = useSelector(state => state.tasks);
   const [sound, setSound] = useState();
-
   const droppableOpacity1 = React.useRef(new Animated.Value(0));
   const trashIconScale1 = React.useRef(new Animated.Value(1));
   const trashIconScale2 = React.useRef(new Animated.Value(1));
@@ -64,14 +63,13 @@ const FinalTaskWeb = ({ navigation }) => {
   }, [items]);
   const { name, colors } = useContext(Context);
   const widthScreen = Dimensions.get('screen').width;
-
   const styles = StyleSheet.create({
     pbtnImage: {},
     mainText: {
       fontFamily: 'Franklin Gothic Medium',
       fontStyle: 'italic',
       fontWeight: '400',
-      fontSize: 32,
+      fontSize: 26,
       textTransform: 'uppercase',
       color: colors.mainTextColor,
       marginLeft: 15,
@@ -102,12 +100,12 @@ const FinalTaskWeb = ({ navigation }) => {
     },
     mainPicture: {
       alignSelf: 'center',
-      width: 190,
-      height: 190,
+      width: 170,
+      height: 170,
     },
     main: {
-      marginTop: -50,
-      height: '95%',
+      marginTop: -40,
+      height: '100%',
       justifyContent: 'space-between',
       overflow: 'hidden',
       touchAction: 'none',
@@ -189,7 +187,7 @@ const FinalTaskWeb = ({ navigation }) => {
                             }}
                             style={[
                               styles.pbtnImage,
-                              { width: 60, height: 60 },
+                              { width: 70, height: 70 },
                             ]}
                           />
                         ) : (
@@ -208,7 +206,7 @@ const FinalTaskWeb = ({ navigation }) => {
               );
             }}
           </Droppable>
-          <View style={{ marginTop: -50 }}>
+          <View style={{}}>
             {items.map(item => {
               return (
                 <Draggable
@@ -254,12 +252,12 @@ const FinalTaskWeb = ({ navigation }) => {
                                 source={{
                                   uri:
                                     name == 'dark'
-                                      ? require('../../../assets/web/playbtn1L.svg')
-                                      : require('../../../assets/web/playbtn1D.svg'),
+                                      ? require('../../../assets/web/playbtn2L.svg')
+                                      : require('../../../assets/web/playbtn2D.svg'),
                                 }}
                                 style={[
                                   styles.pbtnImage,
-                                  { width: 60, height: 60 },
+                                  { width: 70, height: 70 },
                                 ]}
                               />
                             ) : (
@@ -370,11 +368,11 @@ const FinalTaskWeb = ({ navigation }) => {
           </Droppable>
         </View>
       </Provider>
-      <Footer
+      {/* <Footer
         navigation={navigation}
         leftBtnVisible={false}
         rightBtnVisible={false}
-      />
+      /> */}
       <Modal isRight={isRight} modalVisible={modalVisible} />
     </Background>
   );
