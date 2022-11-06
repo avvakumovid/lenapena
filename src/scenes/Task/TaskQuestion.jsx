@@ -14,7 +14,6 @@ import Background from '../../components/Background';
 import Footer from '../../components/Footer';
 import { Context } from '../../context/context';
 import { useSelector, useDispatch } from 'react-redux';
-import { acceptTask } from '../../store/slice/tasksSlice';
 import QestionBtn from './../../components/icons/QestionBtn';
 import PlayBtn from './../../components/icons/PlayBtn';
 
@@ -28,9 +27,9 @@ export default function TaskQuestion({ navigation, route }) {
   const { tasks } = useSelector(state => state.tasks);
   const dispatch = useDispatch();
   let { taskIndex, taskNumber } = route.params;
-  console.log(route.params);
+  // console.log(route.params);
   let { id, phrase, explanation, image, audio1, audio2, audio3, isAccepted } =
-    tasks[taskIndex];
+    tasks[taskIndex - 1];
   const { name, colors } = useContext(Context);
   async function playSound(audio) {
     const { sound } = await Audio.Sound.createAsync(audio);
@@ -135,6 +134,7 @@ export default function TaskQuestion({ navigation, route }) {
                 setTimeout(() => {
                   setPressQestion(true);
                   fadeIn(fadeMainAnim);
+                  fadeIn(fadeBtnAnim);
                 }, 150);
               }}
             >
@@ -225,15 +225,19 @@ export default function TaskQuestion({ navigation, route }) {
       <Footer
         navigation={navigation}
         rightBtnCallback={() => {
-          const subTitle =
-            taskIndex == tasks.length - 1
-              ? 'ПОСЛУШАЙ И соедени картинки правильно'
-              : 'ПОСЛУШАЙ И ЗАПОМНИ';
-          navigation.navigate('starttask', {
-            taskIndex,
-            subTitle,
-            taskNumber: taskNumber++,
-          });
+          if (taskIndex !== 2) {
+            setPressQestion(false);
+            navigation.navigate('taskquestion', {
+              taskIndex: 2,
+            });
+          } else {
+            navigation.navigate('starttask', {
+              title: 'послушай и соедени картинки парвльно ',
+              isFinalTask: true,
+              audio: require('../../../assets/sounds/послушай и соедени картинки правильно.mp3'),
+              duration: 2100,
+            });
+          }
         }}
       />
     </Background>

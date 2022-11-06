@@ -13,10 +13,11 @@ import { Audio } from 'expo-av';
 import { createDndContext } from 'react-native-easy-dnd';
 import { Context } from '../../context/context';
 import Background from '../../components/Background';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import Footer from '../../components/Footer';
 import PlayBtn from './../../components/icons/PlayBtn';
 import Modal from '../../components/Modal/Modal';
+import { setNewTask, setTasks } from '../../store/slice/tasksSlice';
 
 const { Provider, Droppable, Draggable } = createDndContext();
 
@@ -31,6 +32,8 @@ const FinalTaskWeb = ({ navigation }) => {
 
   const [modalVisible, setModalVisible] = useState(false);
   const [isRight, setIsRight] = useState(false);
+
+  const dispatch = useDispatch();
 
   const animateValue = (ref, toValue) =>
     Animated.timing(ref.current, {
@@ -53,10 +56,13 @@ const FinalTaskWeb = ({ navigation }) => {
 
   useEffect(() => {
     if (items.length == 0) {
+      dispatch(setTasks());
       setTimeout(() => {
         navigation.navigate('starttask', {
-          subTitle: 'ПОСЛУШАЙ И ЗАПОМНИ',
-          taskNumber: 1,
+          title: 'ПОСЛУШАЙ И ЗАПОМНИ',
+          isFinalTask: false,
+          audio: require('../../../assets/sounds/ПОСЛУШАЙ И ЗАПОМНИ.mp3'),
+          duration: 1300,
         });
       }, 400);
     }

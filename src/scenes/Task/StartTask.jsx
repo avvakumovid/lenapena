@@ -10,53 +10,32 @@ import React, { useState, useEffect, useContext } from 'react';
 import Background from '../../components/Background';
 import { Context } from '../../context/context';
 import { useDispatch, useSelector } from 'react-redux';
-import { acceptTask, setTasks } from '../../store/slice/tasksSlice';
 import Footer from './../../components/Footer';
 import PlayBtn from './../../components/icons/PlayBtn';
-import TaskTitle1 from './../../components/icons/TaskTitle1';
-import TaskTitle2 from './../../components/icons/TaskTitle2';
-import TaskTitle3 from './../../components/icons/TaskTitle3';
+import TaskTitle from './../../components/icons/TaskTitle';
+import { Audio } from 'expo-av';
 
 export default function StartTask({ navigation, route }) {
-  const dispatch = useDispatch();
-
-  const [taskNumber, setTaskNumber] = useState(1);
-  const [taskTitleL, setTaskTitle] = useState(null);
-
-  const { tasks } = useSelector(state => state.tasks);
   const { name, colors } = useContext(Context);
-  let params = route.params;
-  console.log(params);
-  useEffect(() => {
-    if (params.taskIndex !== undefined) {
-      if (params.taskIndex != -1) {
-        dispatch(acceptTask(params.taskIndex));
-      }
-    } else {
-      dispatch(setTasks());
-    }
-    setTaskNumber(params.taskNumber);
-  }, [params]);
-  useEffect(() => {
-    if (name == 'dark') {
-      if (taskNumber == 1) {
-        setTaskTitle(require('../../../assets/web/taskTitle1L.svg'));
-      } else if (taskNumber == 2) {
-        setTaskTitle(require('../../../assets/web/taskTitle2L.svg'));
-      } else {
-        setTaskTitle(require('../../../assets/web/taskTitle3L.svg'));
-      }
-    } else {
-      if (taskNumber == 1) {
-        setTaskTitle(require('../../../assets/web/taskTitle1D.svg'));
-      } else if (taskNumber == 2) {
-        setTaskTitle(require('../../../assets/web/taskTitle2D.svg'));
-      } else {
-        setTaskTitle(require('../../../assets/web/taskTitle3D.svg'));
-      }
-    }
-  }, [taskNumber]);
+  const [sound, setSound] = useState();
 
+  const { title, isFinalTask, audio, duration } = route.params;
+  async function playSound(audio) {
+    const { sound } = await Audio.Sound.createAsync(audio);
+    setSound(sound);
+    await sound.playAsync();
+  }
+  useEffect(() => {
+    return sound
+      ? () => {
+          console.log('Unloading Sound');
+          sound.unloadAsync();
+        }
+      : undefined;
+  }, [sound]);
+  // useEffect(() => {
+  //   playSound(audio);
+  // }, [audio]);
   const styles = StyleSheet.create({
     title: {
       flexDirection: 'row',
@@ -108,17 +87,16 @@ export default function StartTask({ navigation, route }) {
             <View style={styles.title}>
               <TouchableOpacity
                 onPress={() => {
-                  const remainTaskIndex = tasks.findIndex(
-                    task => task.isAccepted === false
-                  );
-                  if (remainTaskIndex != -1) {
-                    navigation.navigate('taskquestion', {
-                      taskIndex: remainTaskIndex,
-                      taskNumber: taskNumber + 1,
-                    });
-                  } else {
-                    navigation.navigate('finaltask');
-                  }
+                  playSound(audio);
+                  setTimeout(() => {
+                    if (!isFinalTask) {
+                      navigation.navigate('taskquestion', {
+                        taskIndex: 1,
+                      });
+                    } else {
+                      navigation.navigate('finaltask');
+                    }
+                  }, duration);
                 }}
               >
                 {Platform.OS === 'web' ? (
@@ -139,27 +117,17 @@ export default function StartTask({ navigation, route }) {
                 {Platform.OS === 'web' ? (
                   <Image
                     source={{
-                      uri: taskTitleL,
+                      uri:
+                        name == 'dark'
+                          ? require('../../../assets/web/taskTitleL.svg')
+                          : require('../../../assets/web/taskTitleD.svg'),
                     }}
-                    style={[styles.titleText, { width: 220, height: 34 }]}
-                  />
-                ) : taskNumber === 1 ? (
-                  <TaskTitle1
-                    style={styles.titleText}
-                    {...colors.qestionText}
-                  />
-                ) : taskNumber == 2 ? (
-                  <TaskTitle2
-                    style={styles.titleText}
-                    {...colors.qestionText}
+                    style={[styles.titleText, { width: 179, height: 34 }]}
                   />
                 ) : (
-                  <TaskTitle3
-                    style={styles.titleText}
-                    {...colors.qestionText}
-                  />
+                  <TaskTitle style={styles.titleText} {...colors.qestionText} />
                 )}
-                <Text style={styles.subText}>{params.subTitle}</Text>
+                <Text style={styles.subText}>{title}</Text>
               </View>
             </View>
           </View>

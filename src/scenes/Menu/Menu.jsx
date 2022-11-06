@@ -1,4 +1,4 @@
-import { Image, StyleSheet, TouchableOpacity, Platform } from 'react-native';
+import { StyleSheet, TouchableOpacity, Platform } from 'react-native';
 import React, { useContext } from 'react';
 import Background from './../../components/Background';
 import { Context } from '../../context/context';
@@ -7,24 +7,27 @@ import { setTasks } from '../../store/slice/tasksSlice';
 import SunBtn from './../../components/icons/SunBtn';
 import MoonBtn from './../../components/icons/MoonBtn';
 import StartBtn from './../../components/icons/StartBtn';
+import { useEffect } from 'react';
 
 const Menu = ({ navigation }) => {
   const { changeTheme, name, colors } = useContext(Context);
   const dispatch = useDispatch();
-  dispatch(setTasks());
+  useEffect(() => {
+    dispatch(setTasks());
+  }, []);
   return (
     <Background>
       <TouchableOpacity
         onPress={() => {
           navigation.navigate('starttask', {
-            subTitle: 'ПОСЛУШАЙ И ЗАПОМНИ',
-            taskNumber: 1,
+            title: 'ПОСЛУШАЙ И ЗАПОМНИ',
+            isFinalTask: false,
+            audio: require('../../../assets/sounds/ПОСЛУШАЙ И ЗАПОМНИ.mp3'),
+            duration: 1300,
           });
         }}
         style={styles.container}
       >
-        {/* <HomeBtn style={styles.btn} {...colors.startBtn} /> */}
-
         <StartBtn
           style={[styles.btn, Platform.OS == 'web' ? { marginTop: 200 } : null]}
           {...colors.startBtn}
