@@ -9,41 +9,37 @@ import {
   Animated,
 } from 'react-native';
 import React, { useState, useEffect, useContext, useRef } from 'react';
-import { Audio } from 'expo-av';
 import Background from '../../components/Background';
 import Footer from '../../components/Footer';
 import { Context } from '../../context/context';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import QestionBtn from './../../components/icons/QestionBtn';
 import PlayBtn from './../../components/icons/PlayBtn';
+import * as Animatable from 'react-native-animatable';
+import { loadSounds, playSound } from '../../services/sounds';
 
 const widthScreen = Dimensions.get('screen').width;
 
 export default function TaskQuestion({ navigation, route }) {
   const fadeBtnAnim = useRef(new Animated.Value(1)).current;
   const fadeMainAnim = useRef(new Animated.Value(0)).current;
-  const [sound, setSound] = useState();
+  const [sounds, setSound] = useState();
+  const [btnNumber, setBtnNumber] = useState(1);
   const [pressQestion, setPressQestion] = useState(false);
   const { tasks } = useSelector(state => state.tasks);
-  const dispatch = useDispatch();
-  let { taskIndex, taskNumber } = route.params;
-  // console.log(route.params);
-  let { id, phrase, explanation, image, audio1, audio2, audio3, isAccepted } =
+  let { taskIndex } = route.params;
+
+  let { phrase, explanation, image, audio1, audio2, audio3, isAccepted } =
     tasks[taskIndex - 1];
   const { name, colors } = useContext(Context);
-  async function playSound(audio) {
-    const { sound } = await Audio.Sound.createAsync(audio);
-    setSound(sound);
-    await sound.playAsync();
-  }
+
   useEffect(() => {
-    return sound
-      ? () => {
-          console.log('Unloading Sound');
-          sound.unloadAsync();
-        }
-      : undefined;
-  }, [sound]);
+    async function fetch() {
+      const loadedSounds = await loadSounds([audio1, audio2, audio3]);
+      setSound(loadedSounds);
+    }
+    fetch();
+  }, [audio1, audio2, audio3]);
 
   const styles = StyleSheet.create({
     container: {
@@ -97,23 +93,33 @@ export default function TaskQuestion({ navigation, route }) {
           ]}
         >
           <TouchableOpacity
+            disabled={!(btnNumber >= 1)}
             onPress={() => {
-              playSound(audio1);
+              playSound(sounds[0]);
+              if (btnNumber == 1) {
+                setBtnNumber(2);
+              }
             }}
           >
-            {Platform.OS === 'web' ? (
-              <Image
-                source={{
-                  uri:
-                    name == 'dark'
-                      ? require('../../../assets/web/playbtn1L.svg')
-                      : require('../../../assets/web/playbtn1D.svg'),
-                }}
-                style={[{ width: 70, height: 70 }]}
-              />
-            ) : (
-              <PlayBtn style={styles.pbtnImage} {...colors.purplePlayBtn} />
-            )}
+            <Animatable.Text
+              animation={btnNumber == 1 && 'pulse'}
+              easing='ease-out'
+              iterationCount='infinite'
+            >
+              {Platform.OS === 'web' ? (
+                <Image
+                  source={{
+                    uri:
+                      name == 'dark'
+                        ? require('../../../assets/web/playbtn1L.svg')
+                        : require('../../../assets/web/playbtn1D.svg'),
+                  }}
+                  style={[{ width: 70, height: 70 }]}
+                />
+              ) : (
+                <PlayBtn style={styles.pbtnImage} {...colors.purplePlayBtn} />
+              )}
+            </Animatable.Text>
           </TouchableOpacity>
           <View style={styles.text}>
             <Text style={styles.mainText}>{phrase}</Text>
@@ -129,7 +135,11 @@ export default function TaskQuestion({ navigation, route }) {
             ]}
           >
             <TouchableOpacity
+              disabled={!(btnNumber >= 2)}
               onPress={async () => {
+                if (btnNumber == 2) {
+                  setBtnNumber(3);
+                }
                 fadeOut(fadeBtnAnim);
                 setTimeout(() => {
                   setPressQestion(true);
@@ -138,19 +148,25 @@ export default function TaskQuestion({ navigation, route }) {
                 }, 150);
               }}
             >
-              {Platform.OS === 'web' ? (
-                <Image
-                  source={{
-                    uri:
-                      name == 'dark'
-                        ? require('../../../assets/web/qestionbtnL.svg')
-                        : require('../../../assets/web/qestionbtnD.svg'),
-                  }}
-                  style={{ width: 190, height: 190 }}
-                />
-              ) : (
-                <QestionBtn {...colors.qestionBtn} />
-              )}
+              <Animatable.Text
+                animation={btnNumber == 2 && 'pulse'}
+                easing='ease-out'
+                iterationCount='infinite'
+              >
+                {Platform.OS === 'web' ? (
+                  <Image
+                    source={{
+                      uri:
+                        name == 'dark'
+                          ? require('../../../assets/web/qestionbtnL.svg')
+                          : require('../../../assets/web/qestionbtnD.svg'),
+                    }}
+                    style={{ width: 190, height: 190 }}
+                  />
+                ) : (
+                  <QestionBtn {...colors.qestionBtn} />
+                )}
+              </Animatable.Text>
             </TouchableOpacity>
           </Animated.View>
         ) : (
@@ -173,26 +189,36 @@ export default function TaskQuestion({ navigation, route }) {
 
             <View style={{ ...styles.heading, marginTop: 32 }}>
               <TouchableOpacity
+                disabled={!(btnNumber >= 3)}
                 onPress={() => {
-                  playSound(audio2);
+                  playSound(sounds[1]);
+                  if (btnNumber == 3) {
+                    setBtnNumber(4);
+                  }
                 }}
               >
-                {Platform.OS === 'web' ? (
-                  <Image
-                    source={{
-                      uri:
-                        name == 'dark'
-                          ? require('../../../assets/web/playbtn2L.svg')
-                          : require('../../../assets/web/playbtn2D.svg'),
-                    }}
-                    style={[styles.pbtnImage, { width: 70, height: 70 }]}
-                  />
-                ) : (
-                  <PlayBtn
-                    style={styles.pbtnImage}
-                    {...colors.lightPinkPlayBtn}
-                  />
-                )}
+                <Animatable.Text
+                  animation={btnNumber == 3 && 'pulse'}
+                  easing='ease-out'
+                  iterationCount='infinite'
+                >
+                  {Platform.OS === 'web' ? (
+                    <Image
+                      source={{
+                        uri:
+                          name == 'dark'
+                            ? require('../../../assets/web/playbtn2L.svg')
+                            : require('../../../assets/web/playbtn2D.svg'),
+                      }}
+                      style={[styles.pbtnImage, { width: 70, height: 70 }]}
+                    />
+                  ) : (
+                    <PlayBtn
+                      style={styles.pbtnImage}
+                      {...colors.lightPinkPlayBtn}
+                    />
+                  )}
+                </Animatable.Text>
               </TouchableOpacity>
               <View style={styles.text}>
                 <Text style={styles.mainText}>{explanation}</Text>
@@ -200,24 +226,34 @@ export default function TaskQuestion({ navigation, route }) {
             </View>
 
             <TouchableOpacity
+              disabled={!(btnNumber >= 4)}
               onPress={() => {
-                playSound(audio3);
+                playSound(sounds[2]);
+                if (btnNumber == 4) {
+                  setBtnNumber(5);
+                }
               }}
               style={styles.bottomPlayBtn}
             >
-              {Platform.OS === 'web' ? (
-                <Image
-                  source={{
-                    uri:
-                      name == 'dark'
-                        ? require('../../../assets/web/playbtn1L.svg')
-                        : require('../../../assets/web/playbtn1D.svg'),
-                  }}
-                  style={[{ width: 70, height: 70 }]}
-                />
-              ) : (
-                <PlayBtn {...colors.purplePlayBtn} />
-              )}
+              <Animatable.Text
+                animation={btnNumber == 4 && 'pulse'}
+                easing='ease-out'
+                iterationCount='infinite'
+              >
+                {Platform.OS === 'web' ? (
+                  <Image
+                    source={{
+                      uri:
+                        name == 'dark'
+                          ? require('../../../assets/web/playbtn1L.svg')
+                          : require('../../../assets/web/playbtn1D.svg'),
+                    }}
+                    style={[{ width: 70, height: 70 }]}
+                  />
+                ) : (
+                  <PlayBtn {...colors.purplePlayBtn} />
+                )}
+              </Animatable.Text>
             </TouchableOpacity>
           </Animated.View>
         )}
@@ -225,6 +261,7 @@ export default function TaskQuestion({ navigation, route }) {
       <Footer
         navigation={navigation}
         rightBtnCallback={() => {
+          setBtnNumber(1);
           if (taskIndex !== 2) {
             setPressQestion(false);
             navigation.navigate('taskquestion', {
@@ -235,10 +272,11 @@ export default function TaskQuestion({ navigation, route }) {
               title: 'послушай и соедени картинки парвльно ',
               isFinalTask: true,
               audio: require('../../../assets/sounds/послушай и соедени картинки правильно.mp3'),
-              duration: 2100,
+              duration: 2500,
             });
           }
         }}
+        rightBtnPulse={btnNumber == 5}
       />
     </Background>
   );
@@ -257,4 +295,8 @@ const fadeOut = fadeAnim => {
     toValue: 0,
     duration: 150,
   }).start();
+};
+
+const stopPulse = ref => {
+  ref.current.stopAnimation();
 };

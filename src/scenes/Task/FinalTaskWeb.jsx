@@ -18,12 +18,14 @@ import Footer from '../../components/Footer';
 import PlayBtn from './../../components/icons/PlayBtn';
 import Modal from '../../components/Modal/Modal';
 import { setNewTask, setTasks } from '../../store/slice/tasksSlice';
+import { loadSounds, playSound } from '../../services/sounds';
 
 const { Provider, Droppable, Draggable } = createDndContext();
 
-const FinalTaskWeb = ({ navigation }) => {
+const FinalTaskWeb = ({ navigataudio1ion }) => {
   const { tasks } = useSelector(state => state.tasks);
-  const [sound, setSound] = useState();
+  const [tasksSounds, setTasksSounds] = useState();
+  const [itemsSounds, setItemsSounds] = useState();
   const droppableOpacity1 = React.useRef(new Animated.Value(0));
   const trashIconScale1 = React.useRef(new Animated.Value(1));
   const trashIconScale2 = React.useRef(new Animated.Value(1));
@@ -40,19 +42,16 @@ const FinalTaskWeb = ({ navigation }) => {
       toValue,
       duration: 350,
     }).start();
-  async function playSound(audio) {
-    const { sound } = await Audio.Sound.createAsync(audio);
-    setSound(sound);
 
-    await sound.playAsync();
-  }
   useEffect(() => {
-    return sound
-      ? () => {
-          sound.unloadAsync();
-        }
-      : undefined;
-  }, [sound]);
+    async function fetch() {
+      let loadedSounds = await loadSounds(tasks.map(task => task.audio1));
+      setTasksSounds(loadedSounds);
+      loadedSounds = await loadSounds(items.map(item => item.audio2));
+      setItemsSounds(loadedSounds);
+    }
+    fetch();
+  }, [tasks, items]);
 
   useEffect(() => {
     if (items.length == 0) {
@@ -62,7 +61,7 @@ const FinalTaskWeb = ({ navigation }) => {
           title: 'ПОСЛУШАЙ И ЗАПОМНИ',
           isFinalTask: false,
           audio: require('../../../assets/sounds/ПОСЛУШАЙ И ЗАПОМНИ.mp3'),
-          duration: 1300,
+          duration: 2000,
         });
       }, 400);
     }
@@ -169,7 +168,7 @@ const FinalTaskWeb = ({ navigation }) => {
                   <Animated.View style={[viewProps.style, styles.drop]}>
                     <TouchableOpacity
                       onPress={() => {
-                        playSound(tasks[0].audio1);
+                        playSound(tasksSounds[0]);
                       }}
                     >
                       <Animated.View
@@ -213,7 +212,7 @@ const FinalTaskWeb = ({ navigation }) => {
             }}
           </Droppable>
           <View style={{}}>
-            {items.map(item => {
+            {items.map((item, index) => {
               return (
                 <Draggable
                   key={item.id}
@@ -250,7 +249,7 @@ const FinalTaskWeb = ({ navigation }) => {
                         {showFirstBtn ? (
                           <TouchableOpacity
                             onPress={() => {
-                              playSound(item.audio1);
+                              playSound(itemsSounds[index]);
                             }}
                           >
                             {Platform.OS === 'web' ? (
@@ -329,7 +328,7 @@ const FinalTaskWeb = ({ navigation }) => {
                   >
                     <TouchableOpacity
                       onPress={() => {
-                        playSound(tasks[1].audio1);
+                        playSound(tasksSounds[1]);
                       }}
                     >
                       <Animated.View

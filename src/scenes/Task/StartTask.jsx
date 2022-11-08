@@ -6,36 +6,29 @@ import {
   Platform,
   TouchableOpacity,
 } from 'react-native';
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 import Background from '../../components/Background';
 import { Context } from '../../context/context';
-import { useDispatch, useSelector } from 'react-redux';
 import Footer from './../../components/Footer';
 import PlayBtn from './../../components/icons/PlayBtn';
 import TaskTitle from './../../components/icons/TaskTitle';
+import * as Animatable from 'react-native-animatable';
 import { Audio } from 'expo-av';
+import { loadSound, loadSounds, playSound } from '../../services/sounds';
 
 export default function StartTask({ navigation, route }) {
   const { name, colors } = useContext(Context);
   const [sound, setSound] = useState();
-
+  const anim = useRef(null);
   const { title, isFinalTask, audio, duration } = route.params;
-  async function playSound(audio) {
-    const { sound } = await Audio.Sound.createAsync(audio);
-    setSound(sound);
-    await sound.playAsync();
-  }
+
   useEffect(() => {
-    return sound
-      ? () => {
-          console.log('Unloading Sound');
-          sound.unloadAsync();
-        }
-      : undefined;
-  }, [sound]);
-  // useEffect(() => {
-  //   playSound(audio);
-  // }, [audio]);
+    async function fetch() {
+      const loadedSound = await loadSounds([audio]);
+      setSound(loadedSound[0]);
+    }
+    fetch();
+  }, [audio]);
   const styles = StyleSheet.create({
     title: {
       flexDirection: 'row',
@@ -70,6 +63,7 @@ export default function StartTask({ navigation, route }) {
       marginTop: 243,
     },
     playBtn: {
+      marginLeft: 10,
       marginRight: 13,
       alignSelf: 'flex-end',
     },
@@ -87,7 +81,7 @@ export default function StartTask({ navigation, route }) {
             <View style={styles.title}>
               <TouchableOpacity
                 onPress={() => {
-                  playSound(audio);
+                  playSound(sound);
                   setTimeout(() => {
                     if (!isFinalTask) {
                       navigation.navigate('taskquestion', {
@@ -99,19 +93,26 @@ export default function StartTask({ navigation, route }) {
                   }, duration);
                 }}
               >
-                {Platform.OS === 'web' ? (
-                  <Image
-                    source={{
-                      uri:
-                        name == 'dark'
-                          ? require('../../../assets/web/playbtn1L.svg')
-                          : require('../../../assets/web/playbtn1D.svg'),
-                    }}
-                    style={[styles.playBtn, { width: 70, height: 70 }]}
-                  />
-                ) : (
-                  <PlayBtn style={styles.playBtn} {...colors.pinkPlayBtn} />
-                )}
+                <Animatable.Text
+                  ref={anim}
+                  animation='pulse'
+                  easing='ease-out'
+                  iterationCount='infinite'
+                >
+                  {Platform.OS === 'web' ? (
+                    <Image
+                      source={{
+                        uri:
+                          name == 'dark'
+                            ? require('../../../assets/web/playbtn1L.svg')
+                            : require('../../../assets/web/playbtn1D.svg'),
+                      }}
+                      style={[styles.playBtn, { width: 70, height: 70 }]}
+                    />
+                  ) : (
+                    <PlayBtn style={styles.playBtn} {...colors.pinkPlayBtn} />
+                  )}
+                </Animatable.Text>
               </TouchableOpacity>
               <View style={styles.subTitle}>
                 {Platform.OS === 'web' ? (

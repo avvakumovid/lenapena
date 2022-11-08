@@ -7,11 +7,24 @@ import { setTasks } from '../../store/slice/tasksSlice';
 import SunBtn from './../../components/icons/SunBtn';
 import MoonBtn from './../../components/icons/MoonBtn';
 import StartBtn from './../../components/icons/StartBtn';
-import { useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import * as Animatable from 'react-native-animatable';
 
 const Menu = ({ navigation }) => {
   const { changeTheme, name, colors } = useContext(Context);
   const dispatch = useDispatch();
+  const anim = useRef(null);
+  const onButtonClick = () => {
+    anim.current.stopAnimation();
+  };
+
+  const [sounds, setSounds] = useState([]);
+
+  async function playSound() {
+    console.log('Playing Sound');
+    sounds[0].playAsync();
+  }
+
   useEffect(() => {
     dispatch(setTasks());
   }, []);
@@ -23,19 +36,30 @@ const Menu = ({ navigation }) => {
             title: 'ПОСЛУШАЙ И ЗАПОМНИ',
             isFinalTask: false,
             audio: require('../../../assets/sounds/ПОСЛУШАЙ И ЗАПОМНИ.mp3'),
-            duration: 1300,
+            duration: 2000,
           });
         }}
         style={styles.container}
       >
-        <StartBtn
-          style={[styles.btn, Platform.OS == 'web' ? { marginTop: 200 } : null]}
-          {...colors.startBtn}
-        />
+        <Animatable.Text
+          ref={anim}
+          animation='pulse'
+          easing='ease-out'
+          iterationCount='infinite'
+        >
+          <StartBtn
+            style={[
+              styles.btn,
+              Platform.OS == 'web' ? { marginTop: 200 } : null,
+            ]}
+            {...colors.startBtn}
+          />
+        </Animatable.Text>
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => {
           changeTheme();
+          onButtonClick();
         }}
       >
         {name !== 'dark' ? (
@@ -52,9 +76,10 @@ export default Menu;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
     justifyContent: 'flex-start',
     alignItems: 'center',
+    width: 400,
   },
   btn: {
     marginTop: 243,

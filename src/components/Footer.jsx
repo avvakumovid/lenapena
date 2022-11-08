@@ -1,17 +1,16 @@
 import {
   StyleSheet,
-  Text,
   View,
   TouchableOpacity,
   Image,
   Platform,
 } from 'react-native';
 import React, { useContext } from 'react';
-import Icon from 'react-native-vector-icons/SimpleLineIcons';
 import { Context } from '../context/context';
 import HomeBtn from './icons/HomeBtn';
 import RightBtn from './icons/RightBtn';
 import LeftBtn from './icons/LeftBtn';
+import * as Animatable from 'react-native-animatable';
 
 const Footer = ({
   navigation,
@@ -19,6 +18,7 @@ const Footer = ({
   leftBtnCallBack,
   leftBtnVisible = true,
   rightBtnVisible = true,
+  rightBtnPulse = false,
 }) => {
   const { name, colors } = useContext(Context);
   return (
@@ -84,19 +84,25 @@ const Footer = ({
             }
           }}
         >
-          {Platform.OS === 'web' ? (
-            <Image
-              source={{
-                uri:
-                  name == 'dark'
-                    ? require('../../assets/web/rightArrowL.svg')
-                    : require('../../assets/web/rightArrowD.svg'),
-              }}
-              style={[{ width: 11, height: 24 }]}
-            />
-          ) : (
-            <RightBtn {...colors.footerSideBtn} />
-          )}
+          <Animatable.View
+            animation={rightBtnPulse && 'pulse'}
+            easing='ease-out'
+            iterationCount='infinite'
+          >
+            {Platform.OS === 'web' ? (
+              <Image
+                source={{
+                  uri:
+                    name == 'dark'
+                      ? require('../../assets/web/rightArrowL.svg')
+                      : require('../../assets/web/rightArrowD.svg'),
+                }}
+                style={[{ width: 11, height: 24 }]}
+              />
+            ) : (
+              <RightBtn {...colors.footerSideBtn} />
+            )}
+          </Animatable.View>
         </TouchableOpacity>
       )}
     </View>
