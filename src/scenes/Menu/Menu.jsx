@@ -18,13 +18,6 @@ const Menu = ({ navigation }) => {
     anim.current.stopAnimation();
   };
 
-  const [sounds, setSounds] = useState([]);
-
-  async function playSound() {
-    console.log('Playing Sound');
-    sounds[0].playAsync();
-  }
-
   useEffect(() => {
     dispatch(setTasks());
   }, []);
@@ -59,7 +52,6 @@ const Menu = ({ navigation }) => {
       <TouchableOpacity
         onPress={() => {
           changeTheme();
-          onButtonClick();
         }}
       >
         {name !== 'dark' ? (

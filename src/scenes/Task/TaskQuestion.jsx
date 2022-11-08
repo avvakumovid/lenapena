@@ -17,6 +17,7 @@ import QestionBtn from './../../components/icons/QestionBtn';
 import PlayBtn from './../../components/icons/PlayBtn';
 import * as Animatable from 'react-native-animatable';
 import { loadSounds, playSound } from '../../services/sounds';
+import AudioBtn from '../../components/AudioBtn/AudioBtn';
 
 const widthScreen = Dimensions.get('screen').width;
 
@@ -92,35 +93,30 @@ export default function TaskQuestion({ navigation, route }) {
             Platform.OS == 'web' ? { marginTop: 40 } : {},
           ]}
         >
-          <TouchableOpacity
-            disabled={!(btnNumber >= 1)}
+          <AudioBtn
+            audio={audio1}
             onPress={() => {
-              playSound(sounds[0]);
               if (btnNumber == 1) {
                 setBtnNumber(2);
               }
             }}
+            disabled={!(btnNumber >= 1)}
+            animation={btnNumber == 1 && 'pulse'}
           >
-            <Animatable.Text
-              animation={btnNumber == 1 && 'pulse'}
-              easing='ease-out'
-              iterationCount='infinite'
-            >
-              {Platform.OS === 'web' ? (
-                <Image
-                  source={{
-                    uri:
-                      name == 'dark'
-                        ? require('../../../assets/web/playbtn1L.svg')
-                        : require('../../../assets/web/playbtn1D.svg'),
-                  }}
-                  style={[{ width: 70, height: 70 }]}
-                />
-              ) : (
-                <PlayBtn style={styles.pbtnImage} {...colors.purplePlayBtn} />
-              )}
-            </Animatable.Text>
-          </TouchableOpacity>
+            {Platform.OS === 'web' ? (
+              <Image
+                source={{
+                  uri:
+                    name == 'dark'
+                      ? require('../../../assets/web/playbtn1L.svg')
+                      : require('../../../assets/web/playbtn1D.svg'),
+                }}
+                style={[{ width: 70, height: 70 }]}
+              />
+            ) : (
+              <PlayBtn style={styles.pbtnImage} {...colors.purplePlayBtn} />
+            )}
+          </AudioBtn>
           <View style={styles.text}>
             <Text style={styles.mainText}>{phrase}</Text>
           </View>
@@ -188,73 +184,64 @@ export default function TaskQuestion({ navigation, route }) {
             )}
 
             <View style={{ ...styles.heading, marginTop: 32 }}>
-              <TouchableOpacity
-                disabled={!(btnNumber >= 3)}
+              <AudioBtn
+                audio={audio2}
                 onPress={() => {
-                  playSound(sounds[1]);
                   if (btnNumber == 3) {
                     setBtnNumber(4);
                   }
                 }}
-              >
-                <Animatable.Text
-                  animation={btnNumber == 3 && 'pulse'}
-                  easing='ease-out'
-                  iterationCount='infinite'
-                >
-                  {Platform.OS === 'web' ? (
-                    <Image
-                      source={{
-                        uri:
-                          name == 'dark'
-                            ? require('../../../assets/web/playbtn2L.svg')
-                            : require('../../../assets/web/playbtn2D.svg'),
-                      }}
-                      style={[styles.pbtnImage, { width: 70, height: 70 }]}
-                    />
-                  ) : (
-                    <PlayBtn
-                      style={styles.pbtnImage}
-                      {...colors.lightPinkPlayBtn}
-                    />
-                  )}
-                </Animatable.Text>
-              </TouchableOpacity>
-              <View style={styles.text}>
-                <Text style={styles.mainText}>{explanation}</Text>
-              </View>
-            </View>
-
-            <TouchableOpacity
-              disabled={!(btnNumber >= 4)}
-              onPress={() => {
-                playSound(sounds[2]);
-                if (btnNumber == 4) {
-                  setBtnNumber(5);
-                }
-              }}
-              style={styles.bottomPlayBtn}
-            >
-              <Animatable.Text
-                animation={btnNumber == 4 && 'pulse'}
-                easing='ease-out'
-                iterationCount='infinite'
+                disabled={!(btnNumber >= 3)}
+                animation={btnNumber == 3 && 'pulse'}
               >
                 {Platform.OS === 'web' ? (
                   <Image
                     source={{
                       uri:
                         name == 'dark'
-                          ? require('../../../assets/web/playbtn1L.svg')
-                          : require('../../../assets/web/playbtn1D.svg'),
+                          ? require('../../../assets/web/playbtn2L.svg')
+                          : require('../../../assets/web/playbtn2D.svg'),
                     }}
-                    style={[{ width: 70, height: 70 }]}
+                    style={[styles.pbtnImage, { width: 70, height: 70 }]}
                   />
                 ) : (
-                  <PlayBtn {...colors.purplePlayBtn} />
+                  <PlayBtn
+                    style={styles.pbtnImage}
+                    {...colors.lightPinkPlayBtn}
+                  />
                 )}
-              </Animatable.Text>
-            </TouchableOpacity>
+              </AudioBtn>
+
+              <View style={styles.text}>
+                <Text style={styles.mainText}>{explanation}</Text>
+              </View>
+            </View>
+
+            <AudioBtn
+              audio={audio3}
+              onPress={() => {
+                if (btnNumber == 4) {
+                  setBtnNumber(5);
+                }
+              }}
+              disabled={!(btnNumber >= 4)}
+              animation={btnNumber == 4 && 'pulse'}
+              style={styles.bottomPlayBtn}
+            >
+              {Platform.OS === 'web' ? (
+                <Image
+                  source={{
+                    uri:
+                      name == 'dark'
+                        ? require('../../../assets/web/playbtn1L.svg')
+                        : require('../../../assets/web/playbtn1D.svg'),
+                  }}
+                  style={[{ width: 70, height: 70 }]}
+                />
+              ) : (
+                <PlayBtn {...colors.purplePlayBtn} />
+              )}
+            </AudioBtn>
           </Animated.View>
         )}
       </View>

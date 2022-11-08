@@ -15,6 +15,7 @@ import TaskTitle from './../../components/icons/TaskTitle';
 import * as Animatable from 'react-native-animatable';
 import { Audio } from 'expo-av';
 import { loadSound, loadSounds, playSound } from '../../services/sounds';
+import AudioBtn from '../../components/AudioBtn/AudioBtn';
 
 export default function StartTask({ navigation, route }) {
   const { name, colors } = useContext(Context);
@@ -79,9 +80,9 @@ export default function StartTask({ navigation, route }) {
         >
           <View>
             <View style={styles.title}>
-              <TouchableOpacity
+              <AudioBtn
+                audio={audio}
                 onPress={() => {
-                  playSound(sound);
                   setTimeout(() => {
                     if (!isFinalTask) {
                       navigation.navigate('taskquestion', {
@@ -92,28 +93,22 @@ export default function StartTask({ navigation, route }) {
                     }
                   }, duration);
                 }}
+                animation={'pulse'}
               >
-                <Animatable.Text
-                  ref={anim}
-                  animation='pulse'
-                  easing='ease-out'
-                  iterationCount='infinite'
-                >
-                  {Platform.OS === 'web' ? (
-                    <Image
-                      source={{
-                        uri:
-                          name == 'dark'
-                            ? require('../../../assets/web/playbtn1L.svg')
-                            : require('../../../assets/web/playbtn1D.svg'),
-                      }}
-                      style={[styles.playBtn, { width: 70, height: 70 }]}
-                    />
-                  ) : (
-                    <PlayBtn style={styles.playBtn} {...colors.pinkPlayBtn} />
-                  )}
-                </Animatable.Text>
-              </TouchableOpacity>
+                {Platform.OS === 'web' ? (
+                  <Image
+                    source={{
+                      uri:
+                        name == 'dark'
+                          ? require('../../../assets/web/playbtn1L.svg')
+                          : require('../../../assets/web/playbtn1D.svg'),
+                    }}
+                    style={[styles.playBtn, { width: 70, height: 70 }]}
+                  />
+                ) : (
+                  <PlayBtn style={styles.playBtn} {...colors.pinkPlayBtn} />
+                )}
+              </AudioBtn>
               <View style={styles.subTitle}>
                 {Platform.OS === 'web' ? (
                   <Image
