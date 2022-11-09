@@ -23,7 +23,7 @@ import AudioBtn from './../../components/AudioBtn/AudioBtn';
 
 const { Provider, Droppable, Draggable } = createDndContext();
 
-const FinalTaskWeb = ({ navigataudio1ion }) => {
+const FinalTaskWeb = ({ navigation }) => {
   const { tasks } = useSelector(state => state.tasks);
   // const [tasksSounds, setTasksSounds] = useState();
   // const [itemsSounds, setItemsSounds] = useState();
