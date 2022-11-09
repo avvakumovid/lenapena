@@ -235,7 +235,8 @@ const FinalTaskWeb = ({ navigataudio1ion }) => {
                             disabled={!(btnNumber >= 2 + index)}
                             animation={btnNumber == 2 + index && 'pulse'}
                             theme={name}
-                            number={2 + index}
+                            number={2 - index}
+                            colors={colors}
                           />
                         ) : null}
                       </Animated.View>
@@ -301,7 +302,8 @@ const FinalTaskWeb = ({ navigataudio1ion }) => {
                       disabled={!(btnNumber >= 4)}
                       animation={btnNumber == 4 && 'pulse'}
                       theme={name}
-                      number={4}
+                      number={2}
+                      colors={colors}
                     />
 
                     <View style={styles.text}>

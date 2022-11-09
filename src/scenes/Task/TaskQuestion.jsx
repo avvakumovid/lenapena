@@ -104,6 +104,7 @@ export default function TaskQuestion({ navigation, route }) {
             animation={btnNumber == 1 && 'pulse'}
             theme={name}
             number={1}
+            colors={colors}
           >
             {/* {Platform.OS === 'web' ? (
               <Image
@@ -197,6 +198,7 @@ export default function TaskQuestion({ navigation, route }) {
                 animation={btnNumber == 3 && 'pulse'}
                 theme={name}
                 number={2}
+                colors={colors}
               >
                 {/* {Platform.OS === 'web' ? (
                   <Image
@@ -233,6 +235,7 @@ export default function TaskQuestion({ navigation, route }) {
               style={styles.bottomPlayBtn}
               theme={name}
               number={1}
+              colors={colors}
             >
               {/* {Platform.OS === 'web' ? (
                 <Image

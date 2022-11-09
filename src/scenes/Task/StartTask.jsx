@@ -88,6 +88,7 @@ export default function StartTask({ navigation, route }) {
                 animation={'pulse'}
                 theme={name}
                 number={1}
+                colors={colors}
               >
                 {/* {Platform.OS === 'web' ? (
                   <Image
