@@ -12,18 +12,9 @@ const AudioBtn = ({
   style = {},
   theme,
   number,
+  colors,
 }) => {
   const anim = useRef(null);
-  // const [sound, setSound] = useState();
-  // const [isSoundPlay, setIsSoundPlay] = useState(false);
-  // useEffect(() => {
-  //   async function fetch() {
-  //     const loadedSound = await loadSound(audio);
-  //     setSound(loadedSound);
-  //   }
-  //   fetch();
-  // }, [audio]);
-
   const { isSoundPlay, pauseSound, playSound, setIsSoundPlay } =
     useAudio(audio);
 
@@ -61,9 +52,16 @@ const AudioBtn = ({
               height: 70,
             }}
           />
-        ) : (
-          // <PauseBtn style={styles.playBtn} {...colors.pinkPlayBtn} />
+        ) : isSoundPlay ? (
+          number == 1 ? (
+            <PauseBtn style={styles.playBtn} {...colors.pinkPlayBtn} />
+          ) : (
+            <PauseBtn style={styles.playBtn} {...colors.purplePlayBtn} />
+          )
+        ) : number == 1 ? (
           <PlayBtn style={styles.playBtn} {...colors.pinkPlayBtn} />
+        ) : (
+          <PlayBtn style={styles.playBtn} {...colors.purplePlayBtn} />
         )}
       </Animatable.Text>
     </TouchableOpacity>

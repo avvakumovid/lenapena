@@ -179,6 +179,7 @@ const FinalTaskWeb = ({ navigataudio1ion }) => {
                       animation={btnNumber == 1 && 'pulse'}
                       theme={name}
                       number={1}
+                      colors={colors}
                     />
                     <View style={styles.text}>
                       <Text style={styles.mainText}>{tasks[0].phrase}</Text>
