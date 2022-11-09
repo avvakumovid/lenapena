@@ -28,8 +28,8 @@ const FinalTaskWeb = ({ navigation }) => {
   // const [tasksSounds, setTasksSounds] = useState();
   // const [itemsSounds, setItemsSounds] = useState();
   const droppableOpacity1 = React.useRef(new Animated.Value(0));
-  const trashIconScale1 = React.useRef(new Animated.Value(1));
-  const trashIconScale2 = React.useRef(new Animated.Value(1));
+  const trashIconScale1 = React.useRef(new Animated.Value(0));
+  const trashIconScale2 = React.useRef(new Animated.Value(0));
   const [items, setItems] = React.useState(shuffle(tasks));
   const [showFirstBtn, setShowFirstBtn] = useState(true);
   const [btnNumber, setBtnNumber] = useState(1);
@@ -96,6 +96,7 @@ const FinalTaskWeb = ({ navigation }) => {
       flexDirection: 'row',
       alignItems: 'center',
       position: 'absolute',
+      borderRadius: 30,
     },
     drop: {
       position: 'relative',
@@ -135,14 +136,14 @@ const FinalTaskWeb = ({ navigation }) => {
           <Droppable
             customId={1}
             onEnter={({ payload }) => {
-              animateValue(trashIconScale1, 1.2);
+              animateValue(trashIconScale1, 0.2);
             }}
             onLeave={() => {
-              animateValue(trashIconScale1, 1);
+              animateValue(trashIconScale1, 0);
             }}
             onDrop={({ payload }) => {
-              animateValue(trashIconScale1, 1);
-              animateValue(trashIconScale2, 1);
+              animateValue(trashIconScale1, 0);
+              animateValue(trashIconScale2, 0);
               if (payload === tasks[0].id) {
                 let t = items.filter(item => item.id !== payload);
                 setItems(t);
@@ -165,7 +166,20 @@ const FinalTaskWeb = ({ navigation }) => {
                 <>
                   <Animated.View
                     {...viewProps}
-                    style={[viewProps.style, styles.dropWrapper]}
+                    style={[
+                      viewProps.style,
+                      styles.dropWrapper,
+                      {
+                        backgroundColor: colors.mainTextColor,
+                        opacity: trashIconScale1.current,
+                        marginTop: 68,
+                        transform: [
+                          {
+                            opacity: trashIconScale1.current,
+                          },
+                        ],
+                      },
+                    ]}
                   ></Animated.View>
                   <Animated.View style={[viewProps.style, styles.drop]}>
                     <AudioBtn
@@ -248,14 +262,14 @@ const FinalTaskWeb = ({ navigation }) => {
           </View>
           <Droppable
             onEnter={({ payload }) => {
-              animateValue(trashIconScale2, 1.2);
+              animateValue(trashIconScale2, 0.2);
             }}
             onLeave={() => {
-              animateValue(trashIconScale2, 1);
+              animateValue(trashIconScale2, 0);
             }}
             onDrop={({ payload }) => {
-              animateValue(trashIconScale1, 1);
-              animateValue(trashIconScale2, 1);
+              animateValue(trashIconScale1, 0);
+              animateValue(trashIconScale2, 0);
               if (payload === tasks[1].id) {
                 let t = items.filter(item => item.id !== payload);
                 setItems(t);
@@ -279,19 +293,22 @@ const FinalTaskWeb = ({ navigation }) => {
                 <>
                   <Animated.View
                     {...viewProps}
-                    style={[viewProps.style, styles.dropWrapper, { bottom: 0 }]}
-                  ></Animated.View>
-                  <Animated.View
                     style={[
-                      {
-                        backgroundColor: active
-                          ? 'rgba(112, 78, 244, 0)'
-                          : 'rgba(112, 78, 244, 0)',
-                      },
                       viewProps.style,
-                      { ...styles.heading },
+                      styles.dropWrapper,
+                      { bottom: 0 },
+                      {
+                        backgroundColor: colors.mainTextColor,
+                        opacity: trashIconScale2.current,
+                        transform: [
+                          {
+                            opacity: trashIconScale2.current,
+                          },
+                        ],
+                      },
                     ]}
-                  >
+                  ></Animated.View>
+                  <Animated.View style={[viewProps.style, styles.drop]}>
                     <AudioBtn
                       onPress={() => {
                         if (btnNumber == 4) {
@@ -332,4 +349,20 @@ function shuffle(array) {
   let shuffleArr = [...array];
   shuffleArr.sort(() => Math.random() - 0.5);
   return shuffleArr;
+}
+
+function hexToRgb(hex) {
+  var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  console.log(
+    `${parseInt(result[1], 16)},${parseInt(result[2], 16)},${parseInt(
+      result[3],
+      16
+    )}`
+  );
+  return result
+    ? `${parseInt(result[1], 16)},${parseInt(result[2], 16)},${parseInt(
+        result[3],
+        16
+      )}`
+    : null;
 }
