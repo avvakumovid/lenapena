@@ -170,7 +170,9 @@ const FinalTaskWeb = ({ navigataudio1ion }) => {
                   <Animated.View style={[viewProps.style, styles.drop]}>
                     <AudioBtn
                       onPress={() => {
-                        setBtnNumber(2);
+                        if (btnNumber == 1) {
+                          setBtnNumber(2);
+                        }
                       }}
                       audio={tasks[0].audio1}
                       disabled={!(btnNumber >= 1)}
@@ -224,7 +226,9 @@ const FinalTaskWeb = ({ navigataudio1ion }) => {
                         {showFirstBtn ? (
                           <AudioBtn
                             onPress={() => {
-                              setBtnNumber(3 + index);
+                              if (btnNumber == 2 + index) {
+                                setBtnNumber(3 + index);
+                              }
                             }}
                             audio={items[index].audio2}
                             disabled={!(btnNumber >= 2 + index)}
@@ -288,7 +292,9 @@ const FinalTaskWeb = ({ navigataudio1ion }) => {
                   >
                     <AudioBtn
                       onPress={() => {
-                        setBtnNumber(5);
+                        if (btnNumber == 4) {
+                          setBtnNumber(5);
+                        }
                       }}
                       audio={tasks[1].audio1}
                       disabled={!(btnNumber >= 4)}
