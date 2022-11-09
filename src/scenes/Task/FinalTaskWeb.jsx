@@ -19,18 +19,20 @@ import PlayBtn from './../../components/icons/PlayBtn';
 import Modal from '../../components/Modal/Modal';
 import { setNewTask, setTasks } from '../../store/slice/tasksSlice';
 import { loadSounds, playSound } from '../../services/sounds';
+import AudioBtn from './../../components/AudioBtn/AudioBtn';
 
 const { Provider, Droppable, Draggable } = createDndContext();
 
 const FinalTaskWeb = ({ navigataudio1ion }) => {
   const { tasks } = useSelector(state => state.tasks);
-  const [tasksSounds, setTasksSounds] = useState();
-  const [itemsSounds, setItemsSounds] = useState();
+  // const [tasksSounds, setTasksSounds] = useState();
+  // const [itemsSounds, setItemsSounds] = useState();
   const droppableOpacity1 = React.useRef(new Animated.Value(0));
   const trashIconScale1 = React.useRef(new Animated.Value(1));
   const trashIconScale2 = React.useRef(new Animated.Value(1));
   const [items, setItems] = React.useState(shuffle(tasks));
   const [showFirstBtn, setShowFirstBtn] = useState(true);
+  const [btnNumber, setBtnNumber] = useState(1);
 
   const [modalVisible, setModalVisible] = useState(false);
   const [isRight, setIsRight] = useState(false);
@@ -43,15 +45,15 @@ const FinalTaskWeb = ({ navigataudio1ion }) => {
       duration: 350,
     }).start();
 
-  useEffect(() => {
-    async function fetch() {
-      let loadedSounds = await loadSounds(tasks.map(task => task.audio1));
-      setTasksSounds(loadedSounds);
-      loadedSounds = await loadSounds(items.map(item => item.audio2));
-      setItemsSounds(loadedSounds);
-    }
-    fetch();
-  }, [tasks, items]);
+  // useEffect(() => {
+  //   async function fetch() {
+  //     let loadedSounds = await loadSounds(tasks.map(task => task.audio1));
+  //     setTasksSounds(loadedSounds);
+  //     loadedSounds = await loadSounds(items.map(item => item.audio2));
+  //     setItemsSounds(loadedSounds);
+  //   }
+  //   fetch();
+  // }, [tasks, items]);
 
   useEffect(() => {
     if (items.length == 0) {
@@ -166,43 +168,16 @@ const FinalTaskWeb = ({ navigataudio1ion }) => {
                     style={[viewProps.style, styles.dropWrapper]}
                   ></Animated.View>
                   <Animated.View style={[viewProps.style, styles.drop]}>
-                    <TouchableOpacity
+                    <AudioBtn
                       onPress={() => {
-                        playSound(tasksSounds[0]);
+                        setBtnNumber(2);
                       }}
-                    >
-                      <Animated.View
-                        style={[
-                          {
-                            transform: [
-                              {
-                                scale: trashIconScale1.current,
-                              },
-                            ],
-                          },
-                        ]}
-                      >
-                        {Platform.OS === 'web' ? (
-                          <Image
-                            source={{
-                              uri:
-                                name == 'dark'
-                                  ? require('../../../assets/web/playbtn1L.svg')
-                                  : require('../../../assets/web/playbtn1D.svg'),
-                            }}
-                            style={[
-                              styles.pbtnImage,
-                              { width: 70, height: 70 },
-                            ]}
-                          />
-                        ) : (
-                          <PlayBtn
-                            style={styles.pbtnImage}
-                            {...colors.pinkPlayBtn}
-                          />
-                        )}
-                      </Animated.View>
-                    </TouchableOpacity>
+                      audio={tasks[0].audio1}
+                      disabled={!(btnNumber >= 1)}
+                      animation={btnNumber == 1 && 'pulse'}
+                      theme={name}
+                      number={1}
+                    />
                     <View style={styles.text}>
                       <Text style={styles.mainText}>{tasks[0].phrase}</Text>
                     </View>
@@ -247,31 +222,16 @@ const FinalTaskWeb = ({ navigataudio1ion }) => {
                           source={item.image}
                         />
                         {showFirstBtn ? (
-                          <TouchableOpacity
+                          <AudioBtn
                             onPress={() => {
-                              playSound(itemsSounds[index]);
+                              setBtnNumber(3 + index);
                             }}
-                          >
-                            {Platform.OS === 'web' ? (
-                              <Image
-                                source={{
-                                  uri:
-                                    name == 'dark'
-                                      ? require('../../../assets/web/playbtn2L.svg')
-                                      : require('../../../assets/web/playbtn2D.svg'),
-                                }}
-                                style={[
-                                  styles.pbtnImage,
-                                  { width: 70, height: 70 },
-                                ]}
-                              />
-                            ) : (
-                              <PlayBtn
-                                style={styles.pbtnImage}
-                                {...colors.pinkPlayBtn}
-                              />
-                            )}
-                          </TouchableOpacity>
+                            audio={items[index].audio2}
+                            disabled={!(btnNumber >= 2 + index)}
+                            animation={btnNumber == 2 + index && 'pulse'}
+                            theme={name}
+                            number={2 + index}
+                          />
                         ) : null}
                       </Animated.View>
                     );
@@ -326,43 +286,17 @@ const FinalTaskWeb = ({ navigataudio1ion }) => {
                       { ...styles.heading },
                     ]}
                   >
-                    <TouchableOpacity
+                    <AudioBtn
                       onPress={() => {
-                        playSound(tasksSounds[1]);
+                        setBtnNumber(5);
                       }}
-                    >
-                      <Animated.View
-                        style={[
-                          {
-                            transform: [
-                              {
-                                scale: trashIconScale2.current,
-                              },
-                            ],
-                          },
-                        ]}
-                      >
-                        {Platform.OS === 'web' ? (
-                          <Image
-                            source={{
-                              uri:
-                                name == 'dark'
-                                  ? require('../../../assets/web/playbtn1L.svg')
-                                  : require('../../../assets/web/playbtn1D.svg'),
-                            }}
-                            style={[
-                              styles.pbtnImage,
-                              { width: 70, height: 70 },
-                            ]}
-                          />
-                        ) : (
-                          <PlayBtn
-                            style={styles.pbtnImage}
-                            {...colors.pinkPlayBtn}
-                          />
-                        )}
-                      </Animated.View>
-                    </TouchableOpacity>
+                      audio={tasks[1].audio1}
+                      disabled={!(btnNumber >= 4)}
+                      animation={btnNumber == 4 && 'pulse'}
+                      theme={name}
+                      number={4}
+                    />
+
                     <View style={styles.text}>
                       <Text style={styles.mainText}>{tasks[1].phrase}</Text>
                     </View>

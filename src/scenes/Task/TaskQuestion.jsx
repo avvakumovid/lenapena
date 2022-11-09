@@ -102,8 +102,10 @@ export default function TaskQuestion({ navigation, route }) {
             }}
             disabled={!(btnNumber >= 1)}
             animation={btnNumber == 1 && 'pulse'}
+            theme={name}
+            number={1}
           >
-            {Platform.OS === 'web' ? (
+            {/* {Platform.OS === 'web' ? (
               <Image
                 source={{
                   uri:
@@ -115,7 +117,7 @@ export default function TaskQuestion({ navigation, route }) {
               />
             ) : (
               <PlayBtn style={styles.pbtnImage} {...colors.purplePlayBtn} />
-            )}
+            )} */}
           </AudioBtn>
           <View style={styles.text}>
             <Text style={styles.mainText}>{phrase}</Text>
@@ -193,8 +195,10 @@ export default function TaskQuestion({ navigation, route }) {
                 }}
                 disabled={!(btnNumber >= 3)}
                 animation={btnNumber == 3 && 'pulse'}
+                theme={name}
+                number={2}
               >
-                {Platform.OS === 'web' ? (
+                {/* {Platform.OS === 'web' ? (
                   <Image
                     source={{
                       uri:
@@ -209,7 +213,7 @@ export default function TaskQuestion({ navigation, route }) {
                     style={styles.pbtnImage}
                     {...colors.lightPinkPlayBtn}
                   />
-                )}
+                )} */}
               </AudioBtn>
 
               <View style={styles.text}>
@@ -227,8 +231,10 @@ export default function TaskQuestion({ navigation, route }) {
               disabled={!(btnNumber >= 4)}
               animation={btnNumber == 4 && 'pulse'}
               style={styles.bottomPlayBtn}
+              theme={name}
+              number={1}
             >
-              {Platform.OS === 'web' ? (
+              {/* {Platform.OS === 'web' ? (
                 <Image
                   source={{
                     uri:
@@ -240,7 +246,7 @@ export default function TaskQuestion({ navigation, route }) {
                 />
               ) : (
                 <PlayBtn {...colors.purplePlayBtn} />
-              )}
+              )} */}
             </AudioBtn>
           </Animated.View>
         )}

@@ -39,6 +39,7 @@ const Menu = ({ navigation }) => {
           animation='pulse'
           easing='ease-out'
           iterationCount='infinite'
+          style={[styles.btn, Platform.OS == 'web' ? { marginTop: 10 } : null]}
         >
           <StartBtn
             style={[
@@ -68,12 +69,12 @@ export default Menu;
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
+    flex: 1,
     justifyContent: 'flex-start',
     alignItems: 'center',
     width: 400,
   },
   btn: {
-    marginTop: 243,
+    // marginTop: 243,
   },
 });

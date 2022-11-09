@@ -1,7 +1,7 @@
-import { Platform, StyleSheet, TouchableOpacity } from 'react-native';
+import { Platform, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import React, { useState, useRef, useEffect } from 'react';
 import * as Animatable from 'react-native-animatable';
-import { loadSound, playSound } from '../../services/sounds';
+import useAudio from './../../hooks/useAudio';
 
 const AudioBtn = ({
   audio,
@@ -10,23 +10,34 @@ const AudioBtn = ({
   disabled = false,
   animation,
   style = {},
+  theme,
+  number,
 }) => {
   const anim = useRef(null);
-  const [sound, setSound] = useState();
+  // const [sound, setSound] = useState();
+  // const [isSoundPlay, setIsSoundPlay] = useState(false);
+  // useEffect(() => {
+  //   async function fetch() {
+  //     const loadedSound = await loadSound(audio);
+  //     setSound(loadedSound);
+  //   }
+  //   fetch();
+  // }, [audio]);
 
-  useEffect(() => {
-    async function fetch() {
-      const loadedSound = await loadSound(audio);
-      setSound(loadedSound);
-    }
-    fetch();
-  }, [audio]);
+  const { isSoundPlay, pauseSound, playSound, setIsSoundPlay } =
+    useAudio(audio);
 
   return (
     <TouchableOpacity
       disabled={disabled}
-      onPress={() => {
-        playSound(sound);
+      onPress={async () => {
+        if (!isSoundPlay) {
+          setIsSoundPlay(true);
+          playSound();
+        } else {
+          setIsSoundPlay(false);
+          pauseSound();
+        }
         onPress();
       }}
       style={style}
@@ -37,7 +48,23 @@ const AudioBtn = ({
         easing='ease-out'
         iterationCount='infinite'
       >
-        {children}
+        {Platform.OS === 'web' ? (
+          <Image
+            source={{
+              uri: getWebImage(theme, isSoundPlay ? 'pause' : 'play', number),
+            }}
+            style={{
+              marginLeft: 10,
+              marginRight: 13,
+              alignSelf: 'flex-end',
+              width: 70,
+              height: 70,
+            }}
+          />
+        ) : (
+          // <PauseBtn style={styles.playBtn} {...colors.pinkPlayBtn} />
+          <PlayBtn style={styles.playBtn} {...colors.pinkPlayBtn} />
+        )}
       </Animatable.Text>
     </TouchableOpacity>
   );
@@ -46,3 +73,35 @@ const AudioBtn = ({
 export default AudioBtn;
 
 const styles = StyleSheet.create({});
+
+const getWebImage = (theme, type, number) => {
+  if (theme == 'dark') {
+    if (type == 'play') {
+      if (number == 1) {
+        return require('../../../assets/web/playbtn1L.svg');
+      } else {
+        return require('../../../assets/web/playbtn2L.svg');
+      }
+    } else {
+      if (number == 1) {
+        return require('../../../assets/web/pauseBtn1L.svg');
+      } else {
+        return require('../../../assets/web/pauseBtn2L.svg');
+      }
+    }
+  } else {
+    if (type == 'play') {
+      if (number == 1) {
+        return require('../../../assets/web/playbtn1D.svg');
+      } else {
+        return require('../../../assets/web/playbtn2D.svg');
+      }
+    } else {
+      if (number == 1) {
+        return require('../../../assets/web/pauseBtn1D.svg');
+      } else {
+        return require('../../../assets/web/pauseBtn2D.svg');
+      }
+    }
+  }
+};

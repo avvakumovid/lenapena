@@ -1,21 +1,13 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  Platform,
-  TouchableOpacity,
-} from 'react-native';
+import { View, Text, StyleSheet, Image, Platform } from 'react-native';
 import React, { useState, useEffect, useContext, useRef } from 'react';
 import Background from '../../components/Background';
 import { Context } from '../../context/context';
 import Footer from './../../components/Footer';
-import PlayBtn from './../../components/icons/PlayBtn';
 import TaskTitle from './../../components/icons/TaskTitle';
-import * as Animatable from 'react-native-animatable';
 import { Audio } from 'expo-av';
 import { loadSound, loadSounds, playSound } from '../../services/sounds';
 import AudioBtn from '../../components/AudioBtn/AudioBtn';
+import PauseBtn from '../../components/icons/PauseBtn';
 
 export default function StartTask({ navigation, route }) {
   const { name, colors } = useContext(Context);
@@ -94,8 +86,10 @@ export default function StartTask({ navigation, route }) {
                   }, duration);
                 }}
                 animation={'pulse'}
+                theme={name}
+                number={1}
               >
-                {Platform.OS === 'web' ? (
+                {/* {Platform.OS === 'web' ? (
                   <Image
                     source={{
                       uri:
@@ -106,9 +100,11 @@ export default function StartTask({ navigation, route }) {
                     style={[styles.playBtn, { width: 70, height: 70 }]}
                   />
                 ) : (
+                  <PauseBtn style={styles.playBtn} {...colors.pinkPlayBtn} />
                   <PlayBtn style={styles.playBtn} {...colors.pinkPlayBtn} />
-                )}
+                )} */}
               </AudioBtn>
+
               <View style={styles.subTitle}>
                 {Platform.OS === 'web' ? (
                   <Image
