@@ -4,29 +4,23 @@ import {
   Text,
   View,
   Animated,
-  TouchableOpacity,
   Image,
   Platform,
   Dimensions,
 } from 'react-native';
-import { Audio } from 'expo-av';
 import { createDndContext } from 'react-native-easy-dnd';
 import { Context } from '../../context/context';
 import Background from '../../components/Background';
 import { useSelector, useDispatch } from 'react-redux';
-import Footer from '../../components/Footer';
-import PlayBtn from './../../components/icons/PlayBtn';
 import Modal from '../../components/Modal/Modal';
-import { setNewTask, setTasks } from '../../store/slice/tasksSlice';
-import { loadSounds, playSound } from '../../services/sounds';
+import { setTasks } from '../../store/slice/tasksSlice';
 import AudioBtn from './../../components/AudioBtn/AudioBtn';
-
+import Title from '../../components/Title/Title';
 const { Provider, Droppable, Draggable } = createDndContext();
 
 const FinalTaskWeb = ({ navigation }) => {
   const { tasks } = useSelector(state => state.tasks);
-  // const [tasksSounds, setTasksSounds] = useState();
-  // const [itemsSounds, setItemsSounds] = useState();
+
   const droppableOpacity1 = React.useRef(new Animated.Value(0));
   const trashIconScale1 = React.useRef(new Animated.Value(0));
   const trashIconScale2 = React.useRef(new Animated.Value(0));
@@ -44,16 +38,6 @@ const FinalTaskWeb = ({ navigation }) => {
       toValue,
       duration: 350,
     }).start();
-
-  // useEffect(() => {
-  //   async function fetch() {
-  //     let loadedSounds = await loadSounds(tasks.map(task => task.audio1));
-  //     setTasksSounds(loadedSounds);
-  //     loadedSounds = await loadSounds(items.map(item => item.audio2));
-  //     setItemsSounds(loadedSounds);
-  //   }
-  //   fetch();
-  // }, [tasks, items]);
 
   useEffect(() => {
     if (items.length == 0) {
@@ -79,8 +63,8 @@ const FinalTaskWeb = ({ navigation }) => {
       fontSize: 26,
       textTransform: 'uppercase',
       color: colors.mainTextColor,
-      marginLeft: 15,
-      width: widthScreen - 140,
+      // marginLeft: 15,
+      // width: widthScreen - 140,
       maxWidth: 700,
     },
     heading: {
@@ -104,7 +88,7 @@ const FinalTaskWeb = ({ navigation }) => {
       flexDirection: 'row',
       alignItems: 'center',
       borderRadius: 99,
-      marginTop: 72,
+      // marginTop: 72,
     },
     mainPicture: {
       alignSelf: 'center',
@@ -112,7 +96,8 @@ const FinalTaskWeb = ({ navigation }) => {
       height: 170,
     },
     main: {
-      marginTop: -40,
+      // marginTop: -40,
+      paddingVertical: 40,
       height: '100%',
       justifyContent: 'space-between',
       overflow: 'hidden',
@@ -120,19 +105,9 @@ const FinalTaskWeb = ({ navigation }) => {
     },
   });
   return (
-    <Background>
+    <Background isFooter={true}>
       <Provider>
-        <View
-          style={[
-            styles.main,
-            Platform.OS == 'web'
-              ? {}
-              : {
-                  marginTop: 20,
-                  height: '90%',
-                },
-          ]}
-        >
+        <View style={styles.main}>
           <Droppable
             customId={1}
             onEnter={({ payload }) => {
@@ -172,7 +147,7 @@ const FinalTaskWeb = ({ navigation }) => {
                       {
                         backgroundColor: colors.mainTextColor,
                         opacity: trashIconScale1.current,
-                        marginTop: 68,
+                        // marginTop: 68,
                         transform: [
                           {
                             opacity: trashIconScale1.current,
@@ -182,7 +157,7 @@ const FinalTaskWeb = ({ navigation }) => {
                     ]}
                   ></Animated.View>
                   <Animated.View style={[viewProps.style, styles.drop]}>
-                    <AudioBtn
+                    <Title
                       onPress={() => {
                         if (btnNumber == 1) {
                           setBtnNumber(2);
@@ -194,10 +169,9 @@ const FinalTaskWeb = ({ navigation }) => {
                       theme={name}
                       number={1}
                       colors={colors}
+                      title={tasks[0].phrase}
+                      // style={[styles.heading, styles.lowMarginTop]}
                     />
-                    <View style={styles.text}>
-                      <Text style={styles.mainText}>{tasks[0].phrase}</Text>
-                    </View>
                   </Animated.View>
                 </>
               );
@@ -228,14 +202,21 @@ const FinalTaskWeb = ({ navigation }) => {
                           {
                             ...styles.heading,
                             alignItems: 'flex-end',
-                            marginTop: 72,
+                            // marginTop: 72,
                             borderRadius: 0,
                           },
-                          Platform.OS == 'web' ? { marginTop: 22 } : {},
+                          Platform.OS == 'web'
+                            ? {
+                                // marginTop: 22
+                              }
+                            : {},
                         ]}
                       >
                         <Image
-                          style={{ ...styles.mainPicture, marginRight: 12 }}
+                          style={{
+                            ...styles.mainPicture,
+                            // marginRight: 12
+                          }}
                           source={item.image}
                         />
                         {showFirstBtn ? (
@@ -309,7 +290,7 @@ const FinalTaskWeb = ({ navigation }) => {
                     ]}
                   ></Animated.View>
                   <Animated.View style={[viewProps.style, styles.drop]}>
-                    <AudioBtn
+                    <Title
                       onPress={() => {
                         if (btnNumber == 4) {
                           setBtnNumber(5);
@@ -321,11 +302,9 @@ const FinalTaskWeb = ({ navigation }) => {
                       theme={name}
                       number={2}
                       colors={colors}
+                      title={tasks[1].phrase}
+                      // style={[styles.heading, styles.lowMarginTop]}
                     />
-
-                    <View style={styles.text}>
-                      <Text style={styles.mainText}>{tasks[1].phrase}</Text>
-                    </View>
                   </Animated.View>
                 </>
               );
@@ -333,11 +312,6 @@ const FinalTaskWeb = ({ navigation }) => {
           </Droppable>
         </View>
       </Provider>
-      {/* <Footer
-        navigation={navigation}
-        leftBtnVisible={false}
-        rightBtnVisible={false}
-      /> */}
       <Modal isRight={isRight} modalVisible={modalVisible} />
     </Background>
   );

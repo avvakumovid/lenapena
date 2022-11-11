@@ -39,18 +39,15 @@ const Menu = ({ navigation }) => {
           animation='pulse'
           easing='ease-out'
           iterationCount='infinite'
-          style={[styles.btn, Platform.OS == 'web' ? { marginTop: 10 } : null]}
+          style={[styles.btn]}
         >
-          <StartBtn
-            style={[
-              styles.btn,
-              Platform.OS == 'web' ? { marginTop: 200 } : null,
-            ]}
-            {...colors.startBtn}
-          />
+          <StartBtn {...colors.startBtn} />
         </Animatable.Text>
       </TouchableOpacity>
       <TouchableOpacity
+        style={{
+          paddingVertical: 20,
+        }}
         onPress={() => {
           changeTheme();
         }}
@@ -75,6 +72,6 @@ const styles = StyleSheet.create({
     width: 400,
   },
   btn: {
-    // marginTop: 243,
+    marginTop: 220,
   },
 });

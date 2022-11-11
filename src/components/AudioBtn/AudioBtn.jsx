@@ -2,6 +2,8 @@ import { Platform, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import React, { useState, useRef, useEffect } from 'react';
 import * as Animatable from 'react-native-animatable';
 import useAudio from './../../hooks/useAudio';
+import PlayBtn from '../icons/PlayBtn';
+import PauseBtn from './../icons/PauseBtn';
 
 const AudioBtn = ({
   audio,
@@ -38,19 +40,14 @@ const AudioBtn = ({
         animation={animation}
         easing='ease-out'
         iterationCount='infinite'
+        // android_hyphenationFrequency='full'
       >
         {Platform.OS === 'web' ? (
           <Image
             source={{
               uri: getWebImage(theme, isSoundPlay ? 'pause' : 'play', number),
             }}
-            style={{
-              marginLeft: 10,
-              marginRight: 13,
-              alignSelf: 'flex-end',
-              width: 70,
-              height: 70,
-            }}
+            style={styles.playBtn}
           />
         ) : isSoundPlay ? (
           number == 1 ? (
@@ -70,7 +67,15 @@ const AudioBtn = ({
 
 export default AudioBtn;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  playBtn: {
+    marginLeft: 10,
+    marginRight: 15,
+    alignSelf: 'flex-end',
+    width: 70,
+    height: 70,
+  },
+});
 
 const getWebImage = (theme, type, number) => {
   if (theme == 'dark') {

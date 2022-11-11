@@ -21,6 +21,21 @@ const Footer = ({
   rightBtnPulse = false,
 }) => {
   const { name, colors } = useContext(Context);
+  const styles = StyleSheet.create({
+    container: {
+      width: '100%',
+      flexDirection: 'row',
+      justifyContent:
+        rightBtnVisible && leftBtnVisible ? 'space-between' : 'center',
+      alignItems: 'center',
+      alignSelf: 'flex-end',
+      paddingVertical: 20,
+      paddingHorizontal: 12.5,
+      marginHorizontal: 50,
+      padingHorizontal: 50,
+      alignSelf: 'center',
+    },
+  });
   return (
     <View style={styles.container}>
       {leftBtnVisible && (
@@ -85,7 +100,7 @@ const Footer = ({
           }}
         >
           <Animatable.View
-            animation={rightBtnPulse && 'pulse'}
+            animation={rightBtnPulse ? 'pulse' : ''}
             easing='ease-out'
             iterationCount='infinite'
           >
@@ -110,13 +125,3 @@ const Footer = ({
 };
 
 export default Footer;
-
-const styles = StyleSheet.create({
-  container: {
-    width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    alignSelf: 'flex-end',
-  },
-});
