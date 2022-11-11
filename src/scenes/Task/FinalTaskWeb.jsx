@@ -16,6 +16,7 @@ import Modal from '../../components/Modal/Modal';
 import { setTasks } from '../../store/slice/tasksSlice';
 import AudioBtn from './../../components/AudioBtn/AudioBtn';
 import Title from '../../components/Title/Title';
+import useAudio from '../../hooks/useAudio';
 const { Provider, Droppable, Draggable } = createDndContext();
 
 const FinalTaskWeb = ({ navigation }) => {
@@ -27,6 +28,16 @@ const FinalTaskWeb = ({ navigation }) => {
   const [items, setItems] = React.useState(shuffle(tasks));
   const [showFirstBtn, setShowFirstBtn] = useState(true);
   const [btnNumber, setBtnNumber] = useState(1);
+
+  const [success, setSuccess] = useState(
+    require('../../../assets/sounds/success.mp3')
+  );
+  const [mistake, setMistake] = useState(
+    require('../../../assets/sounds/mistake.mp3')
+  );
+
+  const playSuccess = useAudio(success).playSound;
+  const playError = useAudio(mistake).playSound;
 
   const [modalVisible, setModalVisible] = useState(false);
   const [isRight, setIsRight] = useState(false);
@@ -123,16 +134,18 @@ const FinalTaskWeb = ({ navigation }) => {
                 let t = items.filter(item => item.id !== payload);
                 setItems(t);
                 setIsRight(true);
+                playSuccess();
                 setModalVisible(true);
                 setTimeout(() => {
                   setModalVisible(false);
-                }, 400);
+                }, 1000);
               } else {
                 setIsRight(false);
+                playError();
                 setModalVisible(true);
                 setTimeout(() => {
                   setModalVisible(false);
-                }, 400);
+                }, 1000);
               }
             }}
           >
@@ -255,12 +268,16 @@ const FinalTaskWeb = ({ navigation }) => {
                 let t = items.filter(item => item.id !== payload);
                 setItems(t);
                 setIsRight(true);
+                playSuccess();
+
                 setModalVisible(true);
                 setTimeout(() => {
                   setModalVisible(false);
                 }, 400);
               } else {
                 setIsRight(false);
+                playError();
+
                 setModalVisible(true);
                 setTimeout(() => {
                   setModalVisible(false);
@@ -312,7 +329,12 @@ const FinalTaskWeb = ({ navigation }) => {
           </Droppable>
         </View>
       </Provider>
-      <Modal isRight={isRight} modalVisible={modalVisible} />
+      <Modal
+        success={success}
+        mistake={mistake}
+        isRight={isRight}
+        modalVisible={modalVisible}
+      />
     </Background>
   );
 };

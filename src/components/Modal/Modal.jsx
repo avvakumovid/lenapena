@@ -1,11 +1,17 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Modal, StyleSheet, Platform, Image, View } from 'react-native';
 import { Context } from '../../context/context';
 import CheckBtn from './../icons/CheckBtn';
 import XBtn from './../icons/XBtn';
+import useAudio from './../../hooks/useAudio';
 
-const App = ({ isRight, modalVisible }) => {
+const ModalView = ({ isRight, modalVisible, success, mistake }) => {
   const { name, colors } = useContext(Context);
+
+  useEffect(() => {
+    console.log(success, mistake);
+  }, []);
+
   return (
     <Modal animationType='fade' transparent={true} visible={modalVisible}>
       <View style={styles.centeredView}>
@@ -50,4 +56,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default App;
+export default ModalView;
