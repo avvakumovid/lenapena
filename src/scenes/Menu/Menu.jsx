@@ -9,6 +9,8 @@ import MoonBtn from './../../components/icons/MoonBtn';
 import StartBtn from './../../components/icons/StartBtn';
 import { useEffect, useRef, useState } from 'react';
 import * as Animatable from 'react-native-animatable';
+import { vw, vh, vmin, vmax } from 'react-native-expo-viewport-units';
+import PlayBtn from './../../components/icons/PlayBtn';
 
 const Menu = ({ navigation }) => {
   const { changeTheme, name, colors } = useContext(Context);
@@ -46,7 +48,7 @@ const Menu = ({ navigation }) => {
       </TouchableOpacity>
       <TouchableOpacity
         style={{
-          paddingVertical: 20,
+          paddingVertical: vh(2),
         }}
         onPress={() => {
           changeTheme();
@@ -69,9 +71,9 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-start',
     alignItems: 'center',
-    width: 400,
+    // width: 400,
   },
   btn: {
-    marginTop: 220,
+    marginTop: vh(22),
   },
 });

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Svg, { Rect, Path, Defs, LinearGradient, Stop } from 'react-native-svg';
+import { vw, vh, vmin, vmax } from 'react-native-expo-viewport-units';
 
 const StartBtn = ({
   style,
@@ -9,6 +10,7 @@ const StartBtn = ({
   ...props
 }) => (
   <Svg
+    scale={vh(0.12)}
     style={style}
     width={256}
     height={101}

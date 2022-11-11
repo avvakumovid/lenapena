@@ -9,14 +9,14 @@ const CheckBtn = ({
   ...props
 }) => (
   <Svg
-    width={126}
-    height={101}
+    width={120}
+    height={120}
     fill='none'
     xmlns='http://www.w3.org/2000/svg'
     {...props}
   >
     <Path
-      d='M5 56.435 40.151 96 121 5'
+      d='M7 65.348 38.818 101 112 19'
       stroke='url(#a)'
       strokeWidth={10}
       strokeLinecap='round'
@@ -25,10 +25,10 @@ const CheckBtn = ({
     <Defs>
       <LinearGradient
         id='a'
-        x1={63}
-        y1={5}
-        x2={63}
-        y2={96}
+        x1={59.5}
+        y1={19}
+        x2={59.5}
+        y2={101}
         gradientUnits='userSpaceOnUse'
       >
         <Stop stopColor={externalBorderColor} />

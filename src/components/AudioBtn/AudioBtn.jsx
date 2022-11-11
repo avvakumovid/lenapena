@@ -4,6 +4,7 @@ import * as Animatable from 'react-native-animatable';
 import useAudio from './../../hooks/useAudio';
 import PlayBtn from '../icons/PlayBtn';
 import PauseBtn from './../icons/PauseBtn';
+import { vw, vh, vmin, vmax } from 'react-native-expo-viewport-units';
 
 const AudioBtn = ({
   audio,
@@ -72,8 +73,8 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     marginRight: 15,
     alignSelf: 'flex-end',
-    width: 70,
-    height: 70,
+    width: vh(7),
+    height: vh(7),
   },
 });
 

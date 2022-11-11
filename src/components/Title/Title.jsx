@@ -9,6 +9,7 @@ import {
 import React, { useEffect } from 'react';
 import AudioBtn from '../AudioBtn/AudioBtn';
 import TaskTitle from '../icons/TaskTitle';
+import { vw, vh, vmin, vmax } from 'react-native-expo-viewport-units';
 
 const { width, height } = Dimensions.get('window');
 
@@ -35,7 +36,7 @@ const Title = ({
       fontFamily: 'Franklin Gothic Medium',
       fontStyle: 'italic',
       fontWeight: '400',
-      fontSize: 32,
+      fontSize: vh(4.3),
       textTransform: 'uppercase',
       color: colors.headingTextColor,
     },
@@ -44,7 +45,7 @@ const Title = ({
       fontFamily: 'Franklin Gothic Medium',
       fontWeight: '400',
       fontStyle: 'italic',
-      fontSize: 26,
+      fontSize: vh(3),
       textTransform: 'uppercase',
       textAlign: 'left',
       color: colors.mainTextColor,

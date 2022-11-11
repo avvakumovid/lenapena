@@ -18,6 +18,7 @@ import AudioBtn from './../../components/AudioBtn/AudioBtn';
 import Title from '../../components/Title/Title';
 import useAudio from '../../hooks/useAudio';
 const { Provider, Droppable, Draggable } = createDndContext();
+import { vw, vh, vmin, vmax } from 'react-native-expo-viewport-units';
 
 const FinalTaskWeb = ({ navigation }) => {
   const { tasks } = useSelector(state => state.tasks);
@@ -103,8 +104,8 @@ const FinalTaskWeb = ({ navigation }) => {
     },
     mainPicture: {
       alignSelf: 'center',
-      width: 170,
-      height: 170,
+      width: vh(17),
+      height: vh(17),
     },
     main: {
       // marginTop: -40,
@@ -183,17 +184,24 @@ const FinalTaskWeb = ({ navigation }) => {
                       number={1}
                       colors={colors}
                       title={tasks[0].phrase}
-                      // style={[styles.heading, styles.lowMarginTop]}
                     />
                   </Animated.View>
                 </>
               );
             }}
           </Droppable>
-          <View style={{}}>
+          <View
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
             {items.map((item, index) => {
               return (
                 <Draggable
+                  style={{ backgroundColor: 'yellow' }}
                   key={item.id}
                   onDragStart={() => {
                     animateValue(droppableOpacity1, 1);

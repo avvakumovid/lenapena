@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Svg, { Rect, Path, Stop, Defs, LinearGradient } from 'react-native-svg';
+import { vw, vh, vmin, vmax } from 'react-native-expo-viewport-units';
 
 const SunBtn = ({
   style,
@@ -9,6 +10,7 @@ const SunBtn = ({
   ...props
 }) => (
   <Svg
+    scale={vh(0.1)}
     width={26}
     height={26}
     fill='none'

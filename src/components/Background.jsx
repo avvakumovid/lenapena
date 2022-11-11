@@ -3,6 +3,8 @@ import React from 'react';
 import Footer from './Footer';
 import { Context } from './../context/context';
 import { useContext } from 'react';
+import { vw, vh, vmin, vmax } from 'react-native-expo-viewport-units';
+
 const { width, height } = Dimensions.get('window');
 
 const Background = ({
@@ -19,12 +21,12 @@ const Background = ({
 
   const styles = StyleSheet.create({
     wrapper: {
-      height: '100%',
-      width: width > 600 ? 600 : width,
+      height: vh(100),
+      // width: vw(100),
+      width: width > 600 ? 600 : vw(100),
       marginVertical: 0,
       backgroundColor: colors.backgroundColor,
       marginHorizontal: 'auto',
-      padding: 50,
     },
     container: {
       flex: 1,
@@ -32,8 +34,6 @@ const Background = ({
       alignItems: 'center',
       overflow: 'hidden',
       touchAction: 'none',
-      backgroundColor: colors.backgroundColor,
-      padingHorizontal: 50,
     },
     body: {
       height: '100%',

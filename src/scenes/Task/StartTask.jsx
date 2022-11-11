@@ -6,6 +6,7 @@ import TaskTitle from './../../components/icons/TaskTitle';
 import { loadSounds } from '../../services/sounds';
 import AudioBtn from '../../components/AudioBtn/AudioBtn';
 import Heading from '../../components/Heading/Heading';
+import { vw, vh, vmin, vmax } from 'react-native-expo-viewport-units';
 
 export default function StartTask({ navigation, route }) {
   const { name, colors } = useContext(Context);
@@ -21,10 +22,7 @@ export default function StartTask({ navigation, route }) {
   }, [audio]);
   const styles = StyleSheet.create({
     heading: {
-      marginTop: 243,
-      width: 350,
-      // backgroundColor: 'red',
-      flexWrap: 'wrap',
+      marginTop: vh(22),
     },
   });
   return (

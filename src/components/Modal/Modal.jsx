@@ -4,6 +4,7 @@ import { Context } from '../../context/context';
 import CheckBtn from './../icons/CheckBtn';
 import XBtn from './../icons/XBtn';
 import useAudio from './../../hooks/useAudio';
+import { vw, vh, vmin, vmax } from 'react-native-expo-viewport-units';
 
 const ModalView = ({ isRight, modalVisible, success, mistake }) => {
   const { name, colors } = useContext(Context);
@@ -24,7 +25,7 @@ const ModalView = ({ isRight, modalVisible, success, mistake }) => {
                     ? require('../../../assets/web/checkbtnL.svg')
                     : require('../../../assets/web/checkbtnD.svg'),
               }}
-              style={[{ width: 116, height: 91 }]}
+              style={[{ width: vh(16), height: vh(16) }]}
             />
           ) : (
             <CheckBtn {...colors.pinkPlayBtn} />
@@ -38,7 +39,7 @@ const ModalView = ({ isRight, modalVisible, success, mistake }) => {
                     ? require('../../../assets/web/xbtnL.svg')
                     : require('../../../assets/web/xbtnD.svg'),
               }}
-              style={[{ width: 116, height: 116 }]}
+              style={[{ width: vh(16), height: vh(16) }]}
             />
           ) : (
             <XBtn {...colors.pinkPlayBtn} />

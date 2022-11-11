@@ -11,6 +11,7 @@ import HomeBtn from './icons/HomeBtn';
 import RightBtn from './icons/RightBtn';
 import LeftBtn from './icons/LeftBtn';
 import * as Animatable from 'react-native-animatable';
+import { vw, vh, vmin, vmax } from 'react-native-expo-viewport-units';
 
 const Footer = ({
   navigation,
@@ -29,7 +30,7 @@ const Footer = ({
         rightBtnVisible && leftBtnVisible ? 'space-between' : 'center',
       alignItems: 'center',
       alignSelf: 'flex-end',
-      paddingVertical: 20,
+      paddingVertical: vh(2),
       paddingHorizontal: 12.5,
       marginHorizontal: 50,
       padingHorizontal: 50,
@@ -57,7 +58,7 @@ const Footer = ({
                     ? require('../../assets/web/leftArrowL.svg')
                     : require('../../assets/web/leftArrowD.svg'),
               }}
-              style={[{ width: 11, height: 24 }]}
+              style={[{ width: vh(2.5), height: vh(2.5) }]}
             />
           ) : (
             <LeftBtn {...colors.footerSideBtn} />
@@ -82,7 +83,7 @@ const Footer = ({
                   ? require('../../assets/web/homeL.svg')
                   : require('../../assets/web/homeD.svg'),
             }}
-            style={[{ width: 20, height: 22 }]}
+            style={[{ width: vh(2.5), height: vh(2.5) }]}
           />
         ) : (
           <HomeBtn style={styles.goHome} {...colors.footerMiddleBtn} />
@@ -112,7 +113,7 @@ const Footer = ({
                       ? require('../../assets/web/rightArrowL.svg')
                       : require('../../assets/web/rightArrowD.svg'),
                 }}
-                style={[{ width: 11, height: 24 }]}
+                style={[{ width: vh(2.5), height: vh(2.5) }]}
               />
             ) : (
               <RightBtn {...colors.footerSideBtn} />

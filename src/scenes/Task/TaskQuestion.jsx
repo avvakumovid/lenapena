@@ -19,6 +19,7 @@ import * as Animatable from 'react-native-animatable';
 import { loadSounds, playSound } from '../../services/sounds';
 import AudioBtn from '../../components/AudioBtn/AudioBtn';
 import Title from '../../components/Title/Title';
+import { vw, vh, vmin, vmax } from 'react-native-expo-viewport-units';
 
 const widthScreen = Dimensions.get('screen').width;
 
@@ -52,17 +53,6 @@ export default function TaskQuestion({ navigation, route }) {
       // width: widthScreen,
     },
     pbtnImage: {},
-    mainText: {
-      fontFamily: 'Franklin Gothic Medium',
-      fontStyle: 'italic',
-      fontWeight: '400',
-      fontSize: 26,
-      textTransform: 'uppercase',
-      color: colors.mainTextColor,
-      marginLeft: 15,
-      flexWrap: 'wrap',
-      marginTop: 30,
-    },
 
     bottomPlayBtn: {
       // marginTop: 20,
@@ -70,14 +60,16 @@ export default function TaskQuestion({ navigation, route }) {
     },
     mainPicture: {
       // marginTop: 32,
+      width: vh(30),
+      height: vh(30),
       alignSelf: 'center',
     },
     questionBtn: {
-      marginTop: 80,
+      marginTop: vh(8),
       alignSelf: 'center',
     },
     lowMarginTop: {
-      marginTop: 40,
+      marginTop: vh(4),
     },
   });
   return (
@@ -153,7 +145,7 @@ export default function TaskQuestion({ navigation, route }) {
                         ? require('../../../assets/web/qestionbtnL.svg')
                         : require('../../../assets/web/qestionbtnD.svg'),
                   }}
-                  style={{ width: 190, height: 190 }}
+                  style={{ width: vh(19), height: vh(19) }}
                 />
               ) : (
                 <QestionBtn {...colors.qestionBtn} />
@@ -174,7 +166,7 @@ export default function TaskQuestion({ navigation, route }) {
               source={{
                 uri: image,
               }}
-              style={[styles.mainPicture, { width: 270, height: 270 }]}
+              style={[styles.mainPicture]}
             />
           ) : (
             <Image style={styles.mainPicture} source={image} />
