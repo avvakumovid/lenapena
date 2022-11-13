@@ -28,7 +28,7 @@ const Heading = ({
       flexDirection: 'row',
       justifyContent: 'center',
       alignItems: 'center',
-      marginLeft: vw(2),
+      // marginLeft: vw(2),
     },
     subTitle: {
       fontFamily: 'Franklin Gothic Medium',
@@ -53,11 +53,11 @@ const Heading = ({
       fontFamily: 'Franklin Gothic Medium',
       fontWeight: '400',
       fontStyle: 'italic',
-      fontSize: vh(3.75),
+      fontSize: vh(3),
       textTransform: 'uppercase',
       textAlign: 'left',
       color: colors.mainTextColor,
-      maxWidth: width > 600 ? 500 : width - 100,
+      maxWidth: width > 600 ? 500 : vw(60),
     },
     text: {
       display: 'flex',

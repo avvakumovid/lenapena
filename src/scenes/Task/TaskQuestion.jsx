@@ -85,7 +85,7 @@ export default function TaskQuestion({ navigation, route }) {
           });
         } else {
           navigation.navigate('starttask', {
-            title: 'послушай и соедени картинки парвльно',
+            title: 'ПОСЛУШАЙ И СОЕДИНИ КАРТИНКИ ПРАВИЛЬНО',
             isFinalTask: true,
             audio: require('../../../assets/sounds/послушай и соедени картинки правильно.mp3'),
             duration: 2500,
