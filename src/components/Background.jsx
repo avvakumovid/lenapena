@@ -27,6 +27,8 @@ const Background = ({
       marginVertical: 0,
       backgroundColor: colors.backgroundColor,
       marginHorizontal: 'auto',
+      overflow: 'hidden',
+      touchAction: 'none',
     },
     container: {
       flex: 1,
@@ -39,6 +41,8 @@ const Background = ({
       height: '100%',
       width: '100%',
       backgroundColor: colors.backgroundColor,
+      overflow: 'hidden',
+      touchAction: 'none',
     },
   });
 

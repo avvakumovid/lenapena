@@ -117,7 +117,7 @@ const FinalTaskWeb = ({ navigation }) => {
     },
   });
   return (
-    <Background isFooter={true}>
+    <Background isFooter={false}>
       <Provider>
         <View style={styles.main}>
           <Droppable

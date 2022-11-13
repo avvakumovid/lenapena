@@ -48,6 +48,7 @@ const Heading = ({
       color: colors.headingTextColor,
     },
     subText: {
+      marginTop: 10,
       fontFamily: 'Franklin Gothic Medium',
       fontWeight: '400',
       fontStyle: 'italic',
