@@ -24,14 +24,14 @@ const Footer = ({
   const { name, colors } = useContext(Context);
   const styles = StyleSheet.create({
     container: {
-      width: '100%',
+      width: '90%',
       flexDirection: 'row',
       justifyContent:
         rightBtnVisible && leftBtnVisible ? 'space-between' : 'center',
       alignItems: 'center',
       alignSelf: 'flex-end',
       paddingVertical: vh(2),
-      paddingHorizontal: 12.5,
+      // paddingHorizontal: 12.5,
       marginHorizontal: 50,
       padingHorizontal: 50,
       alignSelf: 'center',
@@ -58,7 +58,7 @@ const Footer = ({
                     ? require('../../assets/web/leftArrowL.svg')
                     : require('../../assets/web/leftArrowD.svg'),
               }}
-              style={[{ width: vh(2.5), height: vh(2.5) }]}
+              style={[{ width: vh(3.75), height: vh(3.75) }]}
             />
           ) : (
             <LeftBtn {...colors.footerSideBtn} />
@@ -83,7 +83,7 @@ const Footer = ({
                   ? require('../../assets/web/homeL.svg')
                   : require('../../assets/web/homeD.svg'),
             }}
-            style={[{ width: vh(2.5), height: vh(2.5) }]}
+            style={[{ width: vh(3.75), height: vh(3.75) }]}
           />
         ) : (
           <HomeBtn style={styles.goHome} {...colors.footerMiddleBtn} />
@@ -113,7 +113,7 @@ const Footer = ({
                       ? require('../../assets/web/rightArrowL.svg')
                       : require('../../assets/web/rightArrowD.svg'),
                 }}
-                style={[{ width: vh(2.5), height: vh(2.5) }]}
+                style={[{ width: vh(3.75), height: vh(3.75) }]}
               />
             ) : (
               <RightBtn {...colors.footerSideBtn} />

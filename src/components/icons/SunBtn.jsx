@@ -10,7 +10,7 @@ const SunBtn = ({
   ...props
 }) => (
   <Svg
-    scale={vh(0.1)}
+    scale={vh(0.13)}
     width={26}
     height={26}
     fill='none'

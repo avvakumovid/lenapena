@@ -36,6 +36,8 @@ const Background = ({
       alignItems: 'center',
       overflow: 'hidden',
       touchAction: 'none',
+      paddingHorizontal: 100,
+      paddingVertical: 100,
     },
     body: {
       height: '100%',

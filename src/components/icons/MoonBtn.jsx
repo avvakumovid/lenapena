@@ -10,7 +10,7 @@ const MoonBtn = ({
   ...props
 }) => (
   <Svg
-    scale={vh(0.1)}
+    scale={vh(0.13)}
     style={style}
     width={24}
     height={24}

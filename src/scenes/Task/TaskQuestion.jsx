@@ -145,7 +145,7 @@ export default function TaskQuestion({ navigation, route }) {
                         ? require('../../../assets/web/qestionbtnL.svg')
                         : require('../../../assets/web/qestionbtnD.svg'),
                   }}
-                  style={{ width: vh(19), height: vh(19) }}
+                  style={{ width: vh(28, 5), height: vh(28, 5) }}
                 />
               ) : (
                 <QestionBtn {...colors.qestionBtn} />

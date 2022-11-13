@@ -73,8 +73,8 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     marginRight: 15,
     alignSelf: 'flex-end',
-    width: vh(7),
-    height: vh(7),
+    width: vh(10.5),
+    height: vh(10.5),
   },
 });
 

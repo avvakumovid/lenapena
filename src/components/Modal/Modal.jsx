@@ -25,7 +25,7 @@ const ModalView = ({ isRight, modalVisible, success, mistake }) => {
                     ? require('../../../assets/web/checkbtnL.svg')
                     : require('../../../assets/web/checkbtnD.svg'),
               }}
-              style={[{ width: vh(16), height: vh(16) }]}
+              style={[{ width: vh(12), height: vh(12) }]}
             />
           ) : (
             <CheckBtn {...colors.pinkPlayBtn} />
@@ -39,7 +39,7 @@ const ModalView = ({ isRight, modalVisible, success, mistake }) => {
                     ? require('../../../assets/web/xbtnL.svg')
                     : require('../../../assets/web/xbtnD.svg'),
               }}
-              style={[{ width: vh(16), height: vh(16) }]}
+              style={[{ width: vh(12), height: vh(12) }]}
             />
           ) : (
             <XBtn {...colors.pinkPlayBtn} />

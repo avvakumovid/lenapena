@@ -28,13 +28,14 @@ const Heading = ({
       flexDirection: 'row',
       justifyContent: 'center',
       alignItems: 'center',
+      marginLeft: vw(2),
     },
     subTitle: {
       fontFamily: 'Franklin Gothic Medium',
       fontWeight: '400',
       display: 'flex',
       fontStyle: 'italic',
-      fontSize: vh(4.5),
+      fontSize: vh(6.75),
       textTransform: 'uppercase',
       textAlign: 'left',
       color: colors.mainTextColor,
@@ -43,7 +44,7 @@ const Heading = ({
       fontFamily: 'Franklin Gothic Medium',
       fontStyle: 'italic',
       fontWeight: '400',
-      fontSize: vh(4),
+      fontSize: vh(6),
       textTransform: 'uppercase',
       color: colors.headingTextColor,
     },
@@ -52,7 +53,7 @@ const Heading = ({
       fontFamily: 'Franklin Gothic Medium',
       fontWeight: '400',
       fontStyle: 'italic',
-      fontSize: vh(2.5),
+      fontSize: vh(3.75),
       textTransform: 'uppercase',
       textAlign: 'left',
       color: colors.mainTextColor,
@@ -83,7 +84,7 @@ const Heading = ({
                   ? require('../../../assets/web/taskTitleL.svg')
                   : require('../../../assets/web/taskTitleD.svg'),
             }}
-            style={[styles.titleText, { width: vh(20), height: vh(3) }]}
+            style={[styles.titleText, { width: vh(30), height: vh(4.5) }]}
           />
         ) : (
           <TaskTitle style={styles.titleText} {...colors.qestionText} />

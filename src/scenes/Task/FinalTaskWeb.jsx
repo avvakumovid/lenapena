@@ -104,8 +104,9 @@ const FinalTaskWeb = ({ navigation }) => {
     },
     mainPicture: {
       alignSelf: 'center',
-      width: vh(17),
-      height: vh(17),
+      width: vh(25.5),
+      height: vh(25.5),
+      marginLeft: vw(10),
     },
     main: {
       // marginTop: -40,

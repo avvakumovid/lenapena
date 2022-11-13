@@ -28,6 +28,7 @@ const Title = ({
     title: {
       flexDirection: 'row',
       alignSelf: 'center',
+      marginLeft: vw(10),
     },
     subTitle: {
       justifyContent: 'center',
@@ -36,7 +37,7 @@ const Title = ({
       fontFamily: 'Franklin Gothic Medium',
       fontStyle: 'italic',
       fontWeight: '400',
-      fontSize: vh(4.3),
+      fontSize: vh(6.45),
       textTransform: 'uppercase',
       color: colors.headingTextColor,
     },
@@ -45,7 +46,7 @@ const Title = ({
       fontFamily: 'Franklin Gothic Medium',
       fontWeight: '400',
       fontStyle: 'italic',
-      fontSize: vh(3),
+      fontSize: vh(4.5),
       textTransform: 'uppercase',
       textAlign: 'left',
       color: colors.mainTextColor,
