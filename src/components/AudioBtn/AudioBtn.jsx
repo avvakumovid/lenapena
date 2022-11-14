@@ -34,7 +34,7 @@ const AudioBtn = ({
         }
         onPress();
       }}
-      style={style}
+      style={[style, { margin: 1 }]}
     >
       <Animatable.Text
         ref={anim}

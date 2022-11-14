@@ -46,7 +46,7 @@ const Title = ({
       fontFamily: 'Franklin Gothic Medium',
       fontWeight: '400',
       fontStyle: 'italic',
-      fontSize: vh(4.5),
+      fontSize: vh(3.5),
       textTransform: 'uppercase',
       textAlign: 'left',
       color: colors.mainTextColor,

@@ -84,7 +84,7 @@ const Heading = ({
                   ? require('../../../assets/web/taskTitleL.svg')
                   : require('../../../assets/web/taskTitleD.svg'),
             }}
-            style={[styles.titleText, { width: vh(30), height: vh(4.5) }]}
+            style={[styles.titleText, { width: vh(24), height: vh(3.9) }]}
           />
         ) : (
           <TaskTitle style={styles.titleText} {...colors.qestionText} />
