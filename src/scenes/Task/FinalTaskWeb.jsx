@@ -115,7 +115,7 @@ const FinalTaskWeb = ({ navigation }) => {
       justifyContent: 'space-between',
       overflow: 'hidden',
       touchAction: 'none',
-      backgroundColor: 'red',
+      // backgroundColor: 'red',
     },
   });
   return (
