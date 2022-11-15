@@ -7,6 +7,7 @@ const initialState = {
       isAccepted: false,
     },
   ],
+  complitedTaskId: [],
 };
 
 export const tasksSlice = createSlice({
@@ -14,8 +15,22 @@ export const tasksSlice = createSlice({
   initialState,
   reducers: {
     setTasks: state => {
-      const tasks = getRandomTasks(data);
-      state.tasks = tasks.map(task => ({ ...task, isAccepted: false }));
+      if (state.tasks.length) {
+        state.complitedTaskId = [
+          ...state.complitedTaskId,
+          ...state.tasks.map(task => task.id),
+        ];
+      }
+      if (data.length - state.complitedTaskId.length <= 1) {
+        state.complitedTaskId = [];
+      }
+      const tasks = getRandomTasks(
+        data.filter(task => {
+          const res = state.complitedTaskId.findIndex(c => c == task.id);
+          return res == -1;
+        })
+      );
+      state.tasks = tasks;
     },
     acceptTask(state, action) {
       const tasks = [...state.tasks];
@@ -23,12 +38,6 @@ export const tasksSlice = createSlice({
       state.tasks = tasks;
     },
     setNewTask: state => {
-      // if (data.length - state.tasks.length <= 1) {
-      //   state.tasks = [];
-      // }
-      // var s = data.filter(function (item) {
-      //   return state.tasks.indexOf(item) === -1;
-      // });
       console.log([...state.tasks]);
       const tasks = getRandomTasks(data);
       state.tasks = tasks.map(task => ({ ...task, isAccepted: false }));
