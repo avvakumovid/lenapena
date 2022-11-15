@@ -6,12 +6,8 @@ import XBtn from './../icons/XBtn';
 import useAudio from './../../hooks/useAudio';
 import { vw, vh, vmin, vmax } from 'react-native-expo-viewport-units';
 
-const ModalView = ({ isRight, modalVisible, success, mistake }) => {
+const ModalView = ({ isRight, modalVisible }) => {
   const { name, colors } = useContext(Context);
-
-  useEffect(() => {
-    console.log(success, mistake);
-  }, []);
 
   return (
     <Modal animationType='fade' transparent={true} visible={modalVisible}>

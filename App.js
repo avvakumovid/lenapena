@@ -13,7 +13,7 @@ console.disableYellowBox = true;
 import { LogBox } from 'react-native';
 LogBox.ignoreAllLogs();
 export default function App() {
-  const [theme, setTheme] = useState(themes.dark);
+  const [theme, setTheme] = useState(themes.light);
 
   const [fontsLoaded] = useFonts({
     'Franklin Gothic Medium': require('./assets/fonts/font.ttf'),

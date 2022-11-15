@@ -23,6 +23,7 @@ export default function StartTask({ navigation, route }) {
   const styles = StyleSheet.create({
     heading: {
       marginTop: vh(22),
+      marginLeft: 20,
     },
   });
   return (
