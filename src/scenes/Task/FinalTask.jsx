@@ -56,16 +56,6 @@ const FinalTaskWeb = ({ navigation }) => {
       duration: 350,
     }).start();
 
-  // useEffect(() => {
-  //   async function fetch() {
-  //     let loadedSounds = await loadSounds(tasks.map(task => task.audio1));
-  //     setTasksSounds(loadedSounds);
-  //     loadedSounds = await loadSounds(items.map(item => item.audio2));
-  //     setItemsSounds(loadedSounds);
-  //   }
-  //   fetch();
-  // }, [tasks, items]);
-
   useEffect(() => {
     if (items.length == 0) {
       dispatch(setTasks());

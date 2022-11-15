@@ -46,11 +46,11 @@ const Title = ({
       fontFamily: 'Franklin Gothic Medium',
       fontWeight: '400',
       fontStyle: 'italic',
-      fontSize: vh(3.5),
+      fontSize: vh(3.2),
       textTransform: 'uppercase',
       textAlign: 'left',
       color: colors.mainTextColor,
-      width: width > 600 ? 500 : width - 100,
+      width: width > 600 ? 500 : width - 120,
       alignSelf: 'flex-end',
     },
   });

@@ -109,8 +109,9 @@ const FinalTaskWeb = ({ navigation }) => {
       marginLeft: vw(10),
     },
     main: {
-      // marginTop: -40,
+      marginTop: -40,
       paddingVertical: 40,
+      paddingTop: 80,
       height: '100%',
       justifyContent: 'space-between',
       overflow: 'hidden',

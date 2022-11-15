@@ -12,7 +12,7 @@ export default function StartTask({ navigation, route }) {
   const { name, colors } = useContext(Context);
   const [sound, setSound] = useState();
   const { title, isFinalTask, audio, duration } = route.params;
-
+  
   useEffect(() => {
     async function fetch() {
       const loadedSound = await loadSounds([audio]);
