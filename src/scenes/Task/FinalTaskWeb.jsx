@@ -4,59 +4,62 @@ import {
   Text,
   View,
   Animated,
-  TouchableOpacity,
   Image,
   Platform,
   Dimensions,
 } from 'react-native';
-import { Audio } from 'expo-av';
 import { createDndContext } from 'react-native-easy-dnd';
 import { Context } from '../../context/context';
 import Background from '../../components/Background';
-import { useSelector } from 'react-redux';
-import Footer from '../../components/Footer';
-import PlayBtn from './../../components/icons/PlayBtn';
+import { useSelector, useDispatch } from 'react-redux';
 import Modal from '../../components/Modal/Modal';
-
+import { setTasks } from '../../store/slice/tasksSlice';
+import AudioBtn from './../../components/AudioBtn/AudioBtn';
+import Title from '../../components/Title/Title';
+import useAudio from '../../hooks/useAudio';
 const { Provider, Droppable, Draggable } = createDndContext();
+import { vw, vh, vmin, vmax } from 'react-native-expo-viewport-units';
 
 const FinalTaskWeb = ({ navigation }) => {
   const { tasks } = useSelector(state => state.tasks);
-  const [sound, setSound] = useState();
+
   const droppableOpacity1 = React.useRef(new Animated.Value(0));
-  const trashIconScale1 = React.useRef(new Animated.Value(1));
-  const trashIconScale2 = React.useRef(new Animated.Value(1));
+  const trashIconScale1 = React.useRef(new Animated.Value(0));
+  const trashIconScale2 = React.useRef(new Animated.Value(0));
   const [items, setItems] = React.useState(shuffle(tasks));
   const [showFirstBtn, setShowFirstBtn] = useState(true);
+  const [btnNumber, setBtnNumber] = useState(1);
+
+  const [success, setSuccess] = useState(
+    require('../../../assets/sounds/success.mp3')
+  );
+  const [mistake, setMistake] = useState(
+    require('../../../assets/sounds/mistake.mp3')
+  );
+
+  const playSuccess = useAudio(success).playSound;
+  const playError = useAudio(mistake).playSound;
 
   const [modalVisible, setModalVisible] = useState(false);
   const [isRight, setIsRight] = useState(false);
+
+  const dispatch = useDispatch();
 
   const animateValue = (ref, toValue) =>
     Animated.timing(ref.current, {
       toValue,
       duration: 350,
     }).start();
-  async function playSound(audio) {
-    const { sound } = await Audio.Sound.createAsync(audio);
-    setSound(sound);
-
-    await sound.playAsync();
-  }
-  useEffect(() => {
-    return sound
-      ? () => {
-          sound.unloadAsync();
-        }
-      : undefined;
-  }, [sound]);
 
   useEffect(() => {
     if (items.length == 0) {
+      dispatch(setTasks());
       setTimeout(() => {
         navigation.navigate('starttask', {
-          subTitle: 'ПОСЛУШАЙ И ЗАПОМНИ',
-          taskNumber: 1,
+          title: 'ПОСЛУШАЙ И ЗАПОМНИ',
+          isFinalTask: false,
+          audio: require('../../../assets/sounds/ПОСЛУШАЙ И ЗАПОМНИ.mp3'),
+          duration: 2000,
         });
       }, 400);
     }
@@ -72,8 +75,8 @@ const FinalTaskWeb = ({ navigation }) => {
       fontSize: 26,
       textTransform: 'uppercase',
       color: colors.mainTextColor,
-      marginLeft: 15,
-      width: widthScreen - 140,
+      // marginLeft: 15,
+      // width: widthScreen - 140,
       maxWidth: 700,
     },
     heading: {
@@ -89,6 +92,7 @@ const FinalTaskWeb = ({ navigation }) => {
       flexDirection: 'row',
       alignItems: 'center',
       position: 'absolute',
+      borderRadius: 30,
     },
     drop: {
       position: 'relative',
@@ -96,60 +100,56 @@ const FinalTaskWeb = ({ navigation }) => {
       flexDirection: 'row',
       alignItems: 'center',
       borderRadius: 99,
-      marginTop: 72,
+      // marginTop: 72,
     },
     mainPicture: {
       alignSelf: 'center',
-      width: 170,
-      height: 170,
+      width: vh(25.5),
+      height: vh(25.5),
+      marginLeft: vw(10),
     },
     main: {
       marginTop: -40,
+      paddingVertical: 40,
+      paddingTop: 80,
       height: '100%',
       justifyContent: 'space-between',
       overflow: 'hidden',
       touchAction: 'none',
+      // backgroundColor: 'red',
     },
   });
   return (
-    <Background>
+    <Background isFooter={false}>
       <Provider>
-        <View
-          style={[
-            styles.main,
-            Platform.OS == 'web'
-              ? {}
-              : {
-                  marginTop: 20,
-                  height: '90%',
-                },
-          ]}
-        >
+        <View style={styles.main}>
           <Droppable
             customId={1}
             onEnter={({ payload }) => {
-              animateValue(trashIconScale1, 1.2);
+              animateValue(trashIconScale1, 0.2);
             }}
             onLeave={() => {
-              animateValue(trashIconScale1, 1);
+              animateValue(trashIconScale1, 0);
             }}
             onDrop={({ payload }) => {
-              animateValue(trashIconScale1, 1);
-              animateValue(trashIconScale2, 1);
+              animateValue(trashIconScale1, 0);
+              animateValue(trashIconScale2, 0);
               if (payload === tasks[0].id) {
                 let t = items.filter(item => item.id !== payload);
                 setItems(t);
                 setIsRight(true);
+                playSuccess();
                 setModalVisible(true);
                 setTimeout(() => {
                   setModalVisible(false);
-                }, 400);
+                }, 1000);
               } else {
                 setIsRight(false);
+                playError();
                 setModalVisible(true);
                 setTimeout(() => {
                   setModalVisible(false);
-                }, 400);
+                }, 1000);
               }
             }}
           >
@@ -158,58 +158,53 @@ const FinalTaskWeb = ({ navigation }) => {
                 <>
                   <Animated.View
                     {...viewProps}
-                    style={[viewProps.style, styles.dropWrapper]}
+                    style={[
+                      viewProps.style,
+                      styles.dropWrapper,
+                      {
+                        backgroundColor: colors.mainTextColor,
+                        opacity: trashIconScale1.current,
+                        // marginTop: 68,
+                        transform: [
+                          {
+                            opacity: trashIconScale1.current,
+                          },
+                        ],
+                      },
+                    ]}
                   ></Animated.View>
                   <Animated.View style={[viewProps.style, styles.drop]}>
-                    <TouchableOpacity
+                    <Title
                       onPress={() => {
-                        playSound(tasks[0].audio1);
+                        if (btnNumber == 1) {
+                          setBtnNumber(2);
+                        }
                       }}
-                    >
-                      <Animated.View
-                        style={[
-                          {
-                            transform: [
-                              {
-                                scale: trashIconScale1.current,
-                              },
-                            ],
-                          },
-                        ]}
-                      >
-                        {Platform.OS === 'web' ? (
-                          <Image
-                            source={{
-                              uri:
-                                name == 'dark'
-                                  ? require('../../../assets/web/playbtn1L.svg')
-                                  : require('../../../assets/web/playbtn1D.svg'),
-                            }}
-                            style={[
-                              styles.pbtnImage,
-                              { width: 70, height: 70 },
-                            ]}
-                          />
-                        ) : (
-                          <PlayBtn
-                            style={styles.pbtnImage}
-                            {...colors.pinkPlayBtn}
-                          />
-                        )}
-                      </Animated.View>
-                    </TouchableOpacity>
-                    <View style={styles.text}>
-                      <Text style={styles.mainText}>{tasks[0].phrase}</Text>
-                    </View>
+                      audio={tasks[0].audio1}
+                      disabled={!(btnNumber >= 1)}
+                      animation={btnNumber == 1 && 'pulse'}
+                      theme={name}
+                      number={1}
+                      colors={colors}
+                      title={tasks[0].phrase}
+                    />
                   </Animated.View>
                 </>
               );
             }}
           </Droppable>
-          <View style={{}}>
-            {items.map(item => {
+          <View
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            {items.map((item, index) => {
               return (
                 <Draggable
+                  style={{ backgroundColor: 'yellow' }}
                   key={item.id}
                   onDragStart={() => {
                     animateValue(droppableOpacity1, 1);
@@ -231,42 +226,37 @@ const FinalTaskWeb = ({ navigation }) => {
                           {
                             ...styles.heading,
                             alignItems: 'flex-end',
-                            marginTop: 72,
+                            // marginTop: 72,
                             borderRadius: 0,
                           },
-                          Platform.OS == 'web' ? { marginTop: 22 } : {},
+                          Platform.OS == 'web'
+                            ? {
+                                // marginTop: 22
+                              }
+                            : {},
                         ]}
                       >
                         <Image
-                          style={{ ...styles.mainPicture, marginRight: 12 }}
+                          style={{
+                            ...styles.mainPicture,
+                            // marginRight: 12
+                          }}
                           source={item.image}
                         />
                         {showFirstBtn ? (
-                          <TouchableOpacity
+                          <AudioBtn
                             onPress={() => {
-                              playSound(item.audio1);
+                              if (btnNumber == 2 + index) {
+                                setBtnNumber(3 + index);
+                              }
                             }}
-                          >
-                            {Platform.OS === 'web' ? (
-                              <Image
-                                source={{
-                                  uri:
-                                    name == 'dark'
-                                      ? require('../../../assets/web/playbtn2L.svg')
-                                      : require('../../../assets/web/playbtn2D.svg'),
-                                }}
-                                style={[
-                                  styles.pbtnImage,
-                                  { width: 70, height: 70 },
-                                ]}
-                              />
-                            ) : (
-                              <PlayBtn
-                                style={styles.pbtnImage}
-                                {...colors.pinkPlayBtn}
-                              />
-                            )}
-                          </TouchableOpacity>
+                            audio={items[index].audio2}
+                            disabled={!(btnNumber >= 2 + index)}
+                            animation={btnNumber == 2 + index && 'pulse'}
+                            theme={name}
+                            number={2 - index}
+                            colors={colors}
+                          />
                         ) : null}
                       </Animated.View>
                     );
@@ -277,24 +267,28 @@ const FinalTaskWeb = ({ navigation }) => {
           </View>
           <Droppable
             onEnter={({ payload }) => {
-              animateValue(trashIconScale2, 1.2);
+              animateValue(trashIconScale2, 0.2);
             }}
             onLeave={() => {
-              animateValue(trashIconScale2, 1);
+              animateValue(trashIconScale2, 0);
             }}
             onDrop={({ payload }) => {
-              animateValue(trashIconScale1, 1);
-              animateValue(trashIconScale2, 1);
+              animateValue(trashIconScale1, 0);
+              animateValue(trashIconScale2, 0);
               if (payload === tasks[1].id) {
                 let t = items.filter(item => item.id !== payload);
                 setItems(t);
                 setIsRight(true);
+                playSuccess();
+
                 setModalVisible(true);
                 setTimeout(() => {
                   setModalVisible(false);
                 }, 400);
               } else {
                 setIsRight(false);
+                playError();
+
                 setModalVisible(true);
                 setTimeout(() => {
                   setModalVisible(false);
@@ -308,59 +302,37 @@ const FinalTaskWeb = ({ navigation }) => {
                 <>
                   <Animated.View
                     {...viewProps}
-                    style={[viewProps.style, styles.dropWrapper, { bottom: 0 }]}
-                  ></Animated.View>
-                  <Animated.View
                     style={[
-                      {
-                        backgroundColor: active
-                          ? 'rgba(112, 78, 244, 0)'
-                          : 'rgba(112, 78, 244, 0)',
-                      },
                       viewProps.style,
-                      { ...styles.heading },
-                    ]}
-                  >
-                    <TouchableOpacity
-                      onPress={() => {
-                        playSound(tasks[1].audio1);
-                      }}
-                    >
-                      <Animated.View
-                        style={[
+                      styles.dropWrapper,
+                      { bottom: 0 },
+                      {
+                        backgroundColor: colors.mainTextColor,
+                        opacity: trashIconScale2.current,
+                        transform: [
                           {
-                            transform: [
-                              {
-                                scale: trashIconScale2.current,
-                              },
-                            ],
+                            opacity: trashIconScale2.current,
                           },
-                        ]}
-                      >
-                        {Platform.OS === 'web' ? (
-                          <Image
-                            source={{
-                              uri:
-                                name == 'dark'
-                                  ? require('../../../assets/web/playbtn1L.svg')
-                                  : require('../../../assets/web/playbtn1D.svg'),
-                            }}
-                            style={[
-                              styles.pbtnImage,
-                              { width: 70, height: 70 },
-                            ]}
-                          />
-                        ) : (
-                          <PlayBtn
-                            style={styles.pbtnImage}
-                            {...colors.pinkPlayBtn}
-                          />
-                        )}
-                      </Animated.View>
-                    </TouchableOpacity>
-                    <View style={styles.text}>
-                      <Text style={styles.mainText}>{tasks[1].phrase}</Text>
-                    </View>
+                        ],
+                      },
+                    ]}
+                  ></Animated.View>
+                  <Animated.View style={[viewProps.style, styles.drop]}>
+                    <Title
+                      onPress={() => {
+                        if (btnNumber == 4) {
+                          setBtnNumber(5);
+                        }
+                      }}
+                      audio={tasks[1].audio1}
+                      disabled={!(btnNumber >= 4)}
+                      animation={btnNumber == 4 && 'pulse'}
+                      theme={name}
+                      number={2}
+                      colors={colors}
+                      title={tasks[1].phrase}
+                      // style={[styles.heading, styles.lowMarginTop]}
+                    />
                   </Animated.View>
                 </>
               );
@@ -368,12 +340,12 @@ const FinalTaskWeb = ({ navigation }) => {
           </Droppable>
         </View>
       </Provider>
-      {/* <Footer
-        navigation={navigation}
-        leftBtnVisible={false}
-        rightBtnVisible={false}
-      /> */}
-      <Modal isRight={isRight} modalVisible={modalVisible} />
+      <Modal
+        success={success}
+        mistake={mistake}
+        isRight={isRight}
+        modalVisible={modalVisible}
+      />
     </Background>
   );
 };
@@ -384,4 +356,20 @@ function shuffle(array) {
   let shuffleArr = [...array];
   shuffleArr.sort(() => Math.random() - 0.5);
   return shuffleArr;
+}
+
+function hexToRgb(hex) {
+  var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  console.log(
+    `${parseInt(result[1], 16)},${parseInt(result[2], 16)},${parseInt(
+      result[3],
+      16
+    )}`
+  );
+  return result
+    ? `${parseInt(result[1], 16)},${parseInt(result[2], 16)},${parseInt(
+        result[3],
+        16
+      )}`
+    : null;
 }

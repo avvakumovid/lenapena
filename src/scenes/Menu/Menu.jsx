@@ -1,4 +1,4 @@
-import { Image, StyleSheet, TouchableOpacity, Platform } from 'react-native';
+import { StyleSheet, TouchableOpacity, Platform } from 'react-native';
 import React, { useContext } from 'react';
 import Background from './../../components/Background';
 import { Context } from '../../context/context';
@@ -7,30 +7,49 @@ import { setTasks } from '../../store/slice/tasksSlice';
 import SunBtn from './../../components/icons/SunBtn';
 import MoonBtn from './../../components/icons/MoonBtn';
 import StartBtn from './../../components/icons/StartBtn';
+import { useEffect, useRef, useState } from 'react';
+import * as Animatable from 'react-native-animatable';
+import { vw, vh, vmin, vmax } from 'react-native-expo-viewport-units';
+import PlayBtn from './../../components/icons/PlayBtn';
 
 const Menu = ({ navigation }) => {
   const { changeTheme, name, colors } = useContext(Context);
   const dispatch = useDispatch();
-  dispatch(setTasks());
+  const anim = useRef(null);
+  const onButtonClick = () => {
+    anim.current.stopAnimation();
+  };
+
+  useEffect(() => {
+    dispatch(setTasks());
+  }, []);
   return (
     <Background>
       <TouchableOpacity
         onPress={() => {
           navigation.navigate('starttask', {
-            subTitle: 'ПОСЛУШАЙ И ЗАПОМНИ',
-            taskNumber: 1,
+            title: 'ПОСЛУШАЙ И ЗАПОМНИ',
+            isFinalTask: false,
+            audio: require('../../../assets/sounds/ПОСЛУШАЙ И ЗАПОМНИ.mp3'),
+            duration: 2000,
           });
         }}
         style={styles.container}
       >
-        {/* <HomeBtn style={styles.btn} {...colors.startBtn} /> */}
-
-        <StartBtn
-          style={[styles.btn, Platform.OS == 'web' ? { marginTop: 200 } : null]}
-          {...colors.startBtn}
-        />
+        <Animatable.Text
+          ref={anim}
+          animation='pulse'
+          easing='ease-out'
+          iterationCount='infinite'
+          style={[styles.btn]}
+        >
+          <StartBtn {...colors.startBtn} />
+        </Animatable.Text>
       </TouchableOpacity>
       <TouchableOpacity
+        style={{
+          paddingVertical: vh(2),
+        }}
         onPress={() => {
           changeTheme();
         }}
@@ -52,8 +71,9 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-start',
     alignItems: 'center',
+    // width: 400,
   },
   btn: {
-    marginTop: 243,
+    marginTop: vh(22),
   },
 });

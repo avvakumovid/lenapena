@@ -39,6 +39,7 @@ export default function Navigation() {
         name='taskquestion'
         component={TaskQuestion}
       />
+
       <Stack.Screen
         options={{ cardStyleInterpolator: forFade }}
         name='finaltask'

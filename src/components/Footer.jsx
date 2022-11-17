@@ -1,17 +1,17 @@
 import {
   StyleSheet,
-  Text,
   View,
   TouchableOpacity,
   Image,
   Platform,
 } from 'react-native';
 import React, { useContext } from 'react';
-import Icon from 'react-native-vector-icons/SimpleLineIcons';
 import { Context } from '../context/context';
 import HomeBtn from './icons/HomeBtn';
 import RightBtn from './icons/RightBtn';
 import LeftBtn from './icons/LeftBtn';
+import * as Animatable from 'react-native-animatable';
+import { vw, vh, vmin, vmax } from 'react-native-expo-viewport-units';
 
 const Footer = ({
   navigation,
@@ -19,8 +19,24 @@ const Footer = ({
   leftBtnCallBack,
   leftBtnVisible = true,
   rightBtnVisible = true,
+  rightBtnPulse = false,
 }) => {
   const { name, colors } = useContext(Context);
+  const styles = StyleSheet.create({
+    container: {
+      width: '90%',
+      flexDirection: 'row',
+      justifyContent:
+        rightBtnVisible && leftBtnVisible ? 'space-between' : 'center',
+      alignItems: 'center',
+      alignSelf: 'flex-end',
+      paddingVertical: vh(2),
+      // paddingHorizontal: 12.5,
+      marginHorizontal: 50,
+      padingHorizontal: 50,
+      alignSelf: 'center',
+    },
+  });
   return (
     <View style={styles.container}>
       {leftBtnVisible && (
@@ -42,7 +58,7 @@ const Footer = ({
                     ? require('../../assets/web/leftArrowL.svg')
                     : require('../../assets/web/leftArrowD.svg'),
               }}
-              style={[{ width: 11, height: 24 }]}
+              style={[{ width: vh(3.75), height: vh(3.75) }]}
             />
           ) : (
             <LeftBtn {...colors.footerSideBtn} />
@@ -67,7 +83,7 @@ const Footer = ({
                   ? require('../../assets/web/homeL.svg')
                   : require('../../assets/web/homeD.svg'),
             }}
-            style={[{ width: 20, height: 22 }]}
+            style={[{ width: vh(3.75), height: vh(3.75) }]}
           />
         ) : (
           <HomeBtn style={styles.goHome} {...colors.footerMiddleBtn} />
@@ -84,19 +100,25 @@ const Footer = ({
             }
           }}
         >
-          {Platform.OS === 'web' ? (
-            <Image
-              source={{
-                uri:
-                  name == 'dark'
-                    ? require('../../assets/web/rightArrowL.svg')
-                    : require('../../assets/web/rightArrowD.svg'),
-              }}
-              style={[{ width: 11, height: 24 }]}
-            />
-          ) : (
-            <RightBtn {...colors.footerSideBtn} />
-          )}
+          <Animatable.View
+            animation={rightBtnPulse ? 'pulse' : ''}
+            easing='ease-out'
+            iterationCount='infinite'
+          >
+            {Platform.OS === 'web' ? (
+              <Image
+                source={{
+                  uri:
+                    name == 'dark'
+                      ? require('../../assets/web/rightArrowL.svg')
+                      : require('../../assets/web/rightArrowD.svg'),
+                }}
+                style={[{ width: vh(3.75), height: vh(3.75) }]}
+              />
+            ) : (
+              <RightBtn {...colors.footerSideBtn} />
+            )}
+          </Animatable.View>
         </TouchableOpacity>
       )}
     </View>
@@ -104,13 +126,3 @@ const Footer = ({
 };
 
 export default Footer;
-
-const styles = StyleSheet.create({
-  container: {
-    width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    alignSelf: 'flex-end',
-  },
-});

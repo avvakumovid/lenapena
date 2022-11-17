@@ -1,11 +1,14 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Modal, StyleSheet, Platform, Image, View } from 'react-native';
 import { Context } from '../../context/context';
 import CheckBtn from './../icons/CheckBtn';
 import XBtn from './../icons/XBtn';
+import useAudio from './../../hooks/useAudio';
+import { vw, vh, vmin, vmax } from 'react-native-expo-viewport-units';
 
-const App = ({ isRight, modalVisible }) => {
+const ModalView = ({ isRight, modalVisible }) => {
   const { name, colors } = useContext(Context);
+
   return (
     <Modal animationType='fade' transparent={true} visible={modalVisible}>
       <View style={styles.centeredView}>
@@ -18,7 +21,7 @@ const App = ({ isRight, modalVisible }) => {
                     ? require('../../../assets/web/checkbtnL.svg')
                     : require('../../../assets/web/checkbtnD.svg'),
               }}
-              style={[{ width: 116, height: 91 }]}
+              style={[{ width: vh(12), height: vh(12) }]}
             />
           ) : (
             <CheckBtn {...colors.pinkPlayBtn} />
@@ -32,7 +35,7 @@ const App = ({ isRight, modalVisible }) => {
                     ? require('../../../assets/web/xbtnL.svg')
                     : require('../../../assets/web/xbtnD.svg'),
               }}
-              style={[{ width: 116, height: 116 }]}
+              style={[{ width: vh(12), height: vh(12) }]}
             />
           ) : (
             <XBtn {...colors.pinkPlayBtn} />
@@ -50,4 +53,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default App;
+export default ModalView;

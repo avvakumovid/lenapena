@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Svg, { Rect, Path, Stop, Defs, LinearGradient } from 'react-native-svg';
+import { vw, vh, vmin, vmax } from 'react-native-expo-viewport-units';
 
 const MoonBtn = ({
   style,
@@ -9,6 +10,7 @@ const MoonBtn = ({
   ...props
 }) => (
   <Svg
+    scale={vh(0.13)}
     style={style}
     width={24}
     height={24}
